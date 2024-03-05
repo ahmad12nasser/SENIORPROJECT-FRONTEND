@@ -1,0 +1,20 @@
+<div class="container mt-5">
+    <form>
+
+        <div class="form-group text-center">
+            <label for="searchIcon" class="mb-3">Can you describe what are you searching for in this app?</label>
+            <i class="bi bi-search" id="searchIcon" style="font-size: 2rem;"></i>
+        </div>
+
+        <div class="text-center">
+            <button (click)="isFreelancer()" type="button" class="btn btn-primary">I’m looking for work opportunity</button>
+            <span class="mx-2">or</span>
+            <button (click)="isClient()" type="button" class="btn btn-secondary">I’m looking for someone to do my work</button>
+        </div>
+
+        <div class="text-center mt-3">
+            <button (click)="login()" class="btn btn-outline-danger">Back</button>
+        </div>
+
+    </form>
+</div>

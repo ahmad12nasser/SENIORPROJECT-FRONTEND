@@ -1,0 +1,6 @@
+<!-- to-do.component.html -->
+<div *ngFor="let todo of toDos">
+    <p>{{ todo.id }} - {{ todo.freelancer_id }} - {{ todo.client_id }} - {{ todo.status }}</p>
+    <p *ngIf="todo.request">Request: {{ todo.request.title }}</p>
+    <p *ngIf="todo.post">Post: {{ todo.post.title }}</p>
+  </div>

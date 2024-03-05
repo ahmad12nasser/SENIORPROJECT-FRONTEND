@@ -1,0 +1,77 @@
+<section>
+    <div class="container">
+        <h2>Register as a Freelancer</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && accessToFormFields['firstName'].errors }" />
+                <div *ngIf="submitted && accessToFormFields['firstName'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['firstName'].errors">First Name is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && accessToFormFields['lastName'].errors }" />
+                <div *ngIf="submitted && accessToFormFields['lastName'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['lastName'].errors">Last Name is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="username">UserName:</label>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && accessToFormFields['username'].errors }" />
+                <div *ngIf="submitted && accessToFormFields['username'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['username'].errors">username is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">email</label>
+                <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && accessToFormFields['email'].errors }" />
+                <div *ngIf="submitted && accessToFormFields['email'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['email'].errors">email is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && accessToFormFields['password'].errors }" />
+                <div *ngIf="submitted && accessToFormFields['password'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['password'].errors">Password is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirme Password:</label>
+                <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && accessToFormFields['confirmPassword'].errors }" />
+                <div *ngIf="submitted && accessToFormFields['confirmPassword'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['confirmPassword'].errors">email is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" formControlName="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && accessToFormFields['phoneNumber'].errors }" />
+                <div *ngIf="submitted && accessToFormFields['phoneNumber'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['phoneNumber'].errors">Phone Number is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="portfolio">Profile Image</label>
+                <input type="text" formControlName="portfolio" class="form-control" [ngClass]="{ 'is-invalid': submitted && accessToFormFields['portfolio'].errors }" />
+                <div *ngIf="submitted && accessToFormFields['portfolio'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['portfolio'].errors">Profile Image is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Your description</label>
+                <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && accessToFormFields['description'].errors }" />
+                <div *ngIf="submitted && accessToFormFields['description'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['description'].errors">description is required</div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button (click)="onSubmit()" type="submit" class="btn btn-primary">Register</button>
+                <span class="mx-2">
+                    Already have an account?
+                </span>
+                <a [routerLink]="['/login']" class="btn btn-link">Login</a>
+            </div>
+        </form>
+    </div>
+</section>
