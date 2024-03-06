@@ -1,6 +1,42 @@
-<!-- to-do.component.html -->
-<div *ngFor="let todo of toDos">
-    <p>{{ todo.id }} - {{ todo.freelancer_id }} - {{ todo.client_id }} - {{ todo.status }}</p>
-    <p *ngIf="todo.request">Request: {{ todo.request.title }}</p>
-    <p *ngIf="todo.post">Post: {{ todo.post.title }}</p>
+<app-nav-bar></app-nav-bar>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h4>To-Do List</h4>
+        </div>
+        <div class="card-body">
+          <div *ngFor="let todo of toDos" class="mb-4">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text"><strong>Client:</strong> {{ todo.client.firstName + ' ' + todo.client.lastName }}</p>
+                <p *ngIf="todo.client.profileImage" class="card-text"><img src="{{todo.client.profileImage}}" alt="Client ProfileImage"></p>
+                <p class="card-text"><strong>Status:</strong> {{ todo.status }}</p>
+
+                <!-- If it's a post, display post info -->
+                <div *ngIf="todo.post" class="alert alert-info">
+                  <strong>Task:</strong> {{ todo.post.title }}
+                  <p><strong>Deadline: </strong> {{ todo.post.deadline }}</p>
+                  <p><strong>Location: </strong> {{ todo.post.location }}</p>
+                  <p><strong>Description: </strong> {{ todo.post.description }}</p>
+                  <p><strong>Price: </strong>{{todo.post.price}}</p>
+                </div>
+
+                <!-- If it's a request, display request info -->
+                <div *ngIf="todo.request" class="alert alert-info">
+                  <strong>Task:</strong> {{ todo.request.title }}
+                  <p><strong>Deadline: </strong> {{ todo.request.deadLine }}</p>
+                  <p><strong>Location: </strong> {{ todo.request.location }}</p>
+                  <p><strong>Descrition: </strong> {{ todo.request.description }}</p>
+                  <p><strong>Price: </strong>{{todo.request.price}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+<router-outlet></router-outlet>

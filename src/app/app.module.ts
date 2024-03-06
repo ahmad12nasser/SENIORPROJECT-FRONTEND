@@ -13,7 +13,7 @@ import { HomePageComponent } from './components/freelancer/home-page/home-page.c
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NewPostComponent } from './components/freelancer/new-post/new-post.component';
 import { MyPostsComponent } from './components/freelancer/my-posts/my-posts.component';
-import { ToDOComponent } from './components/freelancer/to-do/to-do.component';
+import { ToDoComponent } from './components/freelancer/to-do/to-do.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -24,7 +24,7 @@ import { ToDOComponent } from './components/freelancer/to-do/to-do.component';
         HomePageComponent,
         NewPostComponent,
         MyPostsComponent,
-        ToDOComponent
+        ToDoComponent
 
     ],
     imports: [

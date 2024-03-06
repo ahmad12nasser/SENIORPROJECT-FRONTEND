@@ -7,6 +7,7 @@ import { RegisterAsClientComponent } from './authentication/register-as-client/r
 import { HomePageComponent } from './components/freelancer/home-page/home-page.component';
 import { NewPostComponent } from './components/freelancer/new-post/new-post.component';
 import { MyPostsComponent } from './components/freelancer/my-posts/my-posts.component';
+import { ToDoComponent } from './components/freelancer/to-do/to-do.component';
 
 const routes: Routes = [
     {
@@ -41,6 +42,10 @@ const routes: Routes = [
     {
         path: 'freelancer/my-posts',
         component: MyPostsComponent
+    },
+    {
+        path: 'freelancer/toDo',
+        component: ToDoComponent
     }
 ];
 @NgModule({

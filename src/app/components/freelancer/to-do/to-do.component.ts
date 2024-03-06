@@ -7,7 +7,7 @@ import { ToDoService } from '../../../services/freelancer/toDo.service';
   templateUrl: './to-do.component.html',
   styleUrl: './to-do.component.css'
 })
-export class ToDOComponent implements OnInit{
+export class ToDoComponent implements OnInit{
   toDos: toDo[] = [];
 
   constructor(private toDoService: ToDoService){}
