@@ -8,6 +8,8 @@ import { HomePageComponent } from './components/freelancer/home-page/home-page.c
 import { NewPostComponent } from './components/freelancer/new-post/new-post.component';
 import { MyPostsComponent } from './components/freelancer/my-posts/my-posts.component';
 import { ToDoComponent } from './components/freelancer/to-do/to-do.component';
+import { MainPageComponent } from './components/client/main-page/main-page.component';
+import { MyRequestsComponent } from './components/client/my-requests/my-requests.component';
 
 const routes: Routes = [
     {
@@ -46,7 +48,20 @@ const routes: Routes = [
     {
         path: 'freelancer/toDo',
         component: ToDoComponent
+    },
+    {
+        path: 'client/home-page',
+        component: MainPageComponent
+    },
+    {
+        path: 'client/my-requests',
+        component: MyRequestsComponent
+    },
+    {
+        path: 'client/new-request',
+        component: MyRequestsComponent
     }
+
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

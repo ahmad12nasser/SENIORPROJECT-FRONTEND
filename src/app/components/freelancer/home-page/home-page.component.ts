@@ -15,7 +15,6 @@ export class HomePageComponent implements OnInit {
   constructor(private requestsService: RequestsService) { }
 
   ngOnInit() {
-    console.log('ngOnInit called');
     // Fetch requests when the component initializes
     this.requestsService.getRequests().subscribe({
       next: (data) => {

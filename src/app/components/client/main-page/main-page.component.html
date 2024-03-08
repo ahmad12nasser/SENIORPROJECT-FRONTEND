@@ -1,0 +1,20 @@
+<app-client-nav-bar></app-client-nav-bar>
+<section class="container">
+    <h2>Freelancer Posts</h2>
+    <div *ngFor="let post of posts" class="card mt-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text"><strong>Date Posted: </strong>{{post.datePosted}}</p>
+        <p class="card-text"><strong>DeadLine: </strong>{{post.deadline}}</p>
+        <p class="card-text"><strong>Location:</strong> {{ post.location }}</p>
+        <p class="card-text"><strong>Category:</strong> {{ post.categName }}</p>
+        <p class="card-text">{{ post.description }}</p>
+        <img *ngIf="post.image" [src]="post.image" class="card-img-top" alt="Request Image">
+        <p class="card-text"><strong>Price:</strong> {{ post.price }}</p>
+        <p><strong>Client:</strong> {{ post.clientFirstName + ' ' + post.clientLastName }}</p>
+        <img *ngIf="post.clientImage" [src]="post.clientImage" class="card-img-top" alt="Client Image">
+        <button class="btn btn-primary" (click)="HireInThisPost(post.id, post.freelancer_id)">Hire</button>
+      </div>
+    </div>  
+</section>
+<router-outlet></router-outlet>

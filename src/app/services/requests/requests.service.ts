@@ -30,7 +30,7 @@ export class RequestsService {
     // Check if the clientId is available
     if (clientId) {
     const  appliedRequests = { requestId: requestId, clientId: clientId, freelancerId: freelancerId };
-      return this.http.post(`${this.apiUrl}/requests/apply-for-request`, appliedRequests);
+      return this.http.post(`${this.apiUrl}/requests/applyForRequest`, appliedRequests);
     } else {
       // Handle the case when clientId is not available
       console.error('Client ID not available for the selected request.');

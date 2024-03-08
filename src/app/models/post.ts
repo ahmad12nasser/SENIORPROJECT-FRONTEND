@@ -1,4 +1,5 @@
 export class Post {
+  public id: number;
   public freelancer_id: number;
   public title: string;
   public datePosted: Date;
@@ -10,6 +11,7 @@ export class Post {
   public price: number;
 
   constructor() {
+    this.id = 0;
     this.freelancer_id = 0;
     this.title = '';
     this.datePosted = new Date();

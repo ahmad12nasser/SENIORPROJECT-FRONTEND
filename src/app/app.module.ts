@@ -14,6 +14,10 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NewPostComponent } from './components/freelancer/new-post/new-post.component';
 import { MyPostsComponent } from './components/freelancer/my-posts/my-posts.component';
 import { ToDoComponent } from './components/freelancer/to-do/to-do.component';
+import { ClientNavBarComponent } from './components/client/client-nav-bar/client-nav-bar.component';
+import { NewRequestComponent } from './components/client/new-request/new-request.component';
+import { MyRequestsComponent } from './components/client/my-requests/my-requests.component';
+import { MainPageComponent } from './components/client/main-page/main-page.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -24,7 +28,11 @@ import { ToDoComponent } from './components/freelancer/to-do/to-do.component';
         HomePageComponent,
         NewPostComponent,
         MyPostsComponent,
-        ToDoComponent
+        ToDoComponent,
+        ClientNavBarComponent,
+        NewRequestComponent,
+        MyRequestsComponent,
+        MainPageComponent
 
     ],
     imports: [

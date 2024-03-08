@@ -8,7 +8,7 @@ import { ToDoService } from '../../../services/freelancer/toDo.service';
   styleUrl: './to-do.component.css'
 })
 export class ToDoComponent implements OnInit{
-  toDos: toDo[] = [];
+  toDos: any[] = [];
 
   constructor(private toDoService: ToDoService){}
 
