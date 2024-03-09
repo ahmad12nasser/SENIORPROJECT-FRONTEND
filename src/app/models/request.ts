@@ -1,25 +1,23 @@
-import { client } from "./client";
-
 export class request{
 
-     public id: number;
-     public client: client;
-     public title: String;
-     public datePosted: Date;
-     public deadLine: Date;
-     public categName:String;
-     public location: String;
+     //public id: number;
+     public client_id: number;
+     public categ_name:String;
      public description: String;
-     public image: String;
+     public datePosted: Date;
+     public deadline: Date;
+     public location: String;
+     public title: String;
      public price: number;
+     public image: String;
 
      constructor(){
-           this.id = 0;
-           this.client = new client();
+       //    this.id = 0;
+           this.client_id =0;
            this.title = "";
            this.datePosted = new Date();
-           this.deadLine = new Date();
-           this.categName = "";
+           this.deadline = new Date();
+           this.categ_name = "";
            this.location = "";
            this.description = "";
            this.image = "";

@@ -23,7 +23,7 @@ export class LoginService {
   }
 
   getLoggedInUserId(): number | 0 {
-    return parseInt(localStorage.getItem('userId') || '', 10);
+    return parseInt(localStorage.getItem('userId') || '', 0);
   }
 
   logout() {

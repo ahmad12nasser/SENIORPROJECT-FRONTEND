@@ -10,6 +10,7 @@ import { MyPostsComponent } from './components/freelancer/my-posts/my-posts.comp
 import { ToDoComponent } from './components/freelancer/to-do/to-do.component';
 import { MainPageComponent } from './components/client/main-page/main-page.component';
 import { MyRequestsComponent } from './components/client/my-requests/my-requests.component';
+import { NewRequestComponent } from './components/client/new-request/new-request.component';
 
 const routes: Routes = [
     {
@@ -50,16 +51,16 @@ const routes: Routes = [
         component: ToDoComponent
     },
     {
-        path: 'client/home-page',
+        path: 'client/homePage',
         component: MainPageComponent
     },
     {
-        path: 'client/my-requests',
+        path: 'client/myRequests',
         component: MyRequestsComponent
     },
     {
-        path: 'client/new-request',
-        component: MyRequestsComponent
+        path: 'client/newRequest',
+        component: NewRequestComponent
     }
 
 ];

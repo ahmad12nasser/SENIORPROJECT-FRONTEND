@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { toDo } from '../../../models/toDo';
 import { ToDoService } from '../../../services/freelancer/toDo.service';
 
 @Component({

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { appliedRequests } from '../../models/appliedRequests';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,10 @@ export class RequestsService {
      return Number(localStorage.getItem('userId'));
    }*/
 
-
+  // Create a new request
+  createRequest(request: request): Observable<any> {
+    return this.http.post(`${this.apiUrl}/requests/createRequest`, request);
+  }
   // Fetch all requests from the backend
   getRequests(): Observable<any[]> {
     return this.http.post<any[]>(`${this.apiUrl}/requests/getAllRequestsWithClientInfo`, null);
