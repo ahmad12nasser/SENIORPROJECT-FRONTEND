@@ -13,7 +13,8 @@
         <p class="card-text"><strong>Price:</strong> {{ post.price }}</p>
         <p><strong>Client:</strong> {{ post.freelancerFirstName + ' ' + post.freelancerLastName }}</p>
         <img *ngIf="post.clientImage" [src]="post.freelancerProfileImage" class="card-img-top" alt="Client Image">
-        <button class="btn btn-primary" (click)="HireInThisPost(post.id, post.freelancer_id)">Hire</button>
+        <button *ngIf = " post.status == 'Pending' " class="btn btn-primary" (click)="HireInThisPost(post.id, post.freelancerId)">Hire</button>
+        <p *ngIf = " post.status == 'Hired' " class="text-success">This post is reserved until the freelancer finishes his task.</p>
       </div>
     </div>  
 </section>

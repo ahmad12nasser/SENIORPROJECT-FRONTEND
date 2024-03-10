@@ -1,6 +1,7 @@
 import { throwError } from 'rxjs';
 import { PostsService } from './../../../services/posts/posts.service';
 import { Component } from '@angular/core';
+import { HiringService } from '../../../services/posts/hiringThroughPost.service';
 
 @Component({
   selector: 'app-main-page',
@@ -10,7 +11,10 @@ import { Component } from '@angular/core';
 export class MainPageComponent {
 
   posts: any[] = [];
-  constructor(private postsService: PostsService){}
+  constructor(
+    private postsService: PostsService,
+    private hiringService: HiringService
+  ){}
 
   ngOnInit(){
     this.postsService.getAllPosts().subscribe({
@@ -25,7 +29,7 @@ export class MainPageComponent {
   }
 
   HireInThisPost(postId: number, freelancerId: number){
-    this.postsService.HireInSpecificPost(postId, freelancerId).subscribe({
+    this.hiringService.HireInSpecificPost(postId, freelancerId).subscribe({
       next: (response) => {
         console.log('Successfully hired in the post:', response);
         this.refreshPosts();

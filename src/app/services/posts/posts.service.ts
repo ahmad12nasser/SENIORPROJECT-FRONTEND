@@ -12,12 +12,7 @@ export class PostsService {
   private apiUrl: string = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
-  // hay lmethod bta3mol get ll clientId ely 3amel login
-  /*getClientIdFromLocalStorage(): number {
-    return Number(localStorage.getItem('userId'));
-  }*/
-
-
+  
   // hay lmethod bta3mol insert ll post 3ala el database bl backend
   createPost(postData: Post): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/posts/createPost`, postData);
@@ -31,17 +26,5 @@ export class PostsService {
     return this.http.post<Post[]>(`${this.apiUrl}/posts/getAllPosts`,null);
   }
   // hay lmethod bta3mol hiring 3ala specific post 
-  HireInSpecificPost(postId: number, freelancerId: number): Observable<any> {
-    //wa2tiyan ra7 a3mel temp id lal client
-    const clientId = 1;
-    // Check if the freelancerId is available
-    if (freelancerId) {
-      const appliedPosts = { postId: postId, clientId: clientId, freelancerId: freelancerId };
-      return this.http.post(`${this.apiUrl}/posts/hireInSpecificPost`, appliedPosts);
-    } else {
-      // Handle the case when freelancerId is not available
-      console.error('Freelancer ID not available for the selected post.');
-      return throwError('Freelancer ID not available');
-    }
-  }
+ 
 }
