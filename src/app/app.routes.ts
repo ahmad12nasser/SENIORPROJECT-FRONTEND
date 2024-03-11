@@ -11,6 +11,8 @@ import { ToDoComponent } from './components/freelancer/to-do/to-do.component';
 import { MainPageComponent } from './components/client/main-page/main-page.component';
 import { MyRequestsComponent } from './components/client/my-requests/my-requests.component';
 import { NewRequestComponent } from './components/client/new-request/new-request.component';
+import { OperationRoomComponent } from './components/freelancer/operation-room/operation-room.component';
+import { ControlRoomComponent } from './components/client/control-room/control-room.component';
 
 const routes: Routes = [
     {
@@ -61,6 +63,14 @@ const routes: Routes = [
     {
         path: 'client/newRequest',
         component: NewRequestComponent
+    },
+    {
+        path: 'freelancer/operationRoom',
+        component: OperationRoomComponent
+    },
+    {
+        path: 'client/controlRoom',
+        component: ControlRoomComponent
     }
 
 ];

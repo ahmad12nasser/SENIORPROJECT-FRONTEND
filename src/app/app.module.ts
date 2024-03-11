@@ -18,6 +18,8 @@ import { ClientNavBarComponent } from './components/client/client-nav-bar/client
 import { NewRequestComponent } from './components/client/new-request/new-request.component';
 import { MyRequestsComponent } from './components/client/my-requests/my-requests.component';
 import { MainPageComponent } from './components/client/main-page/main-page.component';
+import { OperationRoomComponent } from './components/freelancer/operation-room/operation-room.component';
+import { ControlRoomComponent } from './components/client/control-room/control-room.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -32,7 +34,9 @@ import { MainPageComponent } from './components/client/main-page/main-page.compo
         ClientNavBarComponent,
         NewRequestComponent,
         MyRequestsComponent,
-        MainPageComponent
+        MainPageComponent,
+        OperationRoomComponent,
+        ControlRoomComponent
 
     ],
     imports: [

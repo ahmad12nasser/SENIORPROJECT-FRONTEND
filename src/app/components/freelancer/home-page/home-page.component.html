@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
 <section class="container">
-    <h2>Client Requests</h2>
-    <div *ngFor="let request of requests" class="card mt-3">
+  <h2>Client Requests</h2>
+  <div *ngFor="let request of requests" class="card mt-3">
       <div class="card-body">
         <h5 class="card-title">{{ request.title }}</h5>
         <p class="card-text"><strong>Date Posted: </strong>{{request.datePosted}}</p>
@@ -15,6 +15,6 @@
         <img *ngIf="request.clientImage" [src]="request.clientImage" class="card-img-top" alt="Client Image">
         <button class="btn btn-primary" (click)="applyForRequest(request.id, request.client_id)">Apply</button>
       </div>
-    </div>  
+  </div>
 </section>
 <router-outlet></router-outlet>
