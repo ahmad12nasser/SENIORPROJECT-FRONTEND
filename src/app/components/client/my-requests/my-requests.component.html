@@ -1,1 +1,26 @@
-<p>my-requests works!</p>
+<app-client-nav-bar></app-client-nav-bar>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2>My Requests</h2>
+
+                    <div *ngFor="let request of requests" class="card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ request.title }}</h5>
+                            <p class="card-text"><strong>Date requested: </strong>{{request.datePosted}}</p>
+                            <p class="card-text"><strong>DeadLine: </strong>{{request.deadline}}</p>
+                            <p class="card-text"><strong>Location:</strong> {{ request.location }}</p>
+                            <p class="card-text"><strong>Category:</strong> {{ request.categ_name }}</p>
+                            <p class="card-text">{{ request.description }}</p>
+                            <img *ngIf="request.image" [src]="request.image" class="card-img-top" alt="request Image">
+                            <p class="card-text"><strong>Price:</strong> {{ request.price }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
