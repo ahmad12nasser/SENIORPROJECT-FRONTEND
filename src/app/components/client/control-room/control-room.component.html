@@ -1,1 +1,56 @@
-<p>control-room works!</p>
+<app-client-nav-bar></app-client-nav-bar>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Waiting Acceptance From Freelancer: </h2>
+                    <div *ngFor="let hiredPost of hiredPosts" class="card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ hiredPost.title }}</h5>
+                            <p class="card-text"><strong>Date posted: </strong>{{hiredPost.dateposted}}</p>
+                            <p class="card-text"><strong>DeadLine: </strong>{{hiredPost.deadline}}</p>
+                            <p class="card-text"><strong>Location:</strong> {{ hiredPost.location }}</p>
+                            <p class="card-text"><strong>Category:</strong> {{ hiredPost.categ_name }}</p>
+                            <p class="card-text">{{ hiredPost.description }}</p>
+                            <img *ngIf="hiredPost.image" [src]="hiredPost.image" class="card-img-top"
+                                alt="Request Image">
+                            <p class="card-text"><strong>Price:</strong> {{ hiredPost.price }}</p>
+                            <p><strong>Freelancer:</strong> {{ hiredPost.freelancerFirstName + ' ' +
+                                hiredPost.freelancerLastName }}
+                            </p>
+                            <img *ngIf="hiredPost.clientImage" [src]="hiredPost.freelancerProfileImage"
+                                class="card-img-top" alt="Client Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Waiting My Acceptance: </h2>
+                    <div *ngFor="let appliedRequest of appliedRequests" class="card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{appliedRequest.title}}</h5>
+                            <p class="card-text"><strong>Date posted: </strong>{{appliedRequest.dateposted}}</p>
+                            <p class="card-text"><strong>DeadLine: </strong>{{appliedRequest.deadline}}</p>
+                            <p class="card-text"><strong>Location:</strong> {{ appliedRequest.location }}</p>
+                            <p class="card-text"><strong>Category:</strong> {{ appliedRequest.categ_name }}</p>
+                            <p class="card-text">{{ appliedRequest.description }}</p>
+                            <img *ngIf="appliedRequest.image" [src]="appliedRequest.image" class="card-img-top"
+                                alt="Request Image">
+                            <p class="card-text"><strong>Price:</strong> {{ appliedRequest.price }}</p>
+                            <p><strong>Freelancer:</strong> {{ appliedRequest.freelancerFirstName + ' ' +
+                                appliedRequest.freelancerLastName }}
+                            </p>
+                            <img *ngIf="appliedRequest.clientImage" [src]="appliedRequest.freelancerProfileImage"
+                                class="card-img-top" alt="Client Image">
+                            <button class="btn btn-primary"  style="margin-right: 10px;" (click)="acceptRequest(appliedRequest.id)">Accept</button>
+                            <button class="btn btn-danger" (click)="rejectRequest(appliedRequest.id)">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

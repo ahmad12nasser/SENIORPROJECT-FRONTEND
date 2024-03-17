@@ -2,6 +2,7 @@ import { throwError } from 'rxjs';
 import { PostsService } from './../../../services/posts/posts.service';
 import { Component } from '@angular/core';
 import { HiringService } from '../../../services/posts/hiringThroughPost.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -13,7 +14,8 @@ export class MainPageComponent {
   posts: any[] = [];
   constructor(
     private postsService: PostsService,
-    private hiringService: HiringService
+    private hiringService: HiringService,
+    private router: Router
   ){}
 
   ngOnInit(){
@@ -33,6 +35,8 @@ export class MainPageComponent {
       next: (response) => {
         console.log('Successfully hired in the post:', response);
         this.refreshPosts();
+        //navigate to controlRoom page 
+        this.router.navigate(['client/controlRoom']);
       },
       error: (error) => {
         console.error('Error hiring in the post:', error);

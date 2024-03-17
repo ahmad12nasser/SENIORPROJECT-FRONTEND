@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../../services/requests/requests.service';
 import { request } from '../../../models/request';
 import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -12,7 +13,10 @@ export class HomePageComponent implements OnInit {
 
   requests: any[] = [];
 
-  constructor(private requestsService: RequestsService) { }
+  constructor(
+    private requestsService: RequestsService,
+    private router: Router
+    ){ }
 
   ngOnInit() {
     // Fetch requests when the component initializes
@@ -34,6 +38,8 @@ export class HomePageComponent implements OnInit {
         console.log('Successfully applied for the request:', response);
         // Optionally, you can refresh the requests list after applying
         this.refreshRequests();
+        // Navigate to the operation room page
+        this.router.navigate(['freelancer/operationRoom']);
       },
       error: (error) => {
         console.error('Error applying for the request:', error);
