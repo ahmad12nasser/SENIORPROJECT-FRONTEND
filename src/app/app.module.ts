@@ -20,6 +20,8 @@ import { MyRequestsComponent } from './components/client/my-requests/my-requests
 import { MainPageComponent } from './components/client/main-page/main-page.component';
 import { OperationRoomComponent } from './components/freelancer/operation-room/operation-room.component';
 import { ControlRoomComponent } from './components/client/control-room/control-room.component';
+import { FreelancerSettingsComponent } from './components/freelancer/freelancer-settings/freelancer-settings.component';
+import { ClientSettingsComponent } from './components/client/client-settings/client-settings.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -36,8 +38,9 @@ import { ControlRoomComponent } from './components/client/control-room/control-r
         MyRequestsComponent,
         MainPageComponent,
         OperationRoomComponent,
-        ControlRoomComponent
-
+        ControlRoomComponent,
+        FreelancerSettingsComponent,
+        ClientSettingsComponent
     ],
     imports: [
         BrowserModule,
@@ -47,7 +50,6 @@ import { ControlRoomComponent } from './components/client/control-room/control-r
         ReactiveFormsModule,
         AppRoutingModule,
         CarouselModule.forRoot()
-
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -44,8 +44,19 @@
                             </p>
                             <img *ngIf="appliedRequest.clientImage" [src]="appliedRequest.freelancerProfileImage"
                                 class="card-img-top" alt="Client Image">
-                            <button class="btn btn-primary"  style="margin-right: 10px;" (click)="acceptRequest(appliedRequest.id)">Accept</button>
-                            <button class="btn btn-danger" (click)="rejectRequest(appliedRequest.id)">Reject</button>
+                            <div *ngIf="appliedRequest.status === 'Waiting for Acceptance from Client'">
+                                <button class="btn btn-primary" style="margin-right: 10px;"
+                                    (click)="acceptRequest(appliedRequest.id)">Accept</button>
+                                <button class="btn btn-danger"
+                                    (click)="rejectRequest(appliedRequest.id)">Reject</button>
+                            </div>
+                            <div *ngIf="appliedRequest.status ==='Accepted'">
+                                <p class="text-success">Accepted</p>
+                                <p>wait until the freelancer finish this task</p>
+                            </div>
+                            <div *ngIf="appliedRequest.status === 'Rejected'">
+                                <p class="text-danger">Rejected</p>
+                            </div>
                         </div>
                     </div>
                 </div>

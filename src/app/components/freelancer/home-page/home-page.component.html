@@ -13,7 +13,7 @@
         <p class="card-text"><strong>Price:</strong> {{ request.price }}</p>
         <p><strong>Client:</strong> {{ request.clientFirstName + ' ' + request.clientLastName }}</p>
         <img *ngIf="request.clientImage" [src]="request.clientImage" class="card-img-top" alt="Client Image">
-        <button class="btn btn-primary" (click)="applyForRequest(request.id, request.client_id)">Apply</button>
+        <button class="btn btn-primary" (click)="applyForRequest(request.id, request.clientId)">Apply</button>
       </div>
   </div>
 </section>

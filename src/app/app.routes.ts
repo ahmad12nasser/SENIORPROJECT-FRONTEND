@@ -13,6 +13,8 @@ import { MyRequestsComponent } from './components/client/my-requests/my-requests
 import { NewRequestComponent } from './components/client/new-request/new-request.component';
 import { OperationRoomComponent } from './components/freelancer/operation-room/operation-room.component';
 import { ControlRoomComponent } from './components/client/control-room/control-room.component';
+import { FreelancerSettingsComponent } from './components/freelancer/freelancer-settings/freelancer-settings.component';
+import { ClientSettingsComponent } from './components/client/client-settings/client-settings.component';
 
 const routes: Routes = [
     {
@@ -71,6 +73,14 @@ const routes: Routes = [
     {
         path: 'client/controlRoom',
         component: ControlRoomComponent
+    },
+    {
+        path: 'freelancer/settings',
+        component: FreelancerSettingsComponent
+    },
+    {
+        path: 'client/settings',
+        component: ClientSettingsComponent
     }
 
 ];
