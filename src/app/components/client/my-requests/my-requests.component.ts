@@ -1,5 +1,5 @@
 import { request } from '../../../models/request';
-import { GetMyRequestsService } from './../../../services/client/getMyRequests.service';
+import { GetMyRequestsService } from '../../../services/client/myRequests/getMyRequests.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToDoService } from '../../../services/freelancer/toDo.service';
+import { ToDoService } from '../../../services/freelancer/toDo/toDo.service';
 
 @Component({
   selector: 'app-to-do',

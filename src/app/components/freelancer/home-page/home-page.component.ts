@@ -38,6 +38,7 @@ export class HomePageComponent implements OnInit {
         console.log('Successfully applied for the request:', response);
         // Optionally, you can refresh the requests list after applying
         this.refreshRequests();
+        window.location.reload();
         // Navigate to the operation room page
         this.router.navigate(['freelancer/operationRoom']);
       },

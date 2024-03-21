@@ -1,8 +1,8 @@
-import { GetPendingAppliedRequestsService } from './../../../services/client/getPendingAppliedRequests.service';
+import { GetPendingAppliedRequestsService } from '../../../services/client/controlRoom/getPendingAppliedRequests.service';
 import { Component } from '@angular/core';
-import { GetPendingHiredPostsService } from '../../../services/client/getPendingHiredPosts.service';
-import { AcceptApplyRequestService } from '../../../services/client/acceptApplyRequest.service';
-import { RejectApplyRequestService } from '../../../services/client/rejectApplyRequest.service';
+import { GetPendingHiredPostsService } from '../../../services/client/controlRoom/getPendingHiredPosts.service';
+import { AcceptApplyRequestService } from '../../../services/client/controlRoom/acceptApplyRequest.service';
+import { RejectApplyRequestService } from '../../../services/client/controlRoom/rejectApplyRequest.service';
 
 @Component({
   selector: 'app-control-room',

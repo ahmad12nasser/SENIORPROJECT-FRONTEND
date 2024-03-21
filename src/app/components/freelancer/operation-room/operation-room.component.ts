@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { GetWaitingHiredPostsService } from '../../../services/freelancer/getWaitingHiredPosts.service';
-import { GetWaitingAppliedRequestsService } from '../../../services/freelancer/getWaitingApplliedRequests.service';
-import { ApproveHiredPostService } from '../../../services/freelancer/approveHiredPost.service';
-import { DeclineHiredPostService } from '../../../services/freelancer/declineHiredPost.service';
+import { GetWaitingHiredPostsService } from '../../../services/freelancer/operationRoom/getWaitingHiredPosts.service';
+import { GetWaitingAppliedRequestsService } from '../../../services/freelancer/operationRoom/getWaitingApplliedRequests.service';
+import { ApproveHiredPostService } from '../../../services/freelancer/operationRoom/approveHiredPost.service';
+import { DeclineHiredPostService } from '../../../services/freelancer/operationRoom/declineHiredPost.service';
 
 @Component({
   selector: 'app-operation-room',
