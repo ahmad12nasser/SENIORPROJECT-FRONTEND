@@ -11,6 +11,6 @@ export class EditFreelancerInfoService {
     constructor(private http: HttpClient) { }
 
     updateFreelancerInfo(freelancer: any) {
-        return this.http.post(`${this.apiUrl}/freelancer/settings/edit`, freelancer);
+        return this.http.post(`${this.apiUrl}/freelancer/settings/editFreelancerInfo`, freelancer);
     }
 }

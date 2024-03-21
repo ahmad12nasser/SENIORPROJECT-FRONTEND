@@ -11,6 +11,6 @@ export class EditClientInfoService {
     constructor(private http: HttpClient) { }
 
     updateClientInfo(client: any) {
-        return this.http.post<any>(`${this.apiUrl}/client/settings/edit`, client);
+        return this.http.post<any>(`${this.apiUrl}/client/settings/editClientInfo`, client);
     }
 }

@@ -28,7 +28,8 @@ export class NewRequestComponent {
     // Submit the request to the backend
     this.newRequest = {
       ...this.newRequest,
-      client_id: 1
+      client_id: 1,
+      image: String(this.fileBase64)
     };
     this.requestService.createRequest(this.newRequest).subscribe({
       next: (data) => {

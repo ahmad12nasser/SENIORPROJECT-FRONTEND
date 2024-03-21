@@ -1,4 +1,4 @@
-<section>
+<!-- <section>
   <div class="box">
     <h2>Login</h2>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -23,4 +23,34 @@
     </div>
 </form>
   </div>
-</section>
+</section> -->
+<div class="wrapper">
+    <div class="logo">
+        <img src="../../../assets/images/angular.png" alt="">
+    </div>
+    <div class="text-center mt-4 name">
+        SHOU MA BADDAK
+    </div>
+    <form [formGroup]="loginForm" class="p-3 mt-3" (ngSubmit)="onSubmit()">
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input type="email" name="email" id="email" placeholder="Email"
+                [ngClass]="{ 'is-invalid': submitted && accessToFormFields['email'].errors }">
+            <div *ngIf="submitted && accessToFormFields['email'].errors" class="invalid-feedback">
+                <div *ngIf="accessToFormFields['email'].errors">email is required</div>
+            </div>
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input type="password" name="password" id="pwd" placeholder="Password"
+                [ngClass]="{ 'is-invalid': submitted && accessToFormFields['password'].errors }">
+                <div *ngIf="submitted && accessToFormFields['password'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['password'].errors">Password is required</div>
+                </div>
+        </div>
+        <button [disabled]="loading" class="btn mt-3" type="submit">Login</button>
+    </form>
+    <div class="text-center fs-6">
+        <a href="#">Forget password?</a> or <a  [routerLink]="['/register']">Sign up</a>
+    </div>
+</div>
