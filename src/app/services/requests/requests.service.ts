@@ -31,7 +31,7 @@ export class RequestsService {
     const freelancerId = 1;
     // Check if the clientId is available
     if (clientId) {
-    const  appliedRequests = { requestId: requestId, clientId: clientId, freelancerId: freelancerId };
+      const appliedRequests = { requestId: requestId, clientId: clientId, freelancerId: freelancerId };
       return this.http.post(`${this.apiUrl}/requests/applyForRequest`, appliedRequests);
     } else {
       // Handle the case when clientId is not available

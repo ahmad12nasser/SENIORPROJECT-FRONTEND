@@ -25,7 +25,7 @@ export class NewPostComponent {
 
   submitPost() {
     //hon 3am ya3mol set lal freelancer_id 3alshan yeb2a 3andak
-    this.newPost.freelancer_id = this.loginService.getLoggedInUserId();
+    this.newPost.freelancer_id = this.loginService.getLoggedInUserId() ?? 0;
 
     this.postsService.createPost(this.newPost).subscribe({
       next: (data) => {

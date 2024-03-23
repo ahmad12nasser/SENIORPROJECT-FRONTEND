@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { LoginPageComponent } from './authentication/login-page/login-page.component';
 import { ChoosingUserComponent } from './authentication/choosing-user/choosing-user.component';
 import { RegisterAsFreelancerComponent } from './authentication/register-as-freelancer/register-as-freelancer.component';
@@ -15,7 +15,7 @@ import { OperationRoomComponent } from './components/freelancer/operation-room/o
 import { ControlRoomComponent } from './components/client/control-room/control-room.component';
 import { FreelancerSettingsComponent } from './components/freelancer/freelancer-settings/freelancer-settings.component';
 import { ClientSettingsComponent } from './components/client/client-settings/client-settings.component';
-
+import { AuthGuard } from './auth-guard.guard';
 const routes: Routes = [
     {
         path:'login',
@@ -40,47 +40,58 @@ const routes: Routes = [
     },
     {
         path: 'freelancer/home-page',
-        component: HomePageComponent
+        component: HomePageComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'freelancer/new-post',
-        component: NewPostComponent
+        component: NewPostComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'freelancer/my-posts',
-        component: MyPostsComponent
+        component: MyPostsComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'freelancer/toDo',
-        component: ToDoComponent
+        component: ToDoComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'client/homePage',
-        component: MainPageComponent
+        component: MainPageComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'client/myRequests',
-        component: MyRequestsComponent
+        component: MyRequestsComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'client/newRequest',
-        component: NewRequestComponent
+        component: NewRequestComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'freelancer/operationRoom',
-        component: OperationRoomComponent
+        component: OperationRoomComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'client/controlRoom',
-        component: ControlRoomComponent
+        component: ControlRoomComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'freelancer/settings',
-        component: FreelancerSettingsComponent
+        component: FreelancerSettingsComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'client/settings',
-        component: ClientSettingsComponent
+        component: ClientSettingsComponent,
+        canActivate: [AuthGuard]
     }
 
 ];

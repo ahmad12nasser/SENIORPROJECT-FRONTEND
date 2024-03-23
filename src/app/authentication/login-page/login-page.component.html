@@ -34,19 +34,19 @@
     <form [formGroup]="loginForm" class="p-3 mt-3" (ngSubmit)="onSubmit()">
         <div class="form-field d-flex align-items-center">
             <span class="far fa-user"></span>
-            <input type="email" name="email" id="email" placeholder="Email"
+            <input type="email" name="email" id="email" placeholder="Email" formControlName="email" 
                 [ngClass]="{ 'is-invalid': submitted && accessToFormFields['email'].errors }">
-            <div *ngIf="submitted && accessToFormFields['email'].errors" class="invalid-feedback">
+            <!-- <div *ngIf="submitted && accessToFormFields['email'].errors" class="invalid-feedback">
                 <div *ngIf="accessToFormFields['email'].errors">email is required</div>
-            </div>
+            </div> -->
         </div>
         <div class="form-field d-flex align-items-center">
             <span class="fas fa-key"></span>
-            <input type="password" name="password" id="pwd" placeholder="Password"
+            <input type="password" name="password" id="pwd" placeholder="Password" formControlName="password"
                 [ngClass]="{ 'is-invalid': submitted && accessToFormFields['password'].errors }">
-                <div *ngIf="submitted && accessToFormFields['password'].errors" class="invalid-feedback">
+                <!-- <div *ngIf="submitted && accessToFormFields['password'].errors" class="invalid-feedback">
                     <div *ngIf="accessToFormFields['password'].errors">Password is required</div>
-                </div>
+                </div> -->
         </div>
         <button [disabled]="loading" class="btn mt-3" type="submit">Login</button>
     </form>

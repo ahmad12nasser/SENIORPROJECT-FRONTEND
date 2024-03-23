@@ -1,11 +1,10 @@
-import { AlertService } from './../../services/authentication/alert.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from '../../services/authentication/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { OnInit } from '@angular/core';
 import { first } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { LoginService } from '../../services/authentication/login.service';
+import { LoggedInUser } from '../../models/LoggedInUser';
 
 @Component({
   selector: 'app-login-page',
@@ -16,22 +15,20 @@ export class LoginPageComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
   loading = false;
   submitted = false;
-  returnUrl: string | undefined;
+  loggedInUser: LoggedInUser = new LoggedInUser();
+  // returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    private route: ActivatedRoute,
-    private AlertService: AlertService
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.initLoginForm();
-    // reset login status
     this.loginService.logout();
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get accessToFormFields() {
@@ -47,27 +44,26 @@ export class LoginPageComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
-    if (this.loginForm.valid) {
-      const formData = this.loginForm.value;
-      let body = new HttpParams();
-      body = body.set('email', formData.email);
-      body = body.set('password', formData.password);
-      this.loginService.login(body).pipe(first())
-        .subscribe({
-          next: (data) => {
-            this.router.navigate([this.returnUrl]);
-          },
-          error: (error) => {
-            this.AlertService.error(error);
-            this.loading = false;
-          },
-          complete: () => { } // Optional: Do something when the observable completes successfully
-        });
-    }
+    const formData = this.loginForm.value;
+    let body = new HttpParams();
+    body = body.set('email', formData.email);
+    body = body.set('password', formData.password);
+    this.loginService.login(body).pipe(first())
+      .subscribe({
+        next: (data) => {
+          //this.router.navigate([this.returnUrl]);
+          this.loggedInUser.userId = data.userId;
+          this.loggedInUser.userRole = data.userRole;
+          this.loginService.saveLoggedInUserId(data.userId, data.userRole);
+        },
+        error: (error) => {
+          // Handle error
+          this.loading = false;
+        }
+      });
   }
 
   redirectToRegister() {
