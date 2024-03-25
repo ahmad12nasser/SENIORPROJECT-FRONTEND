@@ -16,8 +16,7 @@ export class LoginPageComponent implements OnInit {
   loading = false;
   submitted = false;
   loggedInUser: LoggedInUser = new LoggedInUser();
-  // returnUrl: string;
-
+  error: string | null = null;
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
@@ -54,19 +53,19 @@ export class LoginPageComponent implements OnInit {
     this.loginService.login(body).pipe(first())
       .subscribe({
         next: (data) => {
-          //this.router.navigate([this.returnUrl]);
           this.loggedInUser.userId = data.userId;
           this.loggedInUser.userRole = data.userRole;
           this.loginService.saveLoggedInUserId(data.userId, data.userRole);
+          if (data.userRole == "freelancer") {
+            this.router.navigate(['freelancer/homePage']);
+          } else if (data.userRole == "client") {
+            this.router.navigate(['client/homePage']);
+          }
         },
         error: (error) => {
-          // Handle error
+          this.error = error;
           this.loading = false;
         }
       });
-  }
-
-  redirectToRegister() {
-    this.router.navigate(['/register']);
   }
 }

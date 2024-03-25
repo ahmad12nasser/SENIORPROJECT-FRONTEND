@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FreelancerInfoService } from '../../../services/freelancer/settings/freelancerInfo.service';
 import { EditFreelancerInfoService } from '../../../services/freelancer/settings/editFreelancerInfo.service';
+import { AuthService } from '../../../services/authentication/auth.service';
+import { LoginService } from '../../../services/authentication/login.service';
 
 @Component({
   selector: 'app-freelancer-settings',
@@ -8,14 +10,21 @@ import { EditFreelancerInfoService } from '../../../services/freelancer/settings
   styleUrl: './freelancer-settings.component.css'
 })
 export class FreelancerSettingsComponent {
-
-  constructor(
-    private freelancerInfoService: FreelancerInfoService,
-    private editFreelancerInfoService: EditFreelancerInfoService
-  ) { }
   freelancer: any[] = [];
   editingFreelancer: any = {}; 
   editMode: boolean = false;
+  isAuthenticated: boolean | null = null;
+
+  constructor(
+    private freelancerInfoService: FreelancerInfoService,
+    private editFreelancerInfoService: EditFreelancerInfoService,
+    private authService: AuthService,
+    private loginService: LoginService
+  ) {
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
+      this.isAuthenticated = isAuthenticated;
+    });
+   }
 
   ngOnInit() {
     const freelancer_id = 1;
@@ -63,5 +72,10 @@ export class FreelancerSettingsComponent {
     const freelancer_id = 1;
     // const freelancer_id = localStorage.getItem('freelancer_id');
     this.getFreelancerInfo(freelancer_id);
+  }
+
+  logout(){
+    this.authService.logout();
+    this.loginService.logout();
   }
 }

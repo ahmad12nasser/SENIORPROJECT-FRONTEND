@@ -2,6 +2,8 @@ import { client } from './../../../models/client';
 import { Component } from '@angular/core';
 import { ClientInfoService } from '../../../services/client/settings/clientInfo.service';
 import { EditClientInfoService } from '../../../services/client/settings/editClientInfo.service';
+import { LoginService } from '../../../services/authentication/login.service';
+import { AuthService } from '../../../services/authentication/auth.service';
 
 @Component({
   selector: 'app-client-settings',
@@ -12,7 +14,9 @@ export class ClientSettingsComponent {
 
   constructor(
     private clientInfoService: ClientInfoService,
-    private editClientInfoService: EditClientInfoService
+    private editClientInfoService: EditClientInfoService,
+    private authService: AuthService,
+    private loginService: LoginService
   ) { }
 
   client: any[] = [];
@@ -69,5 +73,9 @@ export class ClientSettingsComponent {
     const client_id = 1;
     // const client_id = localStorage.getItem('client_id');
     this.getClientInfo(client_id);
+  }
+  logout(){
+    this.authService.logout();
+    this.loginService.logout();
   }
 }
