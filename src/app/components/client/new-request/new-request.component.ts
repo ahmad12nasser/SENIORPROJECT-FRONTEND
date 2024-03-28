@@ -1,40 +1,45 @@
 import { Component } from '@angular/core';
-import { request } from '../../../models/request';
 import { RequestsService } from '../../../services/requests/requests.service';
 import { LoginService } from '../../../services/authentication/login.service';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-request',
   templateUrl: './new-request.component.html',
-  styleUrl: './new-request.component.css'
+  styleUrls: ['./new-request.component.css']
 })
 export class NewRequestComponent {
-  newRequest: request = new request();
+  newRequest: any = {}; // Update the type accordingly
   selectedFile: File | null = null;
-  fileBase64: string | null = null;
 
   constructor(
     private requestService: RequestsService,
-    private loginService: LoginService,
-    private sanitizer: DomSanitizer
+    private loginService: LoginService
   ) { }
-    //ra7 a3mol temporary setting la client_id handly 3ashan ba3ed login msh she8al 
-   // this.newRequest.client_id = 1;
-  
-   submitRequest() {
-    // Set the client_id from the logged in user 
-    //this.newRequest.client_id = this.loginService.getLoggedInUserId();
-    // Submit the request to the backend
-    this.newRequest = {
-      ...this.newRequest,
-      client_id: 1,
-      image: String(this.fileBase64)
-    };
-    this.requestService.createRequest(this.newRequest).subscribe({
+
+  submitRequest() {
+
+    this.newRequest.client_id = this.loginService.getLoggedInUserId() ?? 0;
+
+
+    const formData = new FormData();
+    formData.append('client_id', this.newRequest.client_id);
+    formData.append('title', this.newRequest.title);
+    formData.append('description', this.newRequest.description);
+    formData.append('categ_name', this.newRequest.categ_name);
+    formData.append('location', this.newRequest.location);
+    formData.append('deadline', this.newRequest.deadline);
+    formData.append('datePosted', this.newRequest.datePosted);
+    formData.append('price', this.newRequest.price);
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+
+    // Send the formData to the backend
+    this.requestService.createRequest(formData).subscribe({
       next: (data) => {
         console.log('Successfully submitted request:', data);
-        this.newRequest = new request();
+        this.newRequest = {}; // Reset newRequest
+        this.selectedFile = null;
       },
       error: (error) => {
         console.error('Error submitting request:', error);
@@ -42,19 +47,10 @@ export class NewRequestComponent {
     });
   }
 
-  convertFileToBase64(file: File) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.fileBase64 = this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string) as string;
-    };
-    reader.readAsDataURL(file);
-  }
-
   onFileSelected(event: any) {
     const file = event.target.files[0] as File;
     if (file) {
       this.selectedFile = file;
-      this.convertFileToBase64(file);
     }
   }
 }

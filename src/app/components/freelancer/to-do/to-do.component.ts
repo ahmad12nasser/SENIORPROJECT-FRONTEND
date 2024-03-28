@@ -1,24 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ToDoService } from '../../../services/freelancer/toDo/toDo.service';
+import { LoginService } from '../../../services/authentication/login.service';
 
 @Component({
   selector: 'app-to-do',
   templateUrl: './to-do.component.html',
   styleUrl: './to-do.component.css'
 })
-export class ToDoComponent implements OnInit{
+export class ToDoComponent implements OnInit {
   toDos: any[] = [];
 
-  constructor(private toDoService: ToDoService){}
+  constructor(
+    private toDoService: ToDoService,
+    private loginService: LoginService
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadToDos();
   }
 
-  private loadToDos(){
+  private loadToDos() {
     //const freelancerId = this.getFreelancerIdFromLocalStorage();
-    //3amalet haydi lconst ta a3tiya value benma sha8el login ta ye5oud mn localStorage lId
-    const freelancerId = 1;
+    const freelancerId = this.loginService.getLoggedInUserId() ?? 0;
     this.toDoService.getAllToDos(freelancerId).subscribe({
       next: (data) => {
         this.toDos = data;

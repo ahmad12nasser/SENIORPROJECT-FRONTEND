@@ -1,4 +1,5 @@
 import { request } from '../../../models/request';
+import { LoginService } from '../../../services/authentication/login.service';
 import { GetMyRequestsService } from '../../../services/client/myRequests/getMyRequests.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,29 +8,36 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './my-requests.component.html',
   styleUrl: './my-requests.component.css'
 })
-export class MyRequestsComponent implements  OnInit{
+export class MyRequestsComponent implements OnInit {
 
   requests: request[] = [];
 
-  constructor(private getMyRequestsService: GetMyRequestsService) { }
+  constructor(
+    private getMyRequestsService: GetMyRequestsService,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit() {
-    //const clientId = this.getFreelancerIdFromLocalStorage();
-    const clientId = 1;
+    const clientId = this.loginService.getLoggedInUserId();
     // Fetch requests when the component initializes
-    this.getMyRequestsService.getMyRequests(clientId).subscribe({
-      next: (data) => {
-        this.requests = data;
-               console.log('Successfully fetched requests:', true);
-      },
-      error: (error) => {
-        console.error('Error fetching requests:', error);
-      }
-      
-    });
+    if (clientId != null) {
+      this.getMyRequestsService.getMyRequests(clientId).subscribe({
+        next: (data) => {
+          this.requests = data;
+          this.prepareImages();
+          console.log('Successfully fetched requests:', true);
+        },
+        error: (error) => {
+          console.error('Error fetching requests:', error);
+        }
+
+      });
+    }
   }
-  //this method ta 7atta es7ab el clientId mn el local session
-  private getClientIdFromLocalSession(): number {
-    return Number(localStorage.getItem('userId'));
+
+  prepareImages() {
+    for (const request of this.requests) {
+      request.imageUrl = `data:image/png;base64,`+ request.image;  // Construct data URL with PNG format
+    }
   }
 }

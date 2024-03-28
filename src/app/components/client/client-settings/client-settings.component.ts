@@ -24,10 +24,10 @@ export class ClientSettingsComponent {
   editMode: boolean = false; // Flag to toggle edit mode
 
   ngOnInit() {
-    //temp client_id for testing
-    const client_id = 1;
-    // const client_id = localStorage.getItem('client_id');
-    this.getClientInfo(client_id);
+    const client_id = this.loginService.getLoggedInUserId();
+    if (client_id !== null) {
+      this.getClientInfo(client_id);
+    }
   }
   getClientInfo(client_id: number) {
     this.clientInfoService.getClientInfo(client_id).subscribe({
@@ -70,10 +70,11 @@ export class ClientSettingsComponent {
 
   // Function ta na3mel refresh lel client info
   refreshClientInfo() {
-    const client_id = 1;
-    // const client_id = localStorage.getItem('client_id');
+    const client_id =this.loginService.getLoggedInUserId();
+    if(client_id !== null){
     this.getClientInfo(client_id);
   }
+}
   logout(){
     this.authService.logout();
     this.loginService.logout();

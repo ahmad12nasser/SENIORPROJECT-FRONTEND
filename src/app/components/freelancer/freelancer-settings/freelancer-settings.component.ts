@@ -27,7 +27,7 @@ export class FreelancerSettingsComponent {
    }
 
   ngOnInit() {
-    const freelancer_id = 1;
+    const freelancer_id = this.loginService.getLoggedInUserId() ?? 0;
     this.getFreelancerInfo(freelancer_id);
   }
 
@@ -69,8 +69,7 @@ export class FreelancerSettingsComponent {
   }
 
   refreshFreelancerInfo() {
-    const freelancer_id = 1;
-    // const freelancer_id = localStorage.getItem('freelancer_id');
+    const freelancer_id = this.loginService.getLoggedInUserId() ?? 0;
     this.getFreelancerInfo(freelancer_id);
   }
 

@@ -15,6 +15,7 @@ export class RegisterAsClientComponent {
   registerForm: FormGroup = new FormGroup({});
   loading = false;
   submitted = false;
+  selectedFile: File | null = null;
 
   constructor(
     private FormBuilder: FormBuilder,
@@ -32,12 +33,14 @@ export class RegisterAsClientComponent {
     this.registerForm = this.FormBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      userName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       mobile: ['', Validators.required],
-      profileImage: ['', Validators.required]
+      profileImage: [''],
+      age: ['', Validators.required],
+      location: ['', Validators.required],
+      description: ['']
     });
   }
   get accessToFormFields() {
@@ -54,12 +57,14 @@ export class RegisterAsClientComponent {
       let body = new HttpParams();
       body = body.set('firstName', formData.firstName);
       body = body.set('lastName', formData.lastName);
-      body = body.set('userName', formData.userName);
       body = body.set('email', formData.email);
       body = body.set('password', formData.password);
       body = body.set('confirmPassword', formData.confirmPassword);
       body = body.set('mobile', formData.mobile);
-      body = body.set('profileImage', formData.profileImage);
+      body = body.set('profile_image', formData.profileImage);
+      body = body.set('age', formData.age);
+      body = body.set('location', formData.location);
+      body = body.set('description', formData.description);
       this.registerService.registerClient(body)
         .subscribe({
           next: (data) => {
@@ -71,6 +76,12 @@ export class RegisterAsClientComponent {
             this.loading = false;
           }
         });
+    }
+  }
+  onFileSelected(event: any) {
+    const file = event.target.files[0] as File;
+    if (file) {
+      this.selectedFile = file;
     }
   }
   // redirect 3ala el page ely feha el form ely by3ml login

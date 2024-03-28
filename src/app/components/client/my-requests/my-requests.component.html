@@ -14,7 +14,7 @@
                             <p class="card-text"><strong>Location:</strong> {{ request.location }}</p>
                             <p class="card-text"><strong>Category:</strong> {{ request.categ_name }}</p>
                             <p class="card-text">{{ request.description }}</p>
-                            <img *ngIf="request.image" [src]="request.image" class="card-img-top" alt="request Image">
+                            <img [src]="request.imageUrl" class="card-img-top" alt="Request Image">
                             <p class="card-text"><strong>Price:</strong> {{ request.price }}</p>
                         </div>
                     </div>

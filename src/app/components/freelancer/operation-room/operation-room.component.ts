@@ -3,6 +3,7 @@ import { GetWaitingHiredPostsService } from '../../../services/freelancer/operat
 import { GetWaitingAppliedRequestsService } from '../../../services/freelancer/operationRoom/getWaitingApplliedRequests.service';
 import { ApproveHiredPostService } from '../../../services/freelancer/operationRoom/approveHiredPost.service';
 import { DeclineHiredPostService } from '../../../services/freelancer/operationRoom/declineHiredPost.service';
+import { LoginService } from '../../../services/authentication/login.service';
 
 @Component({
   selector: 'app-operation-room',
@@ -16,11 +17,11 @@ export class OperationRoomComponent {
     private getWaitingHiredPostsService: GetWaitingHiredPostsService,
     private getWaitingAppliedRequestsService: GetWaitingAppliedRequestsService,
     private approveHiredPostService: ApproveHiredPostService,
-    private declineHiredPostService: DeclineHiredPostService
-   ) { }
+    private declineHiredPostService: DeclineHiredPostService,
+    private loginService: LoginService
+  ) { }
   ngOnInit() {
-    //const freelancer_id = localStorage.getItem('user_id');
-    const freelancer_id = 1; // Replace with the actual client id
+    const freelancer_id = this.loginService.getLoggedInUserId() ?? 0; // Replace with the actual client id
     //fetching the Hired Posts that's need my accept
     this.getWaitingHiredPostsService.getWaitingHiredPosts(freelancer_id).subscribe({
       next: (data) => {
@@ -43,7 +44,7 @@ export class OperationRoomComponent {
       }
     });
   }
-  acceptRequest(hiredPost_id: number){
+  acceptRequest(hiredPost_id: number) {
     this.approveHiredPostService.approveHiredPost(hiredPost_id).subscribe({
       next: (data) => {
         console.log('Successfully accepted applied request', true);
@@ -53,8 +54,8 @@ export class OperationRoomComponent {
       }
     });
   }
-  
-  rejectRequest(hiredPost_id: number){
+
+  rejectRequest(hiredPost_id: number) {
     this.declineHiredPostService.declineHiredPost(hiredPost_id).subscribe({
       next: (data) => {
         console.log('Successfully rejected applied request', true);

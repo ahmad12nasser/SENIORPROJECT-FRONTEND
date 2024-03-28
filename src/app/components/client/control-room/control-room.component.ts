@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { GetPendingHiredPostsService } from '../../../services/client/controlRoom/getPendingHiredPosts.service';
 import { AcceptApplyRequestService } from '../../../services/client/controlRoom/acceptApplyRequest.service';
 import { RejectApplyRequestService } from '../../../services/client/controlRoom/rejectApplyRequest.service';
+import { LoginService } from '../../../services/authentication/login.service';
 
 @Component({
   selector: 'app-control-room',
@@ -16,34 +17,38 @@ export class ControlRoomComponent {
     private getPendingHiredPostsService: GetPendingHiredPostsService,
     private getPendingAppliedRequestsService: GetPendingAppliedRequestsService,
     private acceptApplyRequestService: AcceptApplyRequestService,
-    private rejectApplyRequestService: RejectApplyRequestService
+    private rejectApplyRequestService: RejectApplyRequestService,
+    private loginService: LoginService
   ) { }
   ngOnInit() {
-    //const client_id = localStorage.getItem('user_id');
-    const client_id = 1; // Replace with the actual client id
+    const client_id = this.loginService.getLoggedInUserId(); // Replace with the actual client id
     //fetching the Hired Posts that i was clicked on hire it
-    this.getPendingHiredPostsService.getPendingHiredPosts(client_id).subscribe({
-      next: (data) => {
-        this.hiredPosts = data;
-        console.log('Successfully fetched hired posts:', true);
-      },
-      error: (error) => {
-        console.error('Error fetching hired posts:', error);
-      }
-    });
+    if (client_id !== null) {
+      this.getPendingHiredPostsService.getPendingHiredPosts(client_id).subscribe({
+        next: (data) => {
+          this.hiredPosts = data;
+          console.log('Successfully fetched hired posts:', true);
+        },
+        error: (error) => {
+          console.error('Error fetching hired posts:', error);
+        }
+      });
+    }
 
     //fetching the Applied Requests that's need my accept
-    this.getPendingAppliedRequestsService.getPendingAppliedRequests(client_id).subscribe({
-      next: (data) => {
-        this.appliedRequests = data;
-        console.log('Successfully fetched applied requests', true);
-      },
-      error: (error) => {
-        console.error('Error fetcching applied requests', error);
-      }
-    });
+    if (client_id !== null) {
+      this.getPendingAppliedRequestsService.getPendingAppliedRequests(client_id).subscribe({
+        next: (data) => {
+          this.appliedRequests = data;
+          console.log('Successfully fetched applied requests', true);
+        },
+        error: (error) => {
+          console.error('Error fetcching applied requests', error);
+        }
+      });
+    }
   }
-  acceptRequest(appliedRequest_id: number){
+  acceptRequest(appliedRequest_id: number) {
     this.acceptApplyRequestService.acceptApplyRequest(appliedRequest_id).subscribe({
       next: (data) => {
         console.log('Successfully accepted applied request', true);
@@ -53,8 +58,8 @@ export class ControlRoomComponent {
       }
     });
   }
-  
-  rejectRequest(appliedRequest_id: number){
+
+  rejectRequest(appliedRequest_id: number) {
     this.rejectApplyRequestService.rejectApplyRequest(appliedRequest_id).subscribe({
       next: (data) => {
         console.log('Successfully rejected applied request', true);

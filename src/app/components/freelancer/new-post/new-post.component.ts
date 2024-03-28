@@ -11,7 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class NewPostComponent {
 
-  newPost: Post = new Post();
+  newPost: any = {};
   selectedImage: File | null = null;
   imageBase64: string | null = null; // Variable to store base64 string
 
@@ -19,15 +19,26 @@ export class NewPostComponent {
 
   constructor(
     private postsService: PostsService,
-     private loginService: LoginService,
-       private sanitizer: DomSanitizer
-       ) { }
+    private loginService: LoginService,
+    private sanitizer: DomSanitizer
+  ) { }
 
   submitPost() {
     //hon 3am ya3mol set lal freelancer_id 3alshan yeb2a 3andak
     this.newPost.freelancer_id = this.loginService.getLoggedInUserId() ?? 0;
-
-    this.postsService.createPost(this.newPost).subscribe({
+    const formData = new FormData();
+    formData.append('freelancer_id', this.newPost.freelancer_id);
+    formData.append('title', this.newPost.title);
+    formData.append('description', this.newPost.description);
+    formData.append('categ_name', this.newPost.categ_name);
+    formData.append('location', this.newPost.location);
+    formData.append('price', this.newPost.price);
+    formData.append('dateposted', this.newPost.datePosted);
+    formData.append('deadline', this.newPost.deadline);
+    if (this.selectedImage) {
+      formData.append('image', this.selectedImage);
+    }
+    this.postsService.createPost(formData).subscribe({
       next: (data) => {
         console.log('Successfully submitted post:', data);
         // Clear the form after submitting
@@ -38,20 +49,10 @@ export class NewPostComponent {
       }
     });
   }
-
-  convertFileToBase64(file: File) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      // Set the base64 string and sanitize it
-      this.imageBase64 = this.sanitizer.bypassSecurityTrustResourceUrl(reader.result as string) as string;
-    };
-    reader.readAsDataURL(file);
-  }
-
   onFileSelected(event: any) {
     const file = event.target.files[0] as File;
     if (file) {
-    this.selectedImage = file;
+      this.selectedImage = file;
     }
   }
 

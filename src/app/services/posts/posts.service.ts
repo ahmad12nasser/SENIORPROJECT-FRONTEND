@@ -14,8 +14,8 @@ export class PostsService {
   constructor(private http: HttpClient) { }
   
   // hay lmethod bta3mol insert ll post 3ala el database bl backend
-  createPost(postData: Post): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/posts/createPost`, postData);
+  createPost(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/posts/createPost`, formData);
   }
   // hay lmethod bta3mol get ll posts ely 3amalhom el freelancer
   getMyPosts(freelancerId: number): Observable<Post[]> {

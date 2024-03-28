@@ -15,6 +15,7 @@ export class RegisterAsFreelancerComponent {
   registerForm: FormGroup = new FormGroup({});
   loading = false;
   submitted = false;
+  selectedFile: File | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,13 +33,15 @@ export class RegisterAsFreelancerComponent {
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       portfolio: ['', Validators.required],
-      description: ['', Validators.required]
+      description: [''],
+      location: ['', Validators.required],
+      professionName: ['', Validators.required],
+      age: [''],
     });
   }
 
@@ -54,19 +57,25 @@ export class RegisterAsFreelancerComponent {
     }
 
     if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
-      let body = new HttpParams();
-      body = body.set('firstName', formData.firstName);
-      body = body.set('lastName', formData.lastName);
-      body = body.set('username', formData.username);
-      body = body.set('email', formData.email);
-      body = body.set('password', formData.password);
-      body = body.set('confirmPassword', formData.confirmPassword);
-      body = body.set('phoneNumber', formData.phoneNumber);
-      body = body.set('portfolio', formData.portfolio);
-      body = body.set('description', formData.description);
+      const formData = new FormData();
+      formData.append('firstName', this.registerForm.value.firstName);
+      formData.append('lastName', this.registerForm.value.lastName);
+      formData.append('email', this.registerForm.value.email);
+      formData.append('password', this.registerForm.value.password);
+      formData.append('confirmPassword', this.registerForm.value.confirmPassword);
+      formData.append('phoneNumber', this.registerForm.value.phoneNumber);
+      if (this.selectedFile) {
+        formData.append('portfolio', this.selectedFile);
+      }
+      formData.append('location', this.registerForm.value.location);
+      formData.append('description', this.registerForm.value.description);
+      formData.append('professionName', this.registerForm.value.professionName);
+      formData.append('age', this.registerForm.value.age);
 
-      this.registerService.registerFreelancer(body).subscribe({
+
+
+
+      this.registerService.registerFreelancer(formData).subscribe({
 
         next: (data) => {
           this.alertService.success('Registration successful', true);
@@ -82,5 +91,11 @@ export class RegisterAsFreelancerComponent {
 
   backToLogin() {
     this.router.navigate(['/login'], { relativeTo: this.route });
+  }
+  onFileSelected(event: any) {
+    const file = event.target.files[0] as File;
+    if (file) {
+      this.selectedFile = file;
+    }
   }
 }

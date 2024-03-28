@@ -18,8 +18,8 @@ export class RequestsService {
    }*/
 
   // Create a new request
-  createRequest(request: request): Observable<any> {
-    return this.http.post(`${this.apiUrl}/requests/createRequest`, request);
+  createRequest(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/requests/createRequest`, formData);
   }
   // Fetch all requests from the backend
   getRequests(): Observable<any[]> {
