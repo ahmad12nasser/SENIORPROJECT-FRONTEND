@@ -1,20 +1,41 @@
 <app-nav-bar></app-nav-bar>
-<section class="container">
-  <h2>Client Requests</h2>
-  <div *ngFor="let request of requests" class="card mt-3">
-      <div class="card-body">
-        <h5 class="card-title">{{ request.title }}</h5>
-        <p class="card-text"><strong>Date Posted: </strong>{{request.datePosted}}</p>
-        <p class="card-text"><strong>DeadLine: </strong>{{request.deadline}}</p>
-        <p class="card-text"><strong>Location:</strong> {{ request.location }}</p>
-        <p class="card-text"><strong>Category:</strong> {{ request.categName }}</p>
-        <p class="card-text">{{ request.description }}</p>
-        <img *ngIf="request.image" [src]="request.image" class="card-img-top" alt="Request Image">
-        <p class="card-text"><strong>Price:</strong> {{ request.price }}</p>
-        <p><strong>Client:</strong> {{ request.clientFirstName + ' ' + request.clientLastName }}</p>
-        <img *ngIf="request.clientImage" [src]="request.clientImage" class="card-img-top" alt="Client Image">
-        <button class="btn btn-primary" (click)="applyForRequest(request.id, request.clientId)">Apply</button>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h2>Client Requests</h2>
+          <div *ngFor="let request of requests" class="card mt-3">
+            <div class="card-body">
+              <h5 class="card-title d-flex justify-content-center">{{ request.title }}</h5>
+              <div class="d-flex justify-content-between mb-2">
+                <p class="card-text"><strong>Date Posted: </strong>{{request.datePosted}}</p>
+                <p class="card-text text-muted"><strong>DeadLine: </strong>{{request.deadline}}</p>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <p class="card-text"><strong>Location:</strong> {{ request.location }}</p>
+                  <p class="card-text"><strong>Category:</strong> {{ request.categ_name }}</p>
+                  <p class="card-text">{{ request.description }}</p>
+                </div>
+                <div class="col-6">
+                  <img [src]="request.imageUrl" class="requestImage" alt="Request Image">
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center mt-2 alert bg-light">
+                <p class="card-text"><strong>Price:</strong> {{ request.price }}</p>
+              </div>
+              <div class="d-flex flex-row justify-content-end align-items-center mt-2">
+                <p class="card-text text-muted "><strong>Client:</strong> {{ request.clientFirstName + ' ' + request.clientLastName }}</p>
+                <img [src]="request.clientImageUrl" class="clientProfileImage" alt="Client Image">
+              </div>
+              <div class="d-flex justify-content-center">
+                <button class="btn btn-primary" (click)="applyForRequest(request.id, request.clientId)">Apply</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
-</section>
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>

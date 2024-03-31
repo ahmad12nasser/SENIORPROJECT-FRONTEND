@@ -15,7 +15,6 @@ import { OperationRoomComponent } from '../components/freelancer/operation-room/
 import { ControlRoomComponent } from '../components/client/control-room/control-room.component';
 import { FreelancerSettingsComponent } from '../components/freelancer/freelancer-settings/freelancer-settings.component';
 import { ClientSettingsComponent } from '../components/client/client-settings/client-settings.component';
-import { TestComponent } from '../components/test/test.component';
 import { FreelancerAuthGuard } from '../Guard/freelancer-auth-guard.guard';
 import { ClientAuthGuard } from '../Guard/client-auth-guard.guard';
 const routes: Routes = [
@@ -94,10 +93,6 @@ const routes: Routes = [
         path: 'client/settings',
         canActivate: [ClientAuthGuard],
         component: ClientSettingsComponent
-    },
-    {
-        path: 'test',
-        component: TestComponent
     }
 
 ];

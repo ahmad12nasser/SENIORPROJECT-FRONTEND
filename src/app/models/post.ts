@@ -9,6 +9,12 @@ export class Post {
   public description: string;
   public image: string;
   public price: number;
+  public imageUrl: string;
+  public status: string;
+  public freelancerProfileImge: string;
+  public freelancerFirstName: string;
+  public freelancerLastName: string;
+  public freelancerImageUrl: string;
 
   constructor() {
     this.id = 0;
@@ -21,5 +27,12 @@ export class Post {
     this.description = '';
     this.image = '';
     this.price = 0;
+    this.imageUrl = '';
+    this.status = '';
+    this.freelancerFirstName = '';
+    this.freelancerLastName = '';
+    this.freelancerImageUrl = '';
+    this.freelancerProfileImge = '';
+
   }
 }

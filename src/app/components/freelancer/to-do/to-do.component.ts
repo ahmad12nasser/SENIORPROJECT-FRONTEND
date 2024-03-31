@@ -9,7 +9,8 @@ import { LoginService } from '../../../services/authentication/login.service';
 })
 export class ToDoComponent implements OnInit {
   toDos: any[] = [];
-
+  imageUrl1: string = '';
+  imageUrl2: string = '';
   constructor(
     private toDoService: ToDoService,
     private loginService: LoginService
@@ -32,8 +33,10 @@ export class ToDoComponent implements OnInit {
       }
     });
   }
-
-  private getFreelancerIdFromLocalStorage(): number {
-    return Number(localStorage.getItem('userId'));
+  prepareImages() {
+    for (const toDo of this.toDos) {
+      this.imageUrl1 = 'data:image/jpeg;base64,' + toDo.post_image;
+      this.imageUrl2 = 'data:image/jpeg;base64,' + toDo.request_image;
+    }
   }
 }

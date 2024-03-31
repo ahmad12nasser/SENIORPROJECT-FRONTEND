@@ -10,11 +10,7 @@ import { Observable, throwError } from "rxjs";
     private apiUrl: string = environment.apiUrl;
 
     constructor(private http: HttpClient){}
-    //get the client id that was logged in into current session
-    getClientIdFromLocalSession(): number{
-        return  Number(localStorage.getItem('userId'));
-    }
-
+    
     //hire a freelancer through a post
     HireInSpecificPost(postId: number, freelancerId: number): Observable<any> {
         //wa2tiyan ra7 a3mel temp id lal client

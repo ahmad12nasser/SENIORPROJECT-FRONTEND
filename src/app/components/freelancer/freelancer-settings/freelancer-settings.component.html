@@ -138,28 +138,10 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">UserName</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingFreelancer.username">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <input type="text" class="form-control" [(ngModel)]="editingFreelancer.email">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Password</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="password" class="form-control" [(ngModel)]="editingFreelancer.password">
                             </div>
                         </div>
                         <hr>
@@ -205,7 +187,17 @@
                                 <h6 class="mb-0">Age</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingFreelancer.age">
+                                <input type="number" class="form-control" [(ngModel)]="editingFreelancer.age">
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Change Profile Image: </h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="file" accept="image/*" (change)="onFileChanged($event)" class="form-control">
                             </div>
                         </div>
                         <hr>

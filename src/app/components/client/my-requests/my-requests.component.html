@@ -1,26 +1,51 @@
 <app-client-nav-bar></app-client-nav-bar>
-<div class="container mt-4">
+<section class="container mt-4">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
                     <h2>My Requests</h2>
-
-                    <div *ngFor="let request of requests" class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ request.title }}</h5>
-                            <p class="card-text"><strong>Date requested: </strong>{{request.datePosted}}</p>
-                            <p class="card-text"><strong>DeadLine: </strong>{{request.deadline}}</p>
-                            <p class="card-text"><strong>Location:</strong> {{ request.location }}</p>
-                            <p class="card-text"><strong>Category:</strong> {{ request.categ_name }}</p>
-                            <p class="card-text">{{ request.description }}</p>
-                            <img [src]="request.imageUrl" class="card-img-top" alt="Request Image">
-                            <p class="card-text"><strong>Price:</strong> {{ request.price }}</p>
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let request of requests">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title">{{ request.title }}</h5>
+                                        <p class="card-text"><strong>Date requested: </strong>{{request.datePosted}}</p>
+                                        <p class="card-text"><strong>DeadLine: </strong>{{request.deadline}}</p>
+                                        <p class="card-text"><strong>Location:</strong> {{ request.location }}</p>
+                                        <p class="card-text"><strong>Category:</strong> {{ request.categ_name }}</p>
+                                        <p class="card-text">{{ request.description }}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <img [src]="request.imageUrl" class="card-img-top" alt="Request Image">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" alert bg-warning col-md-6">
+                                        <p class="card-text"><strong>Price:</strong> {{ request.price }}</p>
+                                    </div>
+                                    <div *ngIf="request.status == 'Applied'" class="alert alert-info  col-md-6">
+                                        <p><Strong>Status: </Strong>This request is Applied from a freelancer, you can
+                                            see who is
+                                            hired
+                                            on
+                                            this request
+                                            in
+                                            <a [routerLink]="['/client/controlRoom']"
+                                                class="btn btn-info card-link">Operation
+                                                Room</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 <router-outlet></router-outlet>

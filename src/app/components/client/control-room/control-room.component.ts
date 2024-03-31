@@ -4,6 +4,8 @@ import { GetPendingHiredPostsService } from '../../../services/client/controlRoo
 import { AcceptApplyRequestService } from '../../../services/client/controlRoom/acceptApplyRequest.service';
 import { RejectApplyRequestService } from '../../../services/client/controlRoom/rejectApplyRequest.service';
 import { LoginService } from '../../../services/authentication/login.service';
+import { Post } from '../../../models/post';
+import { request } from '../../../models/request';
 
 @Component({
   selector: 'app-control-room',
@@ -11,8 +13,12 @@ import { LoginService } from '../../../services/authentication/login.service';
   styleUrl: './control-room.component.css'
 })
 export class ControlRoomComponent {
-  hiredPosts: any[] = [];
-  appliedRequests: any[] = [];
+  hiredPosts: Post[] = [];
+  appliedRequests: request[] = [];
+  hiredPostImageUrl: string = '';
+  appliedRequestImageUrl: string = '';
+  AppliedFreelancerProfileImageUrl: string = '';
+  HiredFreelancerProfileImageUrl: string = '';
   constructor(
     private getPendingHiredPostsService: GetPendingHiredPostsService,
     private getPendingAppliedRequestsService: GetPendingAppliedRequestsService,
@@ -27,6 +33,7 @@ export class ControlRoomComponent {
       this.getPendingHiredPostsService.getPendingHiredPosts(client_id).subscribe({
         next: (data) => {
           this.hiredPosts = data;
+          this.prepareImages1();
           console.log('Successfully fetched hired posts:', true);
         },
         error: (error) => {
@@ -40,6 +47,7 @@ export class ControlRoomComponent {
       this.getPendingAppliedRequestsService.getPendingAppliedRequests(client_id).subscribe({
         next: (data) => {
           this.appliedRequests = data;
+          this.prepareImages2();
           console.log('Successfully fetched applied requests', true);
         },
         error: (error) => {
@@ -68,5 +76,17 @@ export class ControlRoomComponent {
         console.error('Error rejecting applied request', error);
       }
     });
+  }
+  prepareImages1() {
+    for (const post of this.hiredPosts) {
+      post.imageUrl = 'data:image/jpeg;base64,' + post.image;
+      post.freelancerImageUrl = 'data:image/jpeg;base64,' + post.freelancerProfileImge;
+    }
+  }
+  prepareImages2() {
+    for (const request of this.appliedRequests) {
+      request.imageUrl = 'data:image/jpeg;base64,' + request.image;
+      request.freelancerImageUrl = 'data:image/jpeg;base64,' + request.freelancerProfileImage;
+    }
   }
 }

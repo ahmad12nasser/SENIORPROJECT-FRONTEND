@@ -11,9 +11,8 @@
             <div class="card">
               <div class="card-body">
                 <p class="card-text"><strong>Client:</strong> {{todo.client_first_name +' '+todo.client_last_name}}</p>
-                <!-- <p *ngIf="todo.client.profileImage" class="card-text"><img src="{{todo.client_profileImage}}" alt="Client ProfileImage"></p> -->
                 <p class="card-text"><strong>Status:</strong> {{ todo.status }}</p>
-
+                
                 <!-- If it's a post, display post info -->
                 <div *ngIf="todo.post_title" class="alert alert-info">
                   <strong>Task:</strong> {{ todo.post_title }}
@@ -21,8 +20,9 @@
                   <p><strong>Location: </strong> {{ todo.post_location }}</p>
                   <p><strong>Description: </strong> {{ todo.post_description }}</p>
                   <p><strong>Price: </strong>{{todo.post_price}}</p>
+                  <img *ngIf="todo.post_image" src="imageUrl1" alt="TodoPost Image">
                 </div>
-
+                
                 <!-- If it's a request, display request info -->
                 <div *ngIf="todo.request_title" class="alert alert-info">
                   <strong>Task:</strong> {{ todo.request_title }}
@@ -30,6 +30,15 @@
                   <p><strong>Location: </strong> {{ todo.request_location }}</p>
                   <p><strong>Descrition: </strong> {{ todo.request_description }}</p>
                   <p><strong>Price: </strong>{{todo.request_price}}</p>
+                  <img *ngIf="todo.request_image" src="imageUrl2" alt="ToDoRequest Image">
+                </div>
+                <div class="row d-flex justify-content-between">
+                  <div class="col-6">
+                    <button class="btn btn-primary">Done</button>
+                  </div>
+                  <div class="col-6">
+                    <button class="btn btn-danger">Cancel</button>
+                  </div>
                 </div>
               </div>
             </div>

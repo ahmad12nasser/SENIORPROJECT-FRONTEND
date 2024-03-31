@@ -18,9 +18,8 @@ export class MyRequestsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const clientId = this.loginService.getLoggedInUserId();
+    const clientId = this.loginService.getLoggedInUserId() ?? 0;
     // Fetch requests when the component initializes
-    if (clientId != null) {
       this.getMyRequestsService.getMyRequests(clientId).subscribe({
         next: (data) => {
           this.requests = data;
@@ -30,11 +29,8 @@ export class MyRequestsComponent implements OnInit {
         error: (error) => {
           console.error('Error fetching requests:', error);
         }
-
       });
-    }
   }
-
   prepareImages() {
     for (const request of this.requests) {
       request.imageUrl = `data:image/png;base64,`+ request.image;  // Construct data URL with PNG format

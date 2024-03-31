@@ -1,21 +1,52 @@
 <app-nav-bar></app-nav-bar>
 
-<section class="container">
-    <h2>My Posts</h2>
-
-    <div *ngFor="let post of posts" class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text"><strong>Date Posted: </strong>{{post.datePosted}}</p>
-            <p class="card-text"><strong>DeadLine: </strong>{{post.deadline}}</p>
-            <p class="card-text"><strong>Location:</strong> {{ post.location }}</p>
-            <p class="card-text"><strong>Category:</strong> {{ post.categName }}</p>
-            <p class="card-text">{{ post.description }}</p>
-            <img *ngIf="post.image" [src]="post.image" class="card-img-top" alt="Post Image">
-            <p class="card-text"><strong>Price:</strong> {{ post.price }}</p>
+<section class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2>My Posts: </h2>
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let post of posts">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title">{{ post.title }}</h5>
+                                        <p class="card-text"><strong>Date Posted: </strong>{{post.datePosted}}</p>
+                                        <p class="card-text"><strong>DeadLine: </strong>{{post.deadline}}</p>
+                                        <p class="card-text"><strong>Location:</strong> {{ post.location }}</p>
+                                        <p class="card-text"><strong>Category:</strong> {{ post.categName }}</p>
+                                        <p class="card-text">{{ post.description }}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <img [src]="post.imageUrl" class="" alt="Post Image">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" alert bg-warning col-md-6">
+                                        <p><strong>Price:</strong> {{ post.price }}</p>
+                                    </div>
+                                    <div *ngIf="post.status == 'Hired'" class="alert alert-info  col-md-6">
+                                        <p><Strong>Status: </Strong>This post is hired from a client, you can see who is
+                                            hiring
+                                            on
+                                            this post
+                                            in
+                                            <a [routerLink]="['/freelancer/operationRoom']"
+                                                class="btn btn-info card-link">Operation
+                                                Room</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </section>
 
 <router-outlet></router-outlet>

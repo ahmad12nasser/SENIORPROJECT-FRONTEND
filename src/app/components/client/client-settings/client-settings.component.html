@@ -6,7 +6,7 @@
                 <div class="card">
                     <div *ngFor="let clientDetail of client" class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                            <img [src]="clientDetail.imageUrl" alt="Admin"
                                 class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4>{{clientDetail.firstName + ' ' + clientDetail.lastName}}</h4>
@@ -110,28 +110,10 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">UserName</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingClient.username">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <input type="text" class="form-control" [(ngModel)]="editingClient.email">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Password</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="password" class="form-control" [(ngModel)]="editingClient.password">
                             </div>
                         </div>
                         <hr>
@@ -168,6 +150,15 @@
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <input type="text" class="form-control" [(ngModel)]="editingClient.location">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Change Profile Image:</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="file" accept="Image/*" (change)="onFileSelected($event)" class="form-control">
                             </div>
                         </div>
                         <hr>

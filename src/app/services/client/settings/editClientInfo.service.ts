@@ -10,7 +10,7 @@ export class EditClientInfoService {
 
     constructor(private http: HttpClient) { }
 
-    updateClientInfo(client: any) {
-        return this.http.post<any>(`${this.apiUrl}/client/settings/editClientInfo`, client);
+    updateClientInfo(formData: FormData) {
+        return this.http.post<any>(`${this.apiUrl}/client/settings/editClientInfo`, formData);
     }
 }

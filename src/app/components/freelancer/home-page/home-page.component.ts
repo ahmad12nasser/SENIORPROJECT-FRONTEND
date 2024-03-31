@@ -1,6 +1,6 @@
+import { request } from './../../../models/request';
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../../services/requests/requests.service';
-import { request } from '../../../models/request';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -11,8 +11,10 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
 
-  requests: any[] = [];
-
+  requests: request[] = [];
+  imageUrl: string = '';
+  clientImageUrl: string = '';
+  
   constructor(
     private requestsService: RequestsService,
     private router: Router
@@ -23,6 +25,7 @@ export class HomePageComponent implements OnInit {
     this.requestsService.getRequests().subscribe({
       next: (data) => {
         this.requests = data;
+        this.preparImages();
         console.log('Successfully fetched requests:', true);
       },
       error: (error) => {
@@ -36,26 +39,17 @@ export class HomePageComponent implements OnInit {
     this.requestsService.applyForRequest(requestId, clientId).subscribe({
       next: (response) => {
         console.log('Successfully applied for the request:', response);
-        // Optionally, you can refresh the requests list after applying
-        this.refreshRequests();
-        window.location.reload();
-        // Navigate to the operation room page
-        this.router.navigate(['freelancer/operationRoom']);
+        this.router.navigate(['http://localhost:4200/freelancer/operationRoom']);
       },
       error: (error) => {
         console.error('Error applying for the request:', error);
       }
     });
   }
-  private refreshRequests() {
-    this.requestsService.getRequests().subscribe({
-      next: (data) => {
-        this.requests = data;
-      },
-      error: (error) => {
-        console.error('Error refreshing requests:', error);
-        return throwError('No request selected.'); // Use throwError here
-      }
-    });
+  preparImages(){
+    for (const request of this.requests) {
+      request.imageUrl =`data:image/png;base64,`+ request.image;  // Construct data URL with PNG format
+      request.clientImageUrl = `data:image/png;base64,`+ request.clientProfileImage;  // Construct data URL with PNG format
+    }
   }
 }

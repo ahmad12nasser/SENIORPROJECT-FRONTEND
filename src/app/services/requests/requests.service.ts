@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { LoginService } from '../authentication/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,10 @@ export class RequestsService {
 
   private apiUrl: string = environment.apiUrl;
   request: request[] = [];
-  constructor(private http: HttpClient) { }
-  //lama btezbat login berja3 bsha8ela
-  /* getFreelancerIdFromLocalStorage(): number {
-     return Number(localStorage.getItem('userId'));
-   }*/
+  constructor(
+    private http: HttpClient,
+    private loginService: LoginService
+    ) { }
 
   // Create a new request
   createRequest(formData: FormData): Observable<any> {
@@ -28,7 +28,7 @@ export class RequestsService {
   // Apply for a request
   applyForRequest(requestId: number, clientId: number): Observable<any> {
     //wa2tiyan ra7 a3mel temp id lal freelancer
-    const freelancerId = 1;
+    const freelancerId = this.loginService.getLoggedInUserId() ?? 0;
     // Check if the clientId is available
     if (clientId) {
       const appliedRequests = { requestId: requestId, clientId: clientId, freelancerId: freelancerId };

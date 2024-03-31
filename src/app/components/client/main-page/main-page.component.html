@@ -1,21 +1,47 @@
 <app-client-nav-bar></app-client-nav-bar>
-<section class="container">
-    <h2>Freelancer Posts</h2>
-    <div *ngFor="let post of posts" class="card mt-3">
-      <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <p class="card-text"><strong>Date Posted: </strong>{{post.datePosted}}</p>
-        <p class="card-text"><strong>DeadLine: </strong>{{post.deadline}}</p>
-        <p class="card-text"><strong>Location:</strong> {{ post.location }}</p>
-        <p class="card-text"><strong>Category:</strong> {{ post.categ_name }}</p>
-        <p class="card-text">{{ post.description }}</p>
-        <img *ngIf="post.image" [src]="post.image" class="card-img-top" alt="Request Image">
-        <p class="card-text"><strong>Price:</strong> {{ post.price }}</p>
-        <p><strong>Client:</strong> {{ post.freelancerFirstName + ' ' + post.freelancerLastName }}</p>
-        <img *ngIf="post.clientImage" [src]="post.freelancerProfileImage" class="card-img-top" alt="Client Image">
-        <button *ngIf = " post.status == 'Pending' " class="btn btn-primary" (click)="HireInThisPost(post.id, post.freelancerId)">Hire</button>
-        <p *ngIf = " post.status == 'Hired' " class="text-success">This post is reserved until the freelancer finishes his task.</p>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h2>Freelancer Posts</h2>
+          <div *ngFor="let post of posts" class="card mt-3">
+            <div class="card-body">
+              <h5 class="card-title d-flex justify-content-center ">{{ post.title }}</h5>
+              <div class="d-flex justify-content-between mb-2">
+                <p class="card-text"><strong>Date Posted:</strong> {{post.datePosted}}</p>
+                <p class="card-text text-muted"><strong>Deadline:</strong> {{post.deadline}}</p>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <p class="card-text mt-2"><strong>Location:</strong> {{ post.location }}</p>
+                  <p class="card-text mt-2"><strong>Category:</strong> {{ post.categName }}</p>
+                  <p class="card-text mt-2">{{ post.description }}</p>
+                </div>
+                <div class="col-6">
+                  <img [src]="post.imageUrl" class="postImage" alt="Post Image">
+                </div>
+              </div>
+              <div class="d-flex justify-content-center align-items-center mt-2 alert bg-light">
+                <p class="card-text p-2"><strong>Price:</strong> {{ post.price }}</p>
+              </div>
+              <div class="d-flex flex-row justify-content-end align-items-center mt-2">
+                <p class="card-text text-muted p-2"><strong>Freelancer:</strong> {{ post.freelancerFirstName + ' ' +
+                  post.freelancerLastName }}</p>
+                <img [src]="post.freelancerImageUrl" class=" card-text freelancerProfileImage p-2 " alt="Client Image">
+              </div>
+              <div class="d-flex justify-content-center">
+                <button *ngIf=" post.status == 'Pending' " class="btn btn-primary"
+                  (click)="HireInThisPost(post.id, post.freelancer_id)">Hire</button>
+                <p *ngIf=" post.status == 'Hired' " class="text-success">This post is reserved until the freelancer
+                  finishes his
+                  task.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>  
-</section>
+    </div>
+  </div>
+</div>
 <router-outlet></router-outlet>

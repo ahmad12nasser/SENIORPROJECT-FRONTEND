@@ -22,7 +22,6 @@ import { OperationRoomComponent } from '../components/freelancer/operation-room/
 import { ControlRoomComponent } from '../components/client/control-room/control-room.component';
 import { FreelancerSettingsComponent } from '../components/freelancer/freelancer-settings/freelancer-settings.component';
 import { ClientSettingsComponent } from '../components/client/client-settings/client-settings.component';
-import { TestComponent } from '../components/test/test.component';
 import { InterceptorModule } from './interceptor-module.module';
 @NgModule({
     declarations: [
@@ -42,8 +41,7 @@ import { InterceptorModule } from './interceptor-module.module';
         OperationRoomComponent,
         ControlRoomComponent,
         FreelancerSettingsComponent,
-        ClientSettingsComponent,
-        TestComponent
+        ClientSettingsComponent
     ],
     imports: [
         BrowserModule,

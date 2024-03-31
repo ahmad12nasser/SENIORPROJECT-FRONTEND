@@ -11,10 +11,11 @@ import { LoginService } from '../../../services/authentication/login.service';
 })
 export class FreelancerSettingsComponent {
   freelancer: any[] = [];
-  editingFreelancer: any = {}; 
+  editingFreelancer: any = {};
   editMode: boolean = false;
   isAuthenticated: boolean | null = null;
-
+  imageUrl: string = '';
+  selectedFile: File | null = null;
   constructor(
     private freelancerInfoService: FreelancerInfoService,
     private editFreelancerInfoService: EditFreelancerInfoService,
@@ -24,7 +25,7 @@ export class FreelancerSettingsComponent {
     this.authService.isAuthenticated$.subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
     });
-   }
+  }
 
   ngOnInit() {
     const freelancer_id = this.loginService.getLoggedInUserId() ?? 0;
@@ -49,12 +50,27 @@ export class FreelancerSettingsComponent {
   }
 
   saveFreelancer() {
-    this.editFreelancerInfoService.updateFreelancerInfo(this.editingFreelancer).subscribe({
+    const formData = new FormData();
+
+    formData.append('freelancer_id', this.editingFreelancer.id);
+    formData.append('firstName', this.editingFreelancer.firstName);
+    formData.append('lastName', this.editingFreelancer.lastName);
+    formData.append('email', this.editingFreelancer.email);
+    formData.append('mobile', this.editingFreelancer.mobile);
+    formData.append('location', this.editingFreelancer.location);
+    formData.append('professionCateg', this.editingFreelancer.professionCategName);
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+    formData.append('age', this.editingFreelancer.age);
+    formData.append('description', this.editingFreelancer.description);
+
+    this.editFreelancerInfoService.updateFreelancerInfo(formData).subscribe({
       next: (response) => {
         console.log('Freelancer info updated successfully:', response);
+        this.prepareProfilePicture();
         this.editingFreelancer = {};
         this.editMode = false;
-        this.refreshFreelancerInfo();
         window.location.reload();
       },
       error: (error) => {
@@ -63,17 +79,23 @@ export class FreelancerSettingsComponent {
     });
   }
 
+  prepareProfilePicture() {
+    for (const freelancer of this.freelancer) {
+      this.imageUrl = `data:image/png;base64,` + freelancer.profile_image;
+    }
+  }
+
+  onFileChanged(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
   cancelEdit() {
     this.editingFreelancer = {};
     this.editMode = false;
   }
-
-  refreshFreelancerInfo() {
-    const freelancer_id = this.loginService.getLoggedInUserId() ?? 0;
-    this.getFreelancerInfo(freelancer_id);
-  }
-
-  logout(){
+  logout() {
     this.authService.logout();
     this.loginService.logout();
   }

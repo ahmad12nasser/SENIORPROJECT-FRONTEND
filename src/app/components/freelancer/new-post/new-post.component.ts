@@ -13,14 +13,12 @@ export class NewPostComponent {
 
   newPost: any = {};
   selectedImage: File | null = null;
-  imageBase64: string | null = null; // Variable to store base64 string
 
 
 
   constructor(
     private postsService: PostsService,
-    private loginService: LoginService,
-    private sanitizer: DomSanitizer
+    private loginService: LoginService
   ) { }
 
   submitPost() {

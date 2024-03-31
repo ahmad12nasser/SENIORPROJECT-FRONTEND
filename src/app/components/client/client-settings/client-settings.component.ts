@@ -19,26 +19,24 @@ export class ClientSettingsComponent {
     private loginService: LoginService
   ) { }
 
-  client: any[] = [];
+  client: client[] = [];
   editingClient: any = {}; // New property to store editing client data
   editMode: boolean = false; // Flag to toggle edit mode
-
+  selectedFile: File | null = null;
   ngOnInit() {
     const client_id = this.loginService.getLoggedInUserId();
     if (client_id !== null) {
-      this.getClientInfo(client_id);
+      this.clientInfoService.getClientInfo(client_id).subscribe({
+        next: (data) => {
+          this.client = data;
+          this.prepareImages();
+          console.log('Successfully fetched client info:', data);
+        },
+        error: (error) => {
+          console.error('Error fetching client info:', error);
+        }
+      });
     }
-  }
-  getClientInfo(client_id: number) {
-    this.clientInfoService.getClientInfo(client_id).subscribe({
-      next: (data) => {
-        this.client = data;
-        console.log('Successfully fetched client info:', data);
-      },
-      error: (error) => {
-        console.error('Error fetching client info:', error);
-      }
-    });
   }
   // Function to enable edit mode for a specific client
   editClient(client: any) {
@@ -46,14 +44,27 @@ export class ClientSettingsComponent {
     this.editMode = true; // Set edit mode to true
   }
 
-  // Function to save edited client data
   saveClient() {
-    this.editClientInfoService.updateClientInfo(this.editingClient).subscribe({
+    const formData = new FormData();
+   
+    formData.append('id', this.editingClient.id);
+    formData.append('firstName', this.editingClient.firstName);
+    formData.append('lastName', this.editingClient.lastName);
+    formData.append('email', this.editingClient.email);
+    formData.append('mobile', this.editingClient.mobile);
+    formData.append('location', this.editingClient.location);
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+    formData.append('age', this.editingClient.age);
+    formData.append('description', this.editingClient.description);
+
+    this.editClientInfoService.updateClientInfo(formData).subscribe({
       next: (response) => {
         console.log('Client info updated successfully:', response);
+        this.prepareImages();
         this.editingClient = {};
         this.editMode = false;
-        this.refreshClientInfo();
         window.location.reload();
       },
       error: (error) => {
@@ -62,20 +73,25 @@ export class ClientSettingsComponent {
     });
   }
 
-  // hay el function ta 7atta tae3mol cancel lel edit
-  cancelEdit() {
-    this.editMode = false; 
-    this.editingClient = {}; // Clear lal data
+  prepareImages() {
+    for (const client of this.client) {
+      client.imageUrl = `data:image/png;base64,`+ client.profileImg;  // Construct data URL with PNG format
+    }
   }
 
-  // Function ta na3mel refresh lel client info
-  refreshClientInfo() {
-    const client_id =this.loginService.getLoggedInUserId();
-    if(client_id !== null){
-    this.getClientInfo(client_id);
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
   }
-}
-  logout(){
+
+  // hay el function ta 7atta tae3mol cancel lel edit
+  cancelEdit() {
+    this.editMode = false;
+    this.editingClient = {}; // Clear lal data
+  }
+  logout() {
     this.authService.logout();
     this.loginService.logout();
   }

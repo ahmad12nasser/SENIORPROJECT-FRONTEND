@@ -9,8 +9,10 @@ export class client {
     public confirmPassword: string;
     public mobile: String;
     public  location: String;
-    public  profileImage: String;
     public  description: String;
+    public age: number;
+    public imageUrl: string ;
+    public profileImg: String;
 
     constructor(){
         this.id = 0;
@@ -22,7 +24,9 @@ export class client {
         this.confirmPassword = "";
         this.mobile = "";
         this.location = "";
-        this.profileImage = "";
         this.description = "";
+        this.age = 0;
+        this.imageUrl = "";
+        this.profileImg="";
     }
 }   

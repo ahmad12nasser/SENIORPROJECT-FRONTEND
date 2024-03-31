@@ -3,6 +3,7 @@ import { PostsService } from './../../../services/posts/posts.service';
 import { Component } from '@angular/core';
 import { HiringService } from '../../../services/posts/hiringThroughPost.service';
 import { Router } from '@angular/router';
+import { Post } from '../../../models/post';
 
 @Component({
   selector: 'app-main-page',
@@ -11,7 +12,9 @@ import { Router } from '@angular/router';
 })
 export class MainPageComponent {
 
-  posts: any[] = [];
+  posts: Post[] = [];
+  imageUrl: String = '';
+  freelancerImageUrl: String = '';
   constructor(
     private postsService: PostsService,
     private hiringService: HiringService,
@@ -22,6 +25,7 @@ export class MainPageComponent {
     this.postsService.getAllPosts().subscribe({
       next: (data) => {
         this.posts = data;
+        this.prepareImages();
         console.log('Successfully fetched posts:', true);
       },
       error: (error) => {
@@ -34,8 +38,6 @@ export class MainPageComponent {
     this.hiringService.HireInSpecificPost(postId, freelancerId).subscribe({
       next: (response) => {
         console.log('Successfully hired in the post:', response);
-        this.refreshPosts();
-        //navigate to controlRoom page 
         this.router.navigate(['client/controlRoom']);
       },
       error: (error) => {
@@ -43,15 +45,11 @@ export class MainPageComponent {
       }
     });
   }
-  private refreshPosts() {
-    this.postsService.getAllPosts().subscribe({
-      next: (data) => {
-        this.posts = data;
-      },
-      error: (error) => {
-        console.error('Error refreshing requests:', error);
-        return throwError('No request selected.'); // Use throwError here
-      }
-    });
+
+  prepareImages(){
+    for (const post of this.posts) {
+      post.imageUrl = `data:image/png;base64,`+ post.image;  // Construct data URL with PNG format
+      post.freelancerImageUrl = `data:image/png;base64,`+ post.freelancerProfileImge;  // Construct data URL with PNG format
+    }
   }
 }

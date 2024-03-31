@@ -18,18 +18,22 @@ export class MyPostsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //const freelancerId = this.getFreelancerIdFromLocalStorage();
     const freelancerId = this.loginService.getLoggedInUserId() ?? 0;
     // Fetch posts when the component initializes
     this.postsService.getMyPosts(freelancerId).subscribe({
       next: (data) => {
         this.posts = data;
+        this.prepareImages();
         console.log('Successfully fetched posts:', true);
       },
       error: (error) => {
         console.error('Error fetching posts:', error);
       }
-
     });
+  }
+  prepareImages(){
+    for (const post of this.posts) {
+      post.imageUrl = `data:image/png;base64,`+ post.image;  // Construct data URL with PNG format
+    }
   }
 }
