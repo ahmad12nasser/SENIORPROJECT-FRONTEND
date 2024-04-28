@@ -1,60 +1,207 @@
 <app-nav-bar></app-nav-bar>
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Waiting Acceptance From Client: </h2>
-                    <div *ngFor="let appliedRequest of appliedRequests" class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{appliedRequest.title}}</h5>
-                            <p class="card-text"><strong>Date posted: </strong>{{appliedRequest.dateposted}}</p>
-                            <p class="card-text"><strong>DeadLine: </strong>{{appliedRequest.deadline}}</p>
-                            <p class="card-text"><strong>Location:</strong> {{ appliedRequest.location }}</p>
-                            <p class="card-text"><strong>Category:</strong> {{ appliedRequest.categ_name }}</p>
-                            <p class="card-text">{{ appliedRequest.description }}</p>
-                            <img *ngIf="appliedRequest.image" [src]="appliedRequestImageUrl" class="card-img-top"
-                                alt="Request Image">
-                            <p class="card-text"><strong>Price:</strong> {{ appliedRequest.price }}</p>
-                            <p><strong>Client:</strong> {{ appliedRequest.clientFirstName + ' ' +
-                                appliedRequest.clientLastName }}
-                            </p>
-                            <img *ngIf="appliedRequest.clientProfileImage" [src]="appliedClientPorfileImageUrl"
-                                class="card-img-top" alt="Client Image">
+<div class="container-fluid d-flex  ">
+    <div class="container-fluid  my-2">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card-header mb-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-between align-items-center"
+                data-bs-toggle="collapse" data-bs-target="#clientAcceptance">
+                <h2>Waiting Acceptance From Client: </h2>
+                <span class="material-symbols-outlined large opacity-50">
+                    expand_more
+                </span>
+            </div>
+        </div>
+        <div id="clientAcceptance" class="collapse show">
+            <div class="d-flex justify-content-center flex-wrap gap-4">
+                <div *ngFor="let appliedRequest of appliedRequests" class="col-lg-6 col-md-6 col-sm-12">
+                    <div *ngIf="appliedRequest.status == 'Waiting for Acceptance from Client'" class="card-body rounded-5 p-4">
+                        <div>
+                            <h5 class="card-title d-flex justify-content-center mb-4">
+                                <strong>{{appliedRequest.title}}</strong>
+                            </h5>
+                            <div class="card-desc d-flex justify-content-between align-items-center mb-2">
+                                <div class="property d-flex gap-1">
+                                    <span class="material-symbols-outlined">
+                                        schedule
+                                    </span>
+                                    <p class="m-0">
+                                        <strong>{{
+                                            appliedRequest.datePosted
+                                            }}</strong>
+                                    </p>
+                                </div>
+                                <div class="property d-flex gap-1">
+                                    <p class="m-0">
+                                        <strong>{{
+                                            appliedRequest.location
+                                            }}</strong>
+                                    </p>
+                                    <span class="material-symbols-outlined">
+                                        location_on
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="card-desc d-flex justify-content-between align-items-center mb-3">
+                                <div class="property d-flex gap-1">
+                                    <span class="material-symbols-outlined">
+                                        event_busy
+                                    </span>
+                                    <p class="m-0">
+                                        <strong>{{
+                                            appliedRequest.deadline
+                                            }}</strong>
+                                    </p>
+                                </div>
+                                <div class="property d-flex gap-1">
+                                    <p class="m-0">
+                                        <strong>{{
+                                            appliedRequest.categ_name
+                                            }}</strong>
+                                    </p>
+                                    <span class="material-symbols-outlined">
+                                        category
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <p class="card-text">
+                                    {{ appliedRequest.description }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center my-3 img-fluid">
+                            <img [src]="appliedRequest.imageUrl" class="requestImage object-fit-contain"
+                                alt="Request Image" />
+                        </div>
+                        <div class="info d-flex mb-4 justify-content-between">
+                            <div class="d-flex align-items-center gap-2">
+                                <img [src]="appliedRequest.clientImageUrl"
+                                    class="clientProfileImage h-100 rounded-circle object-fit-cover"
+                                    alt="Client Image" />
+                                <p class="card-text">
+                                    <strong>{{
+                                        appliedRequest.clientFirstName +
+                                        " " +
+                                        appliedRequest.clientLastName
+                                        }}</strong>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center h-100">
+                                <div class="price d-flex align-items-center h-100 px-3 rounded-5">
+                                    <p class="card-text">
+                                        <strong>{{ appliedRequest.price }}$</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center my-2">
+                            <button class="btn btn-danger" (click)="cancelRequest(appliedRequest.id,appliedRequest.request_id)">Cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <h2>Waiting My Acceptance: </h2>
-                    <div *ngFor="let hiredPost of hiredPosts" class="card mt-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ hiredPost.title }}</h5>
-                            <p class="card-text"><strong>Date posted: </strong>{{hiredPost.dateposted}}</p>
-                            <p class="card-text"><strong>DeadLine: </strong>{{hiredPost.deadline}}</p>
-                            <p class="card-text"><strong>Location:</strong> {{ hiredPost.location }}</p>
-                            <p class="card-text"><strong>Category:</strong> {{ hiredPost.categ_name }}</p>
-                            <p class="card-text">{{ hiredPost.description }}</p>
-                            <img *ngIf="hiredPost.image" [src]="hiredPostImageUrl" class="card-img-top"
-                                alt="Request Image">
-                            <p class="card-text"><strong>Price:</strong> {{ hiredPost.price }}</p>
-                            <p><strong>Client:</strong> {{ hiredPost.clientFirstName + ' ' +
-                                hiredPost.clientLastName }}
-                            </p>
-                            <img *ngIf="hiredPost.clientProfileImage" [src]="hiredClientProfileImageUrl"
-                                class="card-img-top" alt="Client Image">
-                            <div *ngIf="hiredPost.status === 'Waiting for Acceptance from FreeLancer'">
-                                <button class="btn btn-primary" style="margin-right: 10px;"
-                                    (click)="acceptRequest(hiredPost.id)">Accept</button>
-                                <button class="btn btn-danger" (click)="rejectRequest(hiredPost.id)">Reject</button>
+        </div>
+    </div>
+    <div class="container-fluid my-2">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card-header mb-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-between align-items-center"
+                data-bs-toggle="collapse" data-bs-target="#myAcceptance">
+                <h2>Waiting My Acceptance: </h2>
+                <span class="material-symbols-outlined large opacity-50">
+                    expand_more
+                </span>
+            </div>
+        </div>
+        <div id="myAcceptance" class="collapse show">
+            <div class="d-flex justify-content-center flex-wrap gap-4">
+                <div *ngFor="let hiredPost of hiredPosts" class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="card-body rounded-5 p-4">
+                        <div>
+                            <h5 class="card-title d-flex justify-content-center mb-4">
+                                <strong>{{ hiredPost.title }}</strong>
+                            </h5>
+                            <div class="card-desc d-flex justify-content-between align-items-center mb-2">
+                                <div class="property d-flex gap-1">
+                                    <span class="material-symbols-outlined">
+                                        schedule
+                                    </span>
+                                    <p class="m-0">
+                                        <strong>{{
+                                            hiredPost.datePosted
+                                            }}</strong>
+                                    </p>
+                                </div>
+                                <div class="property d-flex gap-1">
+                                    <p class="m-0">
+                                        <strong>{{
+                                            hiredPost.location
+                                            }}</strong>
+                                    </p>
+                                    <span class="material-symbols-outlined">
+                                        location_on
+                                    </span>
+                                </div>
                             </div>
-                            <div *ngIf="hiredPost.status ==='Accepted'">
-                                <p class="text-success">Accepted</p>
+                            <div class="card-desc d-flex justify-content-between align-items-center mb-3">
+                                <div class="property d-flex gap-1">
+                                    <span class="material-symbols-outlined">
+                                        event_busy
+                                    </span>
+                                    <p class="m-0">
+                                        <strong>{{
+                                            hiredPost.deadline
+                                            }}</strong>
+                                    </p>
+                                </div>
+                                <div class="property d-flex gap-1">
+                                    <p class="m-0">
+                                        <strong>{{
+                                            hiredPost.categName
+                                            }}</strong>
+                                    </p>
+                                    <span class="material-symbols-outlined">
+                                        category
+                                    </span>
+                                </div>
                             </div>
-                            <div *ngIf="hiredPost.status === 'Rejected'">
-                                <p class="text-danger">Rejected</p>
+                            <div class="d-flex justify-content-start">
+                                <p class="card-text">
+                                    {{ hiredPost.description }}
+                                </p>
                             </div>
+                        </div>
+                        <div class="d-flex justify-content-center my-3 img-fluid">
+                            <img [src]="hiredPost.imageUrl" class="requestImage object-fit-contain"
+                                alt="Request Image" />
+                        </div>
+                        <div class="info d-flex mb-4 justify-content-between">
+                            <div class="d-flex align-items-center gap-2">
+                                <img [src]="hiredPost.clientImageUrl"
+                                    class="clientProfileImage h-100 rounded-circle object-fit-cover"
+                                    alt="Client Image" />
+                                <p class="card-text">
+                                    <strong>{{ hiredPost.clientFirstName + ' ' +
+                                        hiredPost.clientLastName }}</strong>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center h-100">
+                                <div class="price d-flex align-items-center h-100 px-3 rounded-5">
+                                    <p class="card-text">
+                                        <strong>{{hiredPost.price}}$</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="hiredPost.status === 'Waiting for Acceptance from FreeLancer'"
+                            class="d-flex justify-content-between align-items-center">
+                            <button class="btn btn-primary" style="margin-right: 10px;"
+                                (click)="acceptRequest(hiredPost.id)">Accept</button>
+                            <button class="btn btn-danger" (click)="rejectRequest(hiredPost.id)">Reject</button>
+                        </div>
+                        <div *ngIf="hiredPost.status ==='Accepted'">
+                            <p class="text-success">Accepted</p>
+                        </div>
+                        <div *ngIf="hiredPost.status === 'Rejected'">
+                            <p class="text-danger">Rejected</p>
                         </div>
                     </div>
                 </div>

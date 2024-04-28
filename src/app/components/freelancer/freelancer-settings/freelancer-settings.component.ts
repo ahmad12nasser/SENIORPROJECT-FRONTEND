@@ -3,6 +3,7 @@ import { FreelancerInfoService } from '../../../services/freelancer/settings/fre
 import { EditFreelancerInfoService } from '../../../services/freelancer/settings/editFreelancerInfo.service';
 import { AuthService } from '../../../services/authentication/auth.service';
 import { LoginService } from '../../../services/authentication/login.service';
+import { freelancer } from '../../../models/freelancer';
 
 @Component({
   selector: 'app-freelancer-settings',
@@ -10,9 +11,10 @@ import { LoginService } from '../../../services/authentication/login.service';
   styleUrl: './freelancer-settings.component.css'
 })
 export class FreelancerSettingsComponent {
-  freelancer: any[] = [];
+  freelancer: freelancer[] = [];
   editingFreelancer: any = {};
   editMode: boolean = false;
+  changeImageMode: boolean = false;
   isAuthenticated: boolean | null = null;
   imageUrl: string = '';
   selectedFile: File | null = null;
@@ -49,6 +51,11 @@ export class FreelancerSettingsComponent {
     this.editMode = true;
   }
 
+  changeImageModeOn(freelancer: any) {
+    this.editingFreelancer = { ...freelancer};
+    this.changeImageMode = true;
+  }
+
   saveFreelancer() {
     const formData = new FormData();
 
@@ -59,9 +66,6 @@ export class FreelancerSettingsComponent {
     formData.append('mobile', this.editingFreelancer.mobile);
     formData.append('location', this.editingFreelancer.location);
     formData.append('professionCateg', this.editingFreelancer.professionCategName);
-    if (this.selectedFile) {
-      formData.append('image', this.selectedFile);
-    }
     formData.append('age', this.editingFreelancer.age);
     formData.append('description', this.editingFreelancer.description);
 
@@ -79,9 +83,28 @@ export class FreelancerSettingsComponent {
     });
   }
 
+  changeImage(){
+    const formData = new FormData();
+    formData.append('freelancer_id', this.editingFreelancer.id);
+    if (this.selectedFile) {
+      formData.append('changedImage', this.selectedFile);
+    }
+    this.editFreelancerInfoService.updateFreelancerImage(formData).subscribe({
+      next: (response) => {
+        console.log('Freelancer image updated successfully:', response);
+        this.prepareProfilePicture();
+        this.editingFreelancer = {};
+        this.changeImageMode = false;
+        window.location.reload();
+      },
+      error: (error) => {
+        console.error('Error updating freelancer image:', error);
+      }
+    });
+  }
   prepareProfilePicture() {
     for (const freelancer of this.freelancer) {
-      this.imageUrl = `data:image/png;base64,` + freelancer.profile_image;
+      freelancer.imageUrl =`data:image/png;base64,`+freelancer.profileImg;
     }
   }
 
@@ -94,6 +117,10 @@ export class FreelancerSettingsComponent {
   cancelEdit() {
     this.editingFreelancer = {};
     this.editMode = false;
+  }
+  cancelChangeImage() {
+    this.editingFreelancer = {};
+    this.changeImageMode = false;
   }
   logout() {
     this.authService.logout();

@@ -40,7 +40,6 @@ export class LoginPageComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
-
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
@@ -60,12 +59,19 @@ export class LoginPageComponent implements OnInit {
             this.router.navigate(['freelancer/homePage']);
           } else if (data.userRole == "client") {
             this.router.navigate(['client/homePage']);
+          }else if (data.userRole == "error") {
+            this.loginForm.controls['email'].reset();
+            this.loginForm.controls['password'].reset();
           }
         },
         error: (error) => {
           this.error = error;
           this.loading = false;
-        }
-      });
+          this.loginForm.setErrors({incorrect: true}); // This line sets the form as invalid
+  
+          // Clear the form fields
+        
+        }
+      });
   }
 }

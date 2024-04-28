@@ -1,0 +1,108 @@
+.material-symbols-outlined {
+	user-select: none;
+	font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+.material-symbols-outlined {
+	font-size: 3rem;
+	color: var(--color);
+	pointer-events: none;
+	background-color: var(--bg-color);
+}
+.container-fluid {
+	height: 100svh;
+}
+.card-body {
+	width: 50rem;
+	flex: 0 1 auto;
+	background-color: var(--bg-color);
+}
+.pp {
+	height: 6.5rem;
+	aspect-ratio: 1;
+	cursor: pointer;
+	outline: 3.5px solid var(--color);
+}
+.ppicon {
+	padding: 1.7rem;
+}
+.plabel {
+	color: var(--color);
+	font-weight: 400;
+	font-size: 1rem;
+	font-weight: bold;
+}
+.form_group {
+	position: relative;
+	padding: 1rem 0 0;
+}
+.form_label {
+	background-color: var(--bg-color);
+	padding: 0 0.5rem;
+	margin-left: 0.5rem;
+	border-radius: 50px;
+	color: var(--color);
+	font-weight: 400;
+	pointer-events: none;
+}
+.form_field {
+	border: 3px solid var(--color);
+	background-color: var(--bg-color);
+	padding: 0.5rem 1rem;
+	transition: all 0.2s ease-out;
+	outline: none;
+	z-index: 99;
+}
+
+.form_field::placeholder {
+	color: transparent;
+	pointer-events: none;
+}
+
+.form_field:placeholder-shown ~ .form_label {
+	font-size: 16px;
+	cursor: text;
+	top: 1.5rem;
+	pointer-events: none;
+}
+
+label,
+.form_field:focus ~ .form_label {
+	position: absolute;
+	top: 0.5rem;
+	display: block;
+	transition: 0.15s;
+	font-size: 12px;
+	color: var(--success);
+	font-weight: bold;
+}
+
+.form_field:focus {
+	border: 3px solid var(--success);
+}
+.form_age {
+	width: 6rem;
+}
+.form_bio {
+	padding-bottom: 8rem;
+	border-radius: 1.5rem;
+	overflow-y: hidden;
+	resize: none;
+}
+a {
+	color: var(--success);
+}
+.form_field.error {
+	border: 3px solid var(--error) !important;
+	opacity: 0.5;
+}
+.form_field.error:focus {
+	opacity: 1;
+}
+.form_field.error:focus ~ .form_label {
+	color: var(--error) !important;
+}
+.form-select {
+	background-color: var(--bg-color);
+	border-radius: 1.5rem;
+	border: 3px solid var(--color);	
+}

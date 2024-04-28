@@ -13,4 +13,9 @@ export class EditFreelancerInfoService {
     updateFreelancerInfo(freelancer: any) {
         return this.http.post(`${this.apiUrl}/freelancer/settings/editFreelancerInfo`, freelancer);
     }
+
+    updateFreelancerImage(freelancer: any) {
+        return this.http.post(`${this.apiUrl}/freelancer/settings/changeProfileImage`, freelancer);
+    }
+
 }

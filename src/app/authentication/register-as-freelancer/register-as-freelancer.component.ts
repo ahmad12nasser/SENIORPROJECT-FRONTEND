@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { registerService } from '../../services/authentication/register.service';
 import { AlertService } from '../../services/authentication/alert.service';
 import { HttpParams } from '@angular/common/http';
+import { ProfessionCategories } from '../../models/profession_categ';
+import { Locations } from '../../models/locations';
 
 @Component({
   selector: 'app-register-as-freelancer',
@@ -13,9 +15,13 @@ import { HttpParams } from '@angular/common/http';
 export class RegisterAsFreelancerComponent {
 
   registerForm: FormGroup = new FormGroup({});
+  categoryList = new ProfessionCategories();
+  locationList = new Locations();
   loading = false;
   submitted = false;
   selectedFile: File | null = null;
+  selectedCategory: string = '';
+  selectedLocation: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,7 +47,7 @@ export class RegisterAsFreelancerComponent {
       description: [''],
       location: ['', Validators.required],
       professionName: ['', Validators.required],
-      age: [''],
+      age: ['',Validators.required],
     });
   }
 
@@ -51,7 +57,6 @@ export class RegisterAsFreelancerComponent {
 
   onSubmit() {
     this.submitted = true;
-
     if (this.registerForm.invalid) {
       return;
     }
@@ -67,12 +72,13 @@ export class RegisterAsFreelancerComponent {
       if (this.selectedFile) {
         formData.append('portfolio', this.selectedFile);
       }
-      formData.append('location', this.registerForm.value.location);
+      formData.append('location', this.selectedLocation);
       formData.append('description', this.registerForm.value.description);
-      formData.append('professionName', this.registerForm.value.professionName);
+      formData.append('professionName', this.selectedCategory);
       formData.append('age', this.registerForm.value.age);
 
 
+      console.log(this.selectedCategory, this.selectedLocation);
 
 
       this.registerService.registerFreelancer(formData).subscribe({
@@ -97,5 +103,11 @@ export class RegisterAsFreelancerComponent {
     if (file) {
       this.selectedFile = file;
     }
+  }
+  onCategorySelected(event: any){
+    this.selectedCategory = event.target.value;
+  }
+  onLocationSelected(event: any){
+    this.selectedLocation = event.target.value;
   }
 }

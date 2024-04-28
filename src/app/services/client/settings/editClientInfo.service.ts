@@ -13,4 +13,7 @@ export class EditClientInfoService {
     updateClientInfo(formData: FormData) {
         return this.http.post<any>(`${this.apiUrl}/client/settings/editClientInfo`, formData);
     }
+    updateClientImage(client: any) {
+        return this.http.post(`${this.apiUrl}/client/settings/changeProfileImage`, client);
+    }
 }

@@ -1,6 +1,6 @@
 export class Post {
   public id: number;
-  public freelancer_id: number;
+  public freelancerId: number;
   public title: string;
   public datePosted: Date;
   public deadline: Date;
@@ -15,10 +15,15 @@ export class Post {
   public freelancerFirstName: string;
   public freelancerLastName: string;
   public freelancerImageUrl: string;
+  public clientProfileImge: string;
+  public clientFirstName: string;
+  public clientLastName: string;
+  public clientImageUrl: string;
+  public post_id: number;
 
   constructor() {
     this.id = 0;
-    this.freelancer_id = 0;
+    this.freelancerId = 0;
     this.title = '';
     this.datePosted = new Date();
     this.deadline = new Date();
@@ -33,6 +38,10 @@ export class Post {
     this.freelancerLastName = '';
     this.freelancerImageUrl = '';
     this.freelancerProfileImge = '';
-
+    this.clientProfileImge = '';
+    this.clientFirstName = '';
+    this.clientLastName = '';
+    this.clientImageUrl = '';
+    this.post_id = 0;
   }
 }

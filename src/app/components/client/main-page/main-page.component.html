@@ -1,47 +1,106 @@
 <app-client-nav-bar></app-client-nav-bar>
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <div class="card">
-        <div class="card-header">
-          <h2>Freelancer Posts</h2>
-          <div *ngFor="let post of posts" class="card mt-3">
-            <div class="card-body">
-              <h5 class="card-title d-flex justify-content-center ">{{ post.title }}</h5>
-              <div class="d-flex justify-content-between mb-2">
-                <p class="card-text"><strong>Date Posted:</strong> {{post.datePosted}}</p>
-                <p class="card-text text-muted"><strong>Deadline:</strong> {{post.deadline}}</p>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <p class="card-text mt-2"><strong>Location:</strong> {{ post.location }}</p>
-                  <p class="card-text mt-2"><strong>Category:</strong> {{ post.categName }}</p>
-                  <p class="card-text mt-2">{{ post.description }}</p>
+<div class="container-fluid my-3">
+  <div class="justify-content-around flex-1">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="card-header mb-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-between align-items-center"
+        data-bs-toggle="collapse" data-bs-target="#clientRequests">
+        <h2>Freelancer Posts</h2>
+        <span class="material-symbols-outlined large opacity-50">
+          expand_more
+        </span>
+      </div>
+    </div>
+    <div id="clientRequests" class="collapse show">
+      <div class="d-flex justify-content-center flex-wrap gap-4">
+        <div *ngFor="let post of posts" class="col-lg-4 col-md-6 col-sm-12">
+          <div class="card-body rounded-5 p-4">
+            <div>
+              <h5 class="card-title d-flex justify-content-center mb-4">
+                <strong>{{ post.title}}</strong>
+              </h5>
+              <div class="card-desc d-flex justify-content-between align-items-center mb-2">
+                <div class="property d-flex gap-1">
+                  <span class="material-symbols-outlined">
+                    schedule
+                  </span>
+                  <p class="m-0">
+                    <strong>{{
+                      post.datePosted
+                      }}</strong>
+                  </p>
                 </div>
-                <div class="col-6">
-                  <img [src]="post.imageUrl" class="postImage" alt="Post Image">
+                <div class="property d-flex gap-1">
+                  <p class="m-0">
+                    <strong>{{
+                      post.location
+                      }}</strong>
+                  </p>
+                  <span class="material-symbols-outlined">
+                    location_on
+                  </span>
                 </div>
               </div>
-              <div class="d-flex justify-content-center align-items-center mt-2 alert bg-light">
-                <p class="card-text p-2"><strong>Price:</strong> {{ post.price }}</p>
+              <div class="card-desc d-flex justify-content-between align-items-center mb-3">
+                <div class="property d-flex gap-1">
+                  <span class="material-symbols-outlined">
+                    event_busy
+                  </span>
+                  <p class="m-0">
+                    <strong>{{
+                      post.deadline
+                      }}</strong>
+                  </p>
+                </div>
+                <div class="property d-flex gap-1">
+                  <p class="m-0">
+                    <strong>{{
+                      post.categName
+                      }}</strong>
+                  </p>
+                  <span class="material-symbols-outlined">
+                    category
+                  </span>
+                </div>
               </div>
-              <div class="d-flex flex-row justify-content-end align-items-center mt-2">
-                <p class="card-text text-muted p-2"><strong>Freelancer:</strong> {{ post.freelancerFirstName + ' ' +
-                  post.freelancerLastName }}</p>
-                <img [src]="post.freelancerImageUrl" class=" card-text freelancerProfileImage p-2 " alt="Client Image">
+              <div class="d-flex justify-content-start">
+                <p class="card-text">
+                  {{ post.description }}
+                </p>
               </div>
-              <div class="d-flex justify-content-center">
-                <button *ngIf=" post.status == 'Pending' " class="btn btn-primary"
-                  (click)="HireInThisPost(post.id, post.freelancer_id)">Hire</button>
-                <p *ngIf=" post.status == 'Hired' " class="text-success">This post is reserved until the freelancer
-                  finishes his
-                  task.</p>
+            </div>
+            <div class="d-flex justify-content-center my-3 img-fluid">
+              <img [src]="post.imageUrl" class="requestImage object-fit-contain" alt="Request Image" />
+            </div>
+            <div class="info d-flex mb-4 justify-content-between">
+              <div class="d-flex align-items-center gap-2">
+                <img [src]="post.freelancerImageUrl" class="clientProfileImage h-100 rounded-circle object-fit-cover"
+                  alt="Client Image" />
+                <p class="card-text">
+                  <strong>{{
+                    post.freelancerFirstName +
+                    " " +
+                    post.freelancerLastName
+                    }}</strong>
+                </p>
               </div>
+              <div class="d-flex justify-content-end align-items-center h-100">
+                <div class="price d-flex align-items-center h-100 px-3 rounded-5">
+                  <p class="card-text">
+                    <strong>{{ post.price }}$</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button *ngIf="post.status == 'Pending'" class="btn btn-success w-100 py-2 rounded-5"
+                (click)="HireInThisPost(post.id, post.freelancerId)">Hire</button>
+              <p *ngIf=" post.status == 'Hired' " class="text-success">This post is reserved until the freelancer
+                finishes his
+                task.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>

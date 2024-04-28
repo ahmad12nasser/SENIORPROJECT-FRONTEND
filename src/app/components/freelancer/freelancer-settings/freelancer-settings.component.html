@@ -6,7 +6,7 @@
                 <div class="card">
                     <div *ngFor="let freelancerDetail of freelancer" class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Admin"
+                            <img [src]="freelancerDetail.imageUrl" alt="profileImage"
                                 class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4>{{freelancerDetail.firstName + ' ' + freelancerDetail.lastName}}</h4>
@@ -35,15 +35,6 @@
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{freelancerDetail.lastName}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">User Name</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{freelancerDetail.username}}
                             </div>
                         </div>
                         <hr>
@@ -103,6 +94,8 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-12">
+                                <button class="btn btn-info mt-3" style="margin-right: 10px;"
+                                    (click)="changeImageModeOn(freelancerDetail)">Change ProfileImage</button>
                                 <button class="btn btn-info mt-3" (click)="editFreelancer(freelancerDetail)">
                                     Edit
                                 </button>
@@ -168,7 +161,8 @@
                                 <h6 class="mb-0">Profession</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingFreelancer.professionCategName">
+                                <input type="text" class="form-control"
+                                    [(ngModel)]="editingFreelancer.professionCategName">
                             </div>
                         </div>
                         <hr>
@@ -190,16 +184,6 @@
                                 <input type="number" class="form-control" [(ngModel)]="editingFreelancer.age">
                             </div>
                         </div>
-
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Change Profile Image: </h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="file" accept="image/*" (change)="onFileChanged($event)" class="form-control">
-                            </div>
-                        </div>
                         <hr>
                         <div class="row">
                             <div class="col-sm-12">
@@ -207,6 +191,25 @@
                                 <button class="btn btn-danger " style="margin-left: 5px;"
                                     (click)="cancelEdit()">Cancel</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10" *ngIf="changeImageMode">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-desc">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Change Profile Image: </h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="file" accept="image/*" (change)="onFileChanged($event)"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="card-text d-flex gap-2 ">
+                            <button class="btn btn-success mt-3" (click)="changeImage()">Change</button>
+                            <button class="btn btn-danger mt-3" (click)="cancelChangeImage()">cancel</button>
                         </div>
                     </div>
                 </div>

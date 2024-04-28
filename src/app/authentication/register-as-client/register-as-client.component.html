@@ -1,89 +1,108 @@
 <section>
-    <div class="container">
-        <h2>Register as a Client</h2>
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="firstName">First Name:</label>
-                <input type="text" formControlName="firstName" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['firstName'].errors }" />
-                <div *ngIf="submitted && accessToFormFields['firstName'].errors" class="invalid-feedback">
-                    <div *ngIf="accessToFormFields['firstName'].errors">First Name is required</div>
-                </div>
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center rounded-5 py-2 px-5">
+        <h2 class="my-3">Register as a Client</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-100">
+            <div class="d-flex gap-4">
+            <div class="form_group d-flex flex-column align-items-center gap-2">
+                <input type="file" accept="image/*" (change)="onFileSelected($event)" formControlName="profileImage"
+                class="pp rounded-circle"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['profileImage'].errors }" />
+                    <span class="material-symbols-outlined ppicon position-absolute rounded-circle">
+                        image
+                        </span>
             </div>
-            <div class="form-group">
-                <label for="lastName">Last Name:</label>
-                <input type="text" formControlName="lastName" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['lastName'].errors }" />
-                <div *ngIf="submitted && accessToFormFields['lastName'].errors" class="invalid-feedback">
-                    <div *ngIf="accessToFormFields['lastName'].errors">Last Name is required</div>
-                </div>
+            <div class="d-flex flex-column flex-grow-1">
+            <div class="d-flex gap-3 flex-grow-1 gap-2">
+            <div class="form_group flex-grow-1">
+                <input type="text" formControlName="firstName" class="form_field rounded-5 w-100" placeholder="First Name"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['firstName'].errors }" />
+                    <label for="firstName" class="form_label"
+                    [innerText]="(submitted && accessToFormFields['firstName'].errors) ? 'First Name is required' : 'First Name'"></label>
+               
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" formControlName="email" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['email'].errors }" />
-                <div *ngIf="submitted && accessToFormFields['email'].errors" class="invalid-feedback">
-                    <div *ngIf="accessToFormFields['email'].errors">email is required</div>
-                </div>
+            <div class="form_group flex-grow-1">
+                <input type="text" formControlName="lastName" class="form_field rounded-5 w-100" placeholder="Last Name"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['lastName'].errors }" />
+                    <label for="lastName" class="form_label"
+                    [innerText]="(submitted && accessToFormFields['lastName'].errors) ? 'Last Name is required' : 'Last Name'"></label>
+               
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" formControlName="password" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['password'].errors }" />
+        </div>
+            <div class="form_group">
+                <input type="email" formControlName="email" class="form_field rounded-5 w-100" placeholder="Email"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['email'].errors }" />
+                    <label for="email" class="form_label"
+                    [innerText]="(submitted && accessToFormFields['email'].errors) ? 'Email is required' : 'Email'"></label>
+                
+            </div>
+        </div>
+    </div>
+        <div class="d-flex gap-3">
+            <div class="form_group flex-grow-1">
+                <input type="password" formControlName="password" class="form_field rounded-5 w-100" placeholder="Password"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['password'].errors }" />
+                    <label for="password" class="form_label"
+                    [innerText]="(submitted && accessToFormFields['password'].errors) ? 'Password is required' : 'Password'"></label>
                 <div *ngIf="submitted && accessToFormFields['password'].errors" class="invalid-feedback">
                     <div *ngIf="accessToFormFields['password'].errors">Password is required</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirme Password:</label>
-                <input type="password" formControlName="confirmPassword" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['confirmPassword'].errors }" />
+            <div class="form_group flex-grow-1">
+                <input type="password" formControlName="confirmPassword" class="form_field rounded-5 w-100" placeholder="Confirm Password"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['confirmPassword'].errors }" />
+                    <label for="confirmPassword" class="form_label"
+                    [innerText]="(submitted && accessToFormFields['confirmPassword'].errors) ? 'Passwords do not match' : 'Confirm Password'"></label>
                 <div *ngIf="submitted && accessToFormFields['confirmPassword'].errors" class="invalid-feedback">
                     <div *ngIf="accessToFormFields['confirmPassword'].errors">email is required</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="mobile">Phone Number:</label>
-                <input type="text" formControlName="mobile" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['mobile'].errors }" />
-                <div *ngIf="submitted && accessToFormFields['mobile'].errors" class="invalid-feedback">
-                    <div *ngIf="accessToFormFields['mobile'].errors">Phone Number is required</div>
-                </div>
             </div>
-            <div class="form-group">
-                <label for="profileImage">Profile Image</label>
-                <input type="file" accept="image/*" (change)="onFileSelected($event)" formControlName="profileImage"
-                    class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['profileImage'].errors }" />
-            </div>
-            <div class="form-group">
-                <label for="age">Age:</label>
-                <input type="number" formControlName="age" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['age'].errors }" />
-                <div *ngIf="submitted && accessToFormFields['age'].errors" class="invalid-feedback">
-                    <div *ngIf="accessToFormFields['age'].errors">age is required</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="location">Address:</label>
-                <input type="text" formControlName="location" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['location'].errors }" />
+            <div class="form_group flex-grow-1">
+                <select class="form-select" formControlName="location" placeholder="Here"
+                            (change)="onLocationSelected($event)"
+                            [ngClass]="{ 'error': submitted && accessToFormFields['location'].errors }">
+                                <option *ngFor="let location of locations.locationList" [value]="location">{{ location }}</option>
+                              </select>
+                    <label for="location" class="form_label"
+                    [innerText]="(submitted && accessToFormFields['location'].errors) ? 'Location is required' : 'Location'"></label>
                 <div *ngIf="submitted && accessToFormFields['location'].errors" class="invalid-feedback">
                     <div *ngIf="accessToFormFields['location'].errors">location is required</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="description">Bios:</label>
-                <input type="text" formControlName="description" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && accessToFormFields['description'].errors }" />
+            <div class="d-flex justify-content-between gap-3">
+            <div class="form_group flex-grow-1">
+                <input type="number" min="0" formControlName="mobile" class="form_field rounded-5 w-100" placeholder="Phone Number"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['mobile'].errors }" />
+                    <label for="mobile" class="form_label"
+                    [innerText]="(submitted && accessToFormFields['phoneNumber'].errors) ? 'Phone Number is required' : 'Phone Number'"></label>
+                <div *ngIf="submitted && accessToFormFields['mobile'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['mobile'].errors">Phone Number is required</div>
+                </div>
             </div>
-            <div class="text-center mt-3">
-                <button (click)="onSubmit()" type="submit" class="btn btn-primary">Register</button>
-                <span class="mx-2">
+            <div class="form_group">
+                <input type="number" min="0" formControlName="age" class="form_field rounded-5 form_age" placeholder="Age"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['age'].errors }" min="0"/>
+                    <label for="age" class="form_label"
+                    [innerText]="(submitted && accessToFormFields['age'].errors) ? 'Age is required' : 'Age'"></label>
+                <div *ngIf="submitted && accessToFormFields['age'].errors" class="invalid-feedback">
+                    <div *ngIf="accessToFormFields['age'].errors">age is required</div>
+                </div>
+            </div>
+        </div>
+            <div class="form_group">
+                <textarea formControlName="description" class="form_field form_bio w-100" placeholder="Bio (optional)"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['description'].errors }"></textarea>
+                    <label for="description" class="form_label">Bio (optional)</label>
+            </div>
+            <div class="d-flex justify-content-between">
+                <span class="d-flex gap-2">
                     Already have an account?
-                </span>
-                <a [routerLink]="['/login']" class="btn btn-link">Login</a>
-            </div>
+                <a [routerLink]="['/login']" class=""><strong>Login</strong></a>
+            </span>
+            <button (click)="onSubmit()" type="submit" class="btn btn-success rounded-5 px-4 py-2 my-2">Register</button>
+        </div>
         </form>
+    </div>
     </div>
 </section>

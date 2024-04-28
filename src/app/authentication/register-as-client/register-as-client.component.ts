@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../services/authentication/alert.service';
 import { HttpParams } from '@angular/common/http';
+import { Locations } from '../../models/locations';
 
 @Component({
   selector: 'app-register-as-client',
@@ -13,6 +14,8 @@ import { HttpParams } from '@angular/common/http';
 export class RegisterAsClientComponent {
 
   registerForm: FormGroup = new FormGroup({});
+  locations = new Locations();
+  selectedLocation: string = '';
   loading = false;
   submitted = false;
   selectedFile: File | null = null;
@@ -53,19 +56,21 @@ export class RegisterAsClientComponent {
       return;
     }
     if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
-      let body = new HttpParams();
-      body = body.set('firstName', formData.firstName);
-      body = body.set('lastName', formData.lastName);
-      body = body.set('email', formData.email);
-      body = body.set('password', formData.password);
-      body = body.set('confirmPassword', formData.confirmPassword);
-      body = body.set('mobile', formData.mobile);
-      body = body.set('profile_image', formData.profileImage);
-      body = body.set('age', formData.age);
-      body = body.set('location', formData.location);
-      body = body.set('description', formData.description);
-      this.registerService.registerClient(body)
+      const formData = new FormData(); 
+      formData.append('firstName',this.registerForm.value.firstName);
+      formData.append('lastName',this.registerForm.value.lastName);
+      formData.append('email',this.registerForm.value.email);
+      formData.append('password',this.registerForm.value.password);
+      formData.append('confirmPassword',this.registerForm.value.confirmPassword);
+      formData.append('mobile',this.registerForm.value.mobile);
+      if (this.selectedFile) {
+        formData.append('profile_image',this.selectedFile);
+      }
+      formData.append('age',this.registerForm.value.age);
+      formData.append('location',this.selectedLocation);
+      formData.append('description',this.registerForm.value.description);
+
+      this.registerService.registerClient(formData)
         .subscribe({
           next: (data) => {
             this.AlertService.success('Registration successful', true);
@@ -83,6 +88,9 @@ export class RegisterAsClientComponent {
     if (file) {
       this.selectedFile = file;
     }
+  }
+  onLocationSelected(event: any) {
+    this.selectedLocation = event.target.value;
   }
   // redirect 3ala el page ely feha el form ely by3ml login
   backToLogin() {

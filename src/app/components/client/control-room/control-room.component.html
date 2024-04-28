@@ -15,7 +15,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="d-flex justify-content-between">
-                                        <p class="card-text text-success"><strong>Location:</strong>{{hiredPost.location}}
+                                        <p class="card-text text-success">
+                                            <strong>Location:</strong>{{hiredPost.location}}
                                         </p>
                                         <p class="card-text"><strong>Category:</strong> {{ hiredPost.categName }}</p>
                                     </div>
@@ -25,7 +26,7 @@
                                     <img [src]="hiredPost.imageUrl" class="postImage" alt="Request Image">
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-center align-items-center mt-2 alert bg-light">
+                            <div class="d-flex justify-content-center align-items-center mt-2 bg-light">
                                 <p class="card-text"><strong>Price:</strong> {{ hiredPost.price }}</p>
                             </div>
                             <div class="d-flex flex-row justify-content-end align-items-center mt-2">
@@ -33,7 +34,11 @@
                                     hiredPost.freelancerLastName }}
                                 </p>
                                 <img [src]="hiredPost.freelancerImageUrl" class="freelancerProfileImage"
-                                    alt="Client Image">
+                                    alt="Freelancer Image">
+                            </div>
+                            <div *ngIf="hiredPost.status == 'Waiting for Acceptance from FreeLancer'"
+                                class="d-flex flex-row justify-content-center align-items-center ">
+                                <button class="btn btn-danger" (click)="cancelHire(hiredPost.id,hiredPost.post_id)">Cancel</button>
                             </div>
                         </div>
                     </div>

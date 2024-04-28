@@ -21,6 +21,7 @@ export class request {
      public freelancerLastName: String;
      public freelancerProfileImage: String;
      public freelancerImageUrl: String;
+     public request_id: number;
 
      constructor() {
           this.id = 0;
@@ -44,5 +45,6 @@ export class request {
           this.freelancerLastName = "";
           this.freelancerProfileImage = "";
           this.freelancerImageUrl= "";
+          this.request_id= 0;
      }
 }

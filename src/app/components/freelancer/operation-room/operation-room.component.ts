@@ -4,6 +4,9 @@ import { GetWaitingAppliedRequestsService } from '../../../services/freelancer/o
 import { ApproveHiredPostService } from '../../../services/freelancer/operationRoom/approveHiredPost.service';
 import { DeclineHiredPostService } from '../../../services/freelancer/operationRoom/declineHiredPost.service';
 import { LoginService } from '../../../services/authentication/login.service';
+import { request } from '../../../models/request';
+import { Post } from '../../../models/post';
+import { CancelApplyOnRequestService } from '../../../services/requests/cancelApplyOnRequest.service';
 
 @Component({
   selector: 'app-operation-room',
@@ -11,8 +14,8 @@ import { LoginService } from '../../../services/authentication/login.service';
   styleUrl: './operation-room.component.css'
 })
 export class OperationRoomComponent {
-  hiredPosts: any[] = [];
-  appliedRequests: any[] = [];
+  hiredPosts: Post[] = [];
+  appliedRequests: request[] = [];
   appliedRequestImageUrl: string = '';
   hiredPostImageUrl: string = '';
   appliedClientPorfileImageUrl: string = '';
@@ -22,7 +25,8 @@ export class OperationRoomComponent {
     private getWaitingAppliedRequestsService: GetWaitingAppliedRequestsService,
     private approveHiredPostService: ApproveHiredPostService,
     private declineHiredPostService: DeclineHiredPostService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private cancelApplyOnRequestService: CancelApplyOnRequestService,
   ) { }
   ngOnInit() {
     const freelancer_id = this.loginService.getLoggedInUserId() ?? 0; // Replace with the actual client id
@@ -54,6 +58,7 @@ export class OperationRoomComponent {
     this.approveHiredPostService.approveHiredPost(hiredPost_id).subscribe({
       next: (data) => {
         console.log('Successfully accepted applied request', true);
+        window.location.reload();
       },
       error: (error) => {
         console.error('Error accepting applied request', error);
@@ -65,6 +70,8 @@ export class OperationRoomComponent {
     this.declineHiredPostService.declineHiredPost(hiredPost_id).subscribe({
       next: (data) => {
         console.log('Successfully rejected applied request', true);
+        window.location.reload();
+
       },
       error: (error) => {
         console.error('Error rejecting applied request', error);
@@ -72,16 +79,27 @@ export class OperationRoomComponent {
     });
   }
 
+  cancelRequest(appliedRequest_id: number,request_id:number){
+    this.cancelApplyOnRequestService.cancelApplyOnRequest(request_id,appliedRequest_id).subscribe({
+      next: (data) => {
+        console.log('Successfully canceled applied request', true);
+        this.ngOnInit();
+      },
+      error: (error) => {
+        console.error('Error canceling applied request', error);
+      }
+    });
+  }
   prepareHiredPostsImages() {
     for (const post of this.hiredPosts) {
-      this.hiredPostImageUrl = 'data:image/jpeg;base64,' + post.image;
-      this.hiredClientProfileImageUrl = 'data:image/jpeg;base64,' + post.clientProfileImage;
+      post.imageUrl = 'data:image/jpeg;base64,' + post.image;
+      post.clientImageUrl = 'data:image/jpeg;base64,' + post.clientProfileImge;
     }
   }
   preparedAppliedRequestsImages() {
     for (const request of this.appliedRequests) {
-      this.appliedRequestImageUrl = 'data:image/jpeg;base64,' + request.image;
-      this.appliedClientPorfileImageUrl = 'data:image/jpeg;base64,' + request.clientProfileImage;
+      request.imageUrl = 'data:image/jpeg;base64,' + request.image;
+      request.clientImageUrl = 'data:image/jpeg;base64,' + request.clientProfileImage;
     }
   }
 }

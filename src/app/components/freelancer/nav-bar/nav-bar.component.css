@@ -1,0 +1,39 @@
+.material-symbols-outlined {
+	font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 25, "opsz" 24;
+	color: transparent;
+	display: none;
+}
+.nav-link {
+	font-weight: bold;
+	color: var(--color);
+}
+.material-symbols-outlined {
+	pointer-events: none;
+	user-select: none;
+} 
+.nav-item.active .nav-link {
+	color: black !important;
+}
+.nav-item.active {
+	background-color: var(--bg-color) !important;
+	padding: 0 0.3rem 0 0.6rem;
+}
+.nav-item.active .material-symbols-outlined {
+	display: block;
+	color: black !important;
+}
+.navbar-toggler{
+	background-color: var(--bg-color) !important;
+	height:3rem;
+	aspect-ratio: 1;
+	border: none;
+}
+.navbar-toggler .material-symbols-outlined{
+	color: var(--color);
+	display: block;
+}
+@media (max-width: 767px) {
+	.nav-item.active {
+		padding: 0 0.6rem;
+	}
+  }

@@ -1,112 +1,83 @@
-/* .box {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    background-color: white;
-  } */
-
-  /* Importing fonts from Google */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
-/* Reseting */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+.container-fluid {
+	height: 100svh;
 }
-
-body {
-    background: #ecf0f3;
+.card-body {
+	width: 30rem;
+	height: 35rem;
+	flex: 0 1 auto;
+	background-color: var(--bg-color);
+	border-radius: 1.5rem;
 }
-
-.wrapper {
-    max-width: 350px;
-    min-height: 500px;
-    margin: 80px auto;
-    padding: 40px 30px 30px 30px;
-    background-color: #ecf0f3;
-    border-radius: 15px;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
-}
-
-.logo {
-    width: 80px;
-    margin: auto;
-}
-
 .logo img {
-    width: 100%;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0px 0px 3px #5f5f5f,
-        0px 0px 0px 5px #ecf0f3,
-        8px 8px 15px #a7aaa7,
-        -8px -8px 15px #fff;
+	width: 10rem;
+	aspect-ratio: 1;
+}
+a {
+	color: var(--color);
+}
+.signup {
+	color: var(--success);
+	font-weight: bold;
+}
+.form_group {
+	position: relative;
+	padding: 1rem 0 0;
+}
+.form_label {
+	background-color: var(--bg-color);
+	padding: 0 0.5rem;
+	margin-left: 0.5rem;
+	border-radius: 50px;
+	color: var(--color);
+	font-weight: 400;
+	pointer-events: none;
+}
+.form_field {
+	border: 3px solid var(--color);
+	background-color: var(--bg-color);
+	padding: 0.5rem 1rem;
+	transition: all 0.2s ease-out;
+	outline: none;
+	z-index: 99;
 }
 
-.wrapper .name {
-    font-weight: 600;
-    font-size: 1.4rem;
-    letter-spacing: 1.3px;
-    padding-left: 10px;
-    color: #555;
+.form_field::placeholder {
+	color: transparent;
+	pointer-events: none;
 }
 
-.wrapper .form-field input {
-    width: 100%;
-    display: block;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.2rem;
-    color: #666;
-    padding: 10px 15px 10px 10px;
-    /* border: 1px solid red; */
+.form_field:placeholder-shown ~ .form_label {
+	font-size: 16px;
+	cursor: text;
+	top: 1.5rem;
+	pointer-events: none;
 }
 
-.wrapper .form-field {
-    padding-left: 10px;
-    margin-bottom: 20px;
-    border-radius: 20px;
-    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+label,
+.form_field:focus ~ .form_label {
+	position: absolute;
+	top: 0.5rem;
+	display: block;
+	transition: 0.15s;
+	font-size: 12px;
+	color: var(--success);
+	font-weight: bold;
 }
 
-.wrapper .form-field .fas {
-    color: #555;
+.form_field:focus {
+	border: 3px solid var(--success);
 }
-
-.wrapper .btn {
-    box-shadow: none;
-    width: 100%;
-    height: 40px;
-    background-color: #dddddd;
-    color: #000000;
-    border-radius: 25px;
-    box-shadow: 3px 3px 3px #b1b1b1,
-        -3px -3px 3px #fff;
-    letter-spacing: 1.3px;
+.forget {
+	font-size: 0.8rem;
+	font-weight: 600;
 }
-
-.wrapper .btn:hover {
-    background-color: #000000;
-    color: #dddddd;
+.form_field.error {
+	border: 3px solid var(--error) !important;
+	opacity: 0.5;
 }
-
-.wrapper a {
-    text-decoration: none;
-    font-size: 0.8rem;
-    color: #5c5c5c;
+.form_field.error:focus {
+	opacity: 1;
 }
-
-.wrapper a:hover {
-    color: #039BE5;
-}
-
-@media(max-width: 380px) {
-    .wrapper {
-        margin: 30px 20px;
-        padding: 40px 15px 15px 15px;
-    }
+.form_field.error:focus ~ .form_label {
+	color: var(--error) !important;
 }

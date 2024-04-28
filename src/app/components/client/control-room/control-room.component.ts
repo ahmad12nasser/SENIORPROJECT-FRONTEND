@@ -6,6 +6,7 @@ import { RejectApplyRequestService } from '../../../services/client/controlRoom/
 import { LoginService } from '../../../services/authentication/login.service';
 import { Post } from '../../../models/post';
 import { request } from '../../../models/request';
+import { CancelHireOnPostService } from '../../../services/posts/cancelHireOnPost.service';
 
 @Component({
   selector: 'app-control-room',
@@ -15,8 +16,6 @@ import { request } from '../../../models/request';
 export class ControlRoomComponent {
   hiredPosts: Post[] = [];
   appliedRequests: request[] = [];
-  hiredPostImageUrl: string = '';
-  appliedRequestImageUrl: string = '';
   AppliedFreelancerProfileImageUrl: string = '';
   HiredFreelancerProfileImageUrl: string = '';
   constructor(
@@ -24,7 +23,8 @@ export class ControlRoomComponent {
     private getPendingAppliedRequestsService: GetPendingAppliedRequestsService,
     private acceptApplyRequestService: AcceptApplyRequestService,
     private rejectApplyRequestService: RejectApplyRequestService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private cancelHireOnPostService: CancelHireOnPostService
   ) { }
   ngOnInit() {
     const client_id = this.loginService.getLoggedInUserId(); // Replace with the actual client id
@@ -60,6 +60,7 @@ export class ControlRoomComponent {
     this.acceptApplyRequestService.acceptApplyRequest(appliedRequest_id).subscribe({
       next: (data) => {
         console.log('Successfully accepted applied request', true);
+        this.ngOnInit();
       },
       error: (error) => {
         console.error('Error accepting applied request', error);
@@ -79,14 +80,26 @@ export class ControlRoomComponent {
   }
   prepareImages1() {
     for (const post of this.hiredPosts) {
-      post.imageUrl = 'data:image/jpeg;base64,' + post.image;
-      post.freelancerImageUrl = 'data:image/jpeg;base64,' + post.freelancerProfileImge;
+      post.imageUrl = 'data:image/jpg;base64,' + post.image;
+      post.freelancerImageUrl = 'data:image/jpg;base64,' + post.freelancerProfileImge;
     }
   }
   prepareImages2() {
     for (const request of this.appliedRequests) {
-      request.imageUrl = 'data:image/jpeg;base64,' + request.image;
-      request.freelancerImageUrl = 'data:image/jpeg;base64,' + request.freelancerProfileImage;
+      request.imageUrl = 'data:image/jpg;base64,' + request.image;
+      request.freelancerImageUrl = 'data:image/jpg;base64,' + request.freelancerProfileImage;
     }
+  }
+
+  cancelHire(hiredPost_id:number,post_id:number){
+    this.cancelHireOnPostService.cancelHireOnPost(post_id,hiredPost_id).subscribe({
+      next: (data) => {
+        console.log('Successfully cancelled hire', true);
+        this.ngOnInit();
+      },
+      error: (error) => {
+        console.error('Error cancelling hire', error);
+      }
+    });
   }
 }
