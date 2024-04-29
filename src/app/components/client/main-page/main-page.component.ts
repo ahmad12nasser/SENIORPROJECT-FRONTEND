@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { HiringService } from '../../../services/posts/hiringThroughPost.service';
 import { Router } from '@angular/router';
 import { Post } from '../../../models/post';
+import { ProfessionCategories } from '../../../models/profession_categ';
 
 @Component({
   selector: 'app-main-page',
@@ -11,27 +12,40 @@ import { Post } from '../../../models/post';
   styleUrl: './main-page.component.css'
 })
 export class MainPageComponent {
-
+  categoryList = new ProfessionCategories();
   posts: Post[] = [];
   imageUrl: String = '';
   freelancerImageUrl: String = '';
+  filtredPosts: Post[] = [];
+  selectedCategory: string = '';
   constructor(
     private postsService: PostsService,
     private hiringService: HiringService,
     private router: Router
-  ){}
+  ){
+    this.filtredPosts = this.posts; 
+
+  }
 
   ngOnInit(){
     this.postsService.getAllPosts().subscribe({
       next: (data) => {
         this.posts = data;
         this.prepareImages();
+        this.filterRequests();
         console.log('Successfully fetched posts:', true);
       },
       error: (error) => {
         console.error('Error fetching posts:', error);
       }
     });
+  }
+  filterRequests() {
+    if (this.selectedCategory === '') {
+      this.filtredPosts = this.posts; // Show all requests if no category selected
+    } else {
+      this.filtredPosts = this.posts.filter(post => post.categName === this.selectedCategory);
+    }
   }
 
   HireInThisPost(postId: number, freelancerId: number){

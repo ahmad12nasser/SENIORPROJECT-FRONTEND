@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RequestsService } from '../../../services/requests/requests.service';
 import { LoginService } from '../../../services/authentication/login.service';
+import { ProfessionCategories } from '../../../models/profession_categ';
+import { Locations } from '../../../models/locations';
 
 @Component({
   selector: 'app-new-request',
@@ -8,8 +10,12 @@ import { LoginService } from '../../../services/authentication/login.service';
   styleUrls: ['./new-request.component.css']
 })
 export class NewRequestComponent {
+  categoryList = new ProfessionCategories();
+  locationList = new Locations();
   newRequest: any = {}; // Update the type accordingly
   selectedFile: File | null = null;
+  selectedCategory: string = '';
+  selectedLocation: string = '';
 
   constructor(
     private requestService: RequestsService,
@@ -19,7 +25,8 @@ export class NewRequestComponent {
   submitRequest() {
 
     this.newRequest.client_id = this.loginService.getLoggedInUserId() ?? 0;
-
+    this.newRequest.categ_name = this.selectedCategory;
+    this.newRequest.location = this.selectedLocation;
 
     const formData = new FormData();
     formData.append('client_id', this.newRequest.client_id);

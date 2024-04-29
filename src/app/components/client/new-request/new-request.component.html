@@ -31,14 +31,20 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="location">Location:</label>
-                                    <input type="text" class="form-control" id="location" name="location"
-                                        [(ngModel)]="newRequest.location" required>
+                                    <select id="location" class="form-control" [(ngModel)]="selectedLocation"
+                                        name="selectedLocation">
+                                        <option *ngFor="let location of locationList.locationList" [value]="location">{{
+                                            location }}</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="categName">Category Name:</label>
-                                    <input type="text" class="form-control" id="categName" name="categName"
-                                        [(ngModel)]="newRequest.categ_name" required>
+                                    <select id="categName" class="form-control" [(ngModel)]="selectedCategory"
+                                        name="selectedCategory">
+                                        <option *ngFor="let category of categoryList.categories" [value]="category">{{
+                                            category }}</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
@@ -47,8 +53,8 @@
                                         [(ngModel)]="newRequest.price" required>
                                 </div>
                             </div>
-                            </div>
-                            <div class="row">
+                        </div>
+                        <div class="row">
                             <div class="form-group">
                                 <label for="description">Description:</label>
                                 <textarea class="form-control" id="description" name="description"
@@ -56,8 +62,9 @@
                             </div>
 
                             <div class="form-group d-flex flex-row justify-content-center align-items-center mt-3">
-                                <label for="image" >Image:</label>
-                                <input class="form-control" type="file" accept="image/*" (change)="onFileSelected($event)">
+                                <label for="image">Image:</label>
+                                <input class="form-control" type="file" accept="image/*"
+                                    (change)="onFileSelected($event)">
                             </div>
 
 

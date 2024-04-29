@@ -23,6 +23,8 @@ import { ControlRoomComponent } from '../components/client/control-room/control-
 import { FreelancerSettingsComponent } from '../components/freelancer/freelancer-settings/freelancer-settings.component';
 import { ClientSettingsComponent } from '../components/client/client-settings/client-settings.component';
 import { InterceptorModule } from './interceptor-module.module';
+import { IteratePipe } from '../Pipe/iterate.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
     declarations: [
         AppComponent,
@@ -41,7 +43,8 @@ import { InterceptorModule } from './interceptor-module.module';
         OperationRoomComponent,
         ControlRoomComponent,
         FreelancerSettingsComponent,
-        ClientSettingsComponent
+        ClientSettingsComponent,
+        IteratePipe
     ],
     imports: [
         BrowserModule,
@@ -51,7 +54,8 @@ import { InterceptorModule } from './interceptor-module.module';
         ReactiveFormsModule,
         AppRoutingModule,
         CarouselModule.forRoot(),
-        InterceptorModule
+        InterceptorModule,
+        FontAwesomeModule
     ],
     providers: [],
     bootstrap: [AppComponent]

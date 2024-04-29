@@ -18,6 +18,9 @@ export class FreelancerSettingsComponent {
   isAuthenticated: boolean | null = null;
   imageUrl: string = '';
   selectedFile: File | null = null;
+  rating: number[] | null = null;
+  comments: string[] | null = null;
+  form: any = {};
   constructor(
     private freelancerInfoService: FreelancerInfoService,
     private editFreelancerInfoService: EditFreelancerInfoService,
@@ -32,6 +35,7 @@ export class FreelancerSettingsComponent {
   ngOnInit() {
     const freelancer_id = this.loginService.getLoggedInUserId() ?? 0;
     this.getFreelancerInfo(freelancer_id);
+    this.getRatingWithComments(freelancer_id);
   }
 
   getFreelancerInfo(freelancer_id: number) {
@@ -45,6 +49,30 @@ export class FreelancerSettingsComponent {
       }
     });
   }
+  getRatingWithComments(freelancer_id: number) {
+    this.freelancerInfoService.getRatingWithComments(freelancer_id).subscribe({
+      next: (data) => {
+        this.form = data;
+        console.log('Successfully fetched rating with comments:', data);
+      },
+      error: (error) => {
+        console.error('Error fetching rating with comments:', error);
+      }
+    });
+    this.rating = this.form.rating;
+    this.comments = this.form.comments;
+  }
+  calculateAverageRating(ratings: number[]): number {
+    if (ratings.length === 0) {
+      return 0; // Return 0 if there are no ratings
+    }
+
+    const sum = ratings.reduce((acc, rating) => acc + rating, 0);
+    const average = sum / ratings.length;
+
+    // Round the average to one decimal point
+    return Math.round(average * 10) / 10;
+  }
 
   editFreelancer(freelancer: any) {
     this.editingFreelancer = { ...freelancer };
@@ -52,7 +80,7 @@ export class FreelancerSettingsComponent {
   }
 
   changeImageModeOn(freelancer: any) {
-    this.editingFreelancer = { ...freelancer};
+    this.editingFreelancer = { ...freelancer };
     this.changeImageMode = true;
   }
 
@@ -83,7 +111,7 @@ export class FreelancerSettingsComponent {
     });
   }
 
-  changeImage(){
+  changeImage() {
     const formData = new FormData();
     formData.append('freelancer_id', this.editingFreelancer.id);
     if (this.selectedFile) {
@@ -104,7 +132,7 @@ export class FreelancerSettingsComponent {
   }
   prepareProfilePicture() {
     for (const freelancer of this.freelancer) {
-      freelancer.imageUrl =`data:image/png;base64,`+freelancer.profileImg;
+      freelancer.imageUrl = `data:image/png;base64,` + freelancer.profileImg;
     }
   }
 

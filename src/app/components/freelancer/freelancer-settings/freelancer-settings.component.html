@@ -6,8 +6,8 @@
                 <div class="card">
                     <div *ngFor="let freelancerDetail of freelancer" class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img [src]="freelancerDetail.imageUrl" alt="profileImage"
-                                class="rounded-circle" width="150">
+                            <img [src]="freelancerDetail.imageUrl" alt="profileImage" class="rounded-circle"
+                                width="150">
                             <div class="mt-3">
                                 <h4>{{freelancerDetail.firstName + ' ' + freelancerDetail.lastName}}</h4>
                                 <p class="text-secondary mb-1">{{freelancerDetail.professionCategName}}</p>
@@ -106,111 +106,133 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Edit Form -->
-            <div class="col-md-8" *ngIf="editMode">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">First Name</h6>
+                        <h5>Rating & Comments</h5>
+                        <div *ngIf="rating">
+                            <p>Average Rating: 
+                                <span *ngFor="let star of 5 | iterate">
+                                    <fa-icon [icon]="star <= calculateAverageRating(rating) ? 'star' : 'star'" class="star-icon"></fa-icon>
+                                </span>
+                            </p>
+                            <div *ngIf="comments && comments.length > 0">
+                                <h6>Comments:</h6>
+                                <ul>
+                                    <li *ngFor="let comment of comments">{{ comment }}</li>
+                                </ul>
                             </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingFreelancer.firstName">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Last Name</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingFreelancer.lastName">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Email</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingFreelancer.email">
+                            <div *ngIf="!comments || comments.length === 0">
+                                <p>No comments available.</p>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Phone</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingFreelancer.mobile">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Adderss</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingFreelancer.location">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Profession</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control"
-                                    [(ngModel)]="editingFreelancer.professionCategName">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Bios</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingFreelancer.description">
-                            </div>
-                        </div>
-
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Age</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="number" class="form-control" [(ngModel)]="editingFreelancer.age">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <button class="btn btn-success" (click)="saveFreelancer()">Save</button>
-                                <button class="btn btn-danger " style="margin-left: 5px;"
-                                    (click)="cancelEdit()">Cancel</button>
-                            </div>
+                        <div *ngIf="!rating">
+                            <p>No rating available yet.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-10" *ngIf="changeImageMode">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-desc">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Change Profile Image: </h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="file" accept="image/*" (change)="onFileChanged($event)"
-                                    class="form-control">
-                            </div>
+        </div>
+        <!-- Edit Form -->
+        <div class="col-md-8" *ngIf="editMode">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">First Name</h6>
                         </div>
-                        <div class="card-text d-flex gap-2 ">
-                            <button class="btn btn-success mt-3" (click)="changeImage()">Change</button>
-                            <button class="btn btn-danger mt-3" (click)="cancelChangeImage()">cancel</button>
+                        <div class="col-sm-9 text-secondary">
+                            <input type="text" class="form-control" [(ngModel)]="editingFreelancer.firstName">
                         </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Last Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <input type="text" class="form-control" [(ngModel)]="editingFreelancer.lastName">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <input type="text" class="form-control" [(ngModel)]="editingFreelancer.email">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Phone</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <input type="text" class="form-control" [(ngModel)]="editingFreelancer.mobile">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Adderss</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <input type="text" class="form-control" [(ngModel)]="editingFreelancer.location">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Profession</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <input type="text" class="form-control" [(ngModel)]="editingFreelancer.professionCategName">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Bios</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <input type="text" class="form-control" [(ngModel)]="editingFreelancer.description">
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Age</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <input type="number" class="form-control" [(ngModel)]="editingFreelancer.age">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-success" (click)="saveFreelancer()">Save</button>
+                            <button class="btn btn-danger " style="margin-left: 5px;"
+                                (click)="cancelEdit()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10" *ngIf="changeImageMode">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-desc">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Change Profile Image: </h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            <input type="file" accept="image/*" (change)="onFileChanged($event)" class="form-control">
+                        </div>
+                    </div>
+                    <div class="card-text d-flex gap-2 ">
+                        <button class="btn btn-success mt-3" (click)="changeImage()">Change</button>
+                        <button class="btn btn-danger mt-3" (click)="cancelChangeImage()">cancel</button>
                     </div>
                 </div>
             </div>

@@ -13,4 +13,7 @@ export class FreelancerInfoService {
     getFreelancerInfo(freelancer_id: number) {
         return this.http.post<any>(`${this.apiUrl}/freelancer/settings/getFreelancerInfo/${freelancer_id}`, null);
     }
+    getRatingWithComments(freelancer_id: number) {
+        return this.http.post<any>(`${this.apiUrl}/settings/getRatingWithComments/${freelancer_id}`, null);
+    }
 }

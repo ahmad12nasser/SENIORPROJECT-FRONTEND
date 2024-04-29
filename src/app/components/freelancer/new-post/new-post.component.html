@@ -31,14 +31,20 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="location">Location:</label>
-                                    <input type="text" class="form-control" id="location" name="location"
-                                        [(ngModel)]="newPost.location" required>
+                                    <select id="location" class="form-control" [(ngModel)]="selectedLocation"
+                                        name="selectedLocation">
+                                        <option *ngFor="let location of locations.locationList" [value]="location">{{
+                                            location }}</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="categName">Category Name:</label>
-                                    <input type="text" class="form-control" id="categName" name="categName"
-                                        [(ngModel)]="newPost.categName" required>
+                                    <label for="category">Category Name:</label>
+                                    <select id="category" class="form-control" [(ngModel)]="selectedCategory"
+                                        name="selectedCategory">
+                                        <option *ngFor="let category of categoryList.categories" [value]="category">{{
+                                            category }}</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="price">Price:</label>
@@ -56,7 +62,8 @@
 
                             <div class="form-group mt-3">
                                 <label for="image">Image:</label>
-                                <input type="file" accept="image/*" class="form-control form-control-sm" (change)="onFileSelected($event)">
+                                <input type="file" accept="image/*" class="form-control form-control-sm"
+                                    (change)="onFileSelected($event)">
                             </div>
                             <button type="submit" class="btn btn-success mt-2">Submit Post</button>
                         </div>

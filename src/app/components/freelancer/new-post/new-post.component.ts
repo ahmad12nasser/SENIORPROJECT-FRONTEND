@@ -3,6 +3,8 @@ import { PostsService } from '../../../services/posts/posts.service';
 import { Post } from '../../../models/post';
 import { LoginService } from '../../../services/authentication/login.service'; // Assuming you have an AuthService to get the freelancer_id
 import { DomSanitizer } from '@angular/platform-browser';
+import { ProfessionCategories } from '../../../models/profession_categ';
+import { Locations } from '../../../models/locations';
 
 @Component({
   selector: 'app-new-post',
@@ -10,10 +12,12 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./new-post.component.css']
 })
 export class NewPostComponent {
-
+  categoryList = new ProfessionCategories();
+  locations = new Locations();
   newPost: any = {};
   selectedImage: File | null = null;
-
+  selectedCategory: string = '';
+  selectedLocation: string = '';
 
 
   constructor(
@@ -22,6 +26,8 @@ export class NewPostComponent {
   ) { }
 
   submitPost() {
+    this.newPost.categ_name = this.selectedCategory;
+    this.newPost.location = this.selectedLocation;
     //hon 3am ya3mol set lal freelancer_id 3alshan yeb2a 3andak
     this.newPost.freelancer_id = this.loginService.getLoggedInUserId() ?? 0;
     const formData = new FormData();
