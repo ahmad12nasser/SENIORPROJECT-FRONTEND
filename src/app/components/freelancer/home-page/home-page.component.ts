@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../../services/requests/requests.service';
 import { ProfessionCategories } from '../../../models/profession_categ';
 import { Locations } from '../../../models/locations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -14,14 +15,13 @@ export class HomePageComponent implements OnInit {
   locationList = new Locations();
   requests: request[] = [];
   filtredRequestsByCateg: request[] = [];
-  filtredRequestsByLocation: request[] = [];
   imageUrl: string = '';
   clientImageUrl: string = '';
   selectedCategory: string = '';
-  selectedLocation: string = '';
 
   constructor(
     private requestsService: RequestsService,
+    private router: Router
   ) {
     this.filtredRequestsByCateg = this.requests;
   }
@@ -33,10 +33,8 @@ export class HomePageComponent implements OnInit {
         this.requests = data;
         this.filterRequests(); // this line to filter requests 
         this.preparImages(); // this line to prepare images for the requests
-        console.log('Successfully fetched requests:', true);
       },
       error: (error) => {
-        console.error('Error fetching requests:', error);
       }
     });
   }
@@ -45,27 +43,17 @@ export class HomePageComponent implements OnInit {
     this.filtredRequestsByCateg = this.requests;
     if (this.selectedCategory !== '') {
       this.filtredRequestsByCateg = this.requests.filter(request => request.categ_name === this.selectedCategory);
-
-    } else if (this.selectedLocation !== '') {
-      this.filtredRequestsByLocation = this.requests.filter(request => request.location === this.selectedLocation);
-    } else if (this.selectedCategory !== '' && this.selectedLocation !== '') {
-      this.filtredRequestsByCateg = this.requests.filter(request => request.categ_name === this.selectedCategory);
-      this.filtredRequestsByLocation = this.requests.filter(request => request.location === this.selectedLocation);
-    }
-    // if (this.selectedLocation !== '') {
-    //   this.filtredRequestsByLocation = this.filtredRequestsByCateg.filter(request => request.location === this.selectedLocation);
-    // }
+    } 
   }
   applyForRequest(requestId: number, clientId: number) {
     // Call the service method to apply for the request
     this.requestsService.applyForRequest(requestId, clientId).subscribe({
       next: (response) => {
-        console.log('Successfully applied for the request:', response);
         this.ngOnInit();
-        window.location.reload();
+        alert('Applied for the request successfully')
       },
       error: (error) => {
-        console.error('Error applying for the request:', error);
+        alert('error while applying for the request')
       }
     });
   }
@@ -74,5 +62,13 @@ export class HomePageComponent implements OnInit {
       request.imageUrl = `data:image/png;base64,` + request.image;  // Construct data URL with PNG format
       request.clientImageUrl = `data:image/png;base64,` + request.clientProfileImage;  // Construct data URL with PNG format
     }
+  }
+  navigateToClientProfile(client_id: number, currentPath: string) {
+    this.router.navigate(['freelancer/viewProfileClient'],{
+      queryParams: {
+        client_id: client_id,
+        backPath: currentPath
+      }
+    })
   }
 }

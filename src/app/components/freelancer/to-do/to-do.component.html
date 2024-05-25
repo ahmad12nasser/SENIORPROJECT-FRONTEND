@@ -78,10 +78,13 @@
                   </div>
                   <div class="d-flex justify-content-end align-items-center h-100">
                     <div class="price d-flex align-items-center h-100 px-3 rounded-5">
-                      <p class="card-text">
-                        <strong>{{ todo.post_price }}$</strong>
+                      <p *ngIf="todo.post_price !== 0" class="card-text">
+                          <strong>{{todo.post_price}}$</strong>
                       </p>
-                    </div>
+                      <p *ngIf="todo.post_price === 0" class="card-text">
+                          <strong>Service</strong>
+                      </p>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -147,11 +150,19 @@
                     </p>
                   </div>
                   <div class="d-flex justify-content-end align-items-center h-100">
-                    <div class="price d-flex align-items-center h-100 px-3 rounded-5">
-                      <p class="card-text">
-                        <strong>{{ todo.request_price }}$</strong>
-                      </p>
-                    </div>
+                    <button class="btn-call rounded-circle m-0 h-100 d-flex justify-content-center align-items-center">
+                      <a [href]="'tel:+961'+todo.clientMobile" class="material-symbols-outlined">
+                      phone
+                      </a>
+                  </button>
+                  <div class="price d-flex align-items-center h-100 px-3 rounded-5">
+                    <p *ngIf="todo.request_price !== 0" class="card-text">
+                        <strong>{{todo.request_price}}$</strong>
+                    </p>
+                    <p *ngIf="todo.request_price === 0" class="card-text">
+                        <strong>Service</strong>
+                    </p>
+                </div>
                   </div>
                 </div>
               </div>

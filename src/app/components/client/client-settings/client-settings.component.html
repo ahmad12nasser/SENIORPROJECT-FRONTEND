@@ -1,190 +1,102 @@
 <app-client-nav-bar></app-client-nav-bar>
-<div class="container">
-    <div class="main-body">
-        <div class="row gutters-sm mt-3">
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div *ngFor="let clientDetail of client" class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                            <img [src]="clientDetail.imageUrl" alt="Admin" class="rounded-circle" width="150">
-                            <div class="mt-3">
-                                <h4>{{clientDetail.firstName + ' ' + clientDetail.lastName}}</h4>
-                                <p class="text-muted font-size-sm">{{clientDetail.description}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="profile container-fluid d-flex justify-content-center align-items-center">
+    <div *ngFor="let clientDetail of client"
+        class="card-body d-flex flex-column justify-content-center align-items-center rounded-5 py-4 px-5">
+        <div class="d-flex flex-column align-items-center text-center w-100">
+            <div class="pp d-flex justify-content-center align-items-center position-relative">
+                <input type="file" accept="image/*" (change)="onFileSelected($event);changeImage(clientDetail.id)"
+                    class="form-control position-absolute h-100">
+                <img [src]="clientDetail.imageUrl" alt="profileImage" class="pp-image rounded-circle">
+                <span class="pp-edit material-symbols-outlined ppicon position-absolute rounded-circle">
+                    edit
+                </span>
             </div>
-            <div class="col-md-8">
-                <div class="card mb-3">
-                    <div *ngFor="let clientDetail of client" class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">First Name</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{clientDetail.firstName}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Last Name</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{clientDetail.lastName}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Email</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{clientDetail.email}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Phone</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{clientDetail.mobile}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Age</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{clientDetail.age}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                {{clientDetail.location}}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <button class="btn btn-info mt-3" style="margin-right: 10px;"
-                                    (click)="changeImageModdeOn(clientDetail)">Change My
-                                    Profile</button>
-                                <button class="btn btn-info mt-3" (click)="editClient(clientDetail)">
-                                    Edit
-                                </button>
-                                <button class="btn btn-danger mt-3" style="margin-left: 10px;" (click)="logout()">
-                                    Logout
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="mt-3 w-100">
+                <h4>{{clientDetail.firstName + ' ' + clientDetail.lastName}}</h4>
+                <div class="d-flex justify-content-between mt-3">
+                    <p class="info d-flex gap-2">
+                        <span class="material-symbols-outlined">
+                            location_on
+                        </span>
+                        {{clientDetail.location}}
+                    </p>
                 </div>
-            </div>
-            <!-- Edit Form -->
-            <div class="col-md-8" *ngIf="editMode">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">First Name</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingClient.firstName">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Last Name</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingClient.lastName">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Email</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingClient.email">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Phone</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingClient.mobile">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Bios</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingClient.description">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Age</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingClient.age">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" [(ngModel)]="editingClient.location">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <button class="btn btn-success" (click)="saveClient()">Save</button>
-                                <button class="btn btn-danger " style="margin-left: 5px;"
-                                    (click)="cancelEdit()">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="d-flex justify-content-between">
+                    <p class="info d-flex gap-2">
+                        <span class="material-symbols-outlined">
+                            mail
+                        </span>
+                        {{clientDetail.email}}
+                    </p>
+                    <p class="info d-flex gap-2">
+                        {{clientDetail.mobile}}
+                        <span class="material-symbols-outlined">
+                            phone
+                        </span>
+                    </p>
                 </div>
+                <p class="text-muted font-size-sm">{{clientDetail.description}}</p>
             </div>
-            <div class="col-md-10" *ngIf="changeImageMode">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-desc">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Change Profile Image: </h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input type="file" accept="image/*" (change)="onFileSelected($event)"
-                                    class="form-control">
-                            </div>
-                        </div>
-                        <div class="card-text d-flex gap-2 ">
-                            <button class="btn btn-success mt-3" (click)="changeImage()">Change</button>
-                            <button class="btn btn-danger mt-3" (click)="cancelChangeImage()">cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="d-flex w-100 justify-content-between">
+            <button class="btn-edit btn btn-success rounded-5 px-4 py-2" (click)="editClient(clientDetail)">
+                Edit Profile
+            </button>
+            <button class="btn btn-danger rounded-5 px-4 py-2" style="margin-left: 10px;" (click)="logout()">
+                Logout
+            </button>
         </div>
     </div>
 </div>
+<section class="edit-form container-fluid d-flex justify-content-center align-items-center" *ngIf="editMode">
+    <div class="card-body d-flex flex-column justify-content-center align-items-center rounded-5 py-2 px-5">
+        <h2 class="my-3">Edit Profile</h2>
+        <form class="w-100">
+            <div class="d-flex flex-column flex-grow-1">
+                <div class="d-flex gap-3 flex-grow-1 gap-2">
+                    <div class="form_group flex-grow-1">
+                        <input type="text" class="form_field rounded-5 w-100" placeholder="First Name" name="firstName"
+                            [(ngModel)]="editingClient.firstName" />
+                        <label for="firstName" class="form_label">First Name</label>
+                    </div>
+                    <div class="form_group flex-grow-1">
+                        <input type="text" class="form_field rounded-5 w-100" placeholder="Here" name="lastName"
+                            [(ngModel)]="editingClient.lastName" />
+                        <label for="LastName" class="form_label">Last Name</label>
+                    </div>
+                </div>
+                <div class="form_group">
+                    <input type="email" class="form_field rounded-5 w-100" placeholder="Here" name="email"
+                        [(ngModel)]="editingClient.email" />
+                    <label for="email" class="form_label">Email</label>
+                </div>
+            </div>
+            <div class="d-flex gap-3">
+                <div class="form_group flex-grow-1">
+                    <select class="form-select rounded-5 w-100" placeholder="Here" name="location"
+                        [(ngModel)]="editingClient.location">
+                        <option *ngFor="let location of locationList.locationList" [value]="location">{{ location }}
+                        </option>
+                    </select>
+                    <label for="location" class="form_label">Location</label>
+                </div>
+                <div class="form_group flex-grow-1">
+                    <input type="text" class="form_field rounded-5 w-100" placeholder="Here" name="mobile"
+                        [(ngModel)]="editingClient.mobile" />
+                    <label for="phoneNumber" class="form_label">Phone Number</label>
+                </div>
+            </div>
+            <div class="form_group flex-grow-1">
+                <textarea class="form_field form_bio w-100" placeholder="Here" name="description"
+                    [(ngModel)]="editingClient.description"></textarea>
+                <label for="description" class="form_label">Bio (optional)</label>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+                <button (click)="cancelEdit()" onclick="document.querySelector('.edit-form').classList.add('invisible')"
+                    class="btn btn-danger rounded-5 px-4 py-2 my-2">Cancel</button>
+                <button (click)="saveClient()" class="btn btn-success rounded-5 px-4 py-2 my-2">Save</button>
+            </div>
+        </form>
+    </div>
+</section>
 <router-outlet></router-outlet>

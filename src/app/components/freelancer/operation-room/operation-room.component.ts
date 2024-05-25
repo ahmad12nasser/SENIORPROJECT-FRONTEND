@@ -7,6 +7,7 @@ import { LoginService } from '../../../services/authentication/login.service';
 import { request } from '../../../models/request';
 import { Post } from '../../../models/post';
 import { CancelApplyOnRequestService } from '../../../services/requests/cancelApplyOnRequest.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-operation-room',
@@ -14,8 +15,8 @@ import { CancelApplyOnRequestService } from '../../../services/requests/cancelAp
   styleUrl: './operation-room.component.css'
 })
 export class OperationRoomComponent {
-  hiredPosts: Post[] = [];
-  appliedRequests: request[] = [];
+  hiredPosts:any = [];
+  appliedRequests: any[] = [];
   appliedRequestImageUrl: string = '';
   hiredPostImageUrl: string = '';
   appliedClientPorfileImageUrl: string = '';
@@ -27,6 +28,7 @@ export class OperationRoomComponent {
     private declineHiredPostService: DeclineHiredPostService,
     private loginService: LoginService,
     private cancelApplyOnRequestService: CancelApplyOnRequestService,
+    private router: Router
   ) { }
   ngOnInit() {
     const freelancer_id = this.loginService.getLoggedInUserId() ?? 0; // Replace with the actual client id
@@ -35,10 +37,8 @@ export class OperationRoomComponent {
       next: (data) => {
         this.hiredPosts = data;
         this.prepareHiredPostsImages();
-        console.log('Successfully fetched hired posts:', true);
       },
       error: (error) => {
-        console.error('Error fetching hired posts:', error);
       }
     });
 
@@ -47,21 +47,19 @@ export class OperationRoomComponent {
       next: (data) => {
         this.appliedRequests = data;
         this.preparedAppliedRequestsImages();
-        console.log('Successfully fetched applied requests', true);
       },
       error: (error) => {
-        console.error('Error fetcching applied requests', error);
       }
     });
   }
   acceptRequest(hiredPost_id: number) {
     this.approveHiredPostService.approveHiredPost(hiredPost_id).subscribe({
       next: (data) => {
-        console.log('Successfully accepted applied request', true);
+        alert('Successfully accepted applied request');
         window.location.reload();
       },
       error: (error) => {
-        console.error('Error accepting applied request', error);
+        alert('Error accepting applied request');
       }
     });
   }
@@ -69,12 +67,12 @@ export class OperationRoomComponent {
   rejectRequest(hiredPost_id: number) {
     this.declineHiredPostService.declineHiredPost(hiredPost_id).subscribe({
       next: (data) => {
-        console.log('Successfully rejected applied request', true);
+        alert('Successfully rejected applied request');
         window.location.reload();
 
       },
       error: (error) => {
-        console.error('Error rejecting applied request', error);
+        alert('Error rejecting applied request');
       }
     });
   }
@@ -82,18 +80,18 @@ export class OperationRoomComponent {
   cancelRequest(appliedRequest_id: number,request_id:number){
     this.cancelApplyOnRequestService.cancelApplyOnRequest(request_id,appliedRequest_id).subscribe({
       next: (data) => {
-        console.log('Successfully canceled applied request', true);
+        alert('Successfully canceled applied request');
         this.ngOnInit();
       },
       error: (error) => {
-        console.error('Error canceling applied request', error);
+        alert('Error canceling applied request');
       }
     });
   }
   prepareHiredPostsImages() {
     for (const post of this.hiredPosts) {
       post.imageUrl = 'data:image/jpeg;base64,' + post.image;
-      post.clientImageUrl = 'data:image/jpeg;base64,' + post.clientProfileImge;
+      post.clientImageUrl = 'data:image/jpeg;base64,' + post.clientProfileImage;
     }
   }
   preparedAppliedRequestsImages() {
@@ -101,5 +99,13 @@ export class OperationRoomComponent {
       request.imageUrl = 'data:image/jpeg;base64,' + request.image;
       request.clientImageUrl = 'data:image/jpeg;base64,' + request.clientProfileImage;
     }
+  }
+  navigateToClientProfile(client_id: number, currentPath: string) {
+    this.router.navigate(['freelancer/viewProfileClient'],{
+      queryParams: {
+        client_id: client_id,
+        backPath: currentPath
+      }
+    })
   }
 }

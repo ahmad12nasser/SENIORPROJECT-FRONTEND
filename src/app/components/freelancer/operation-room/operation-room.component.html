@@ -1,19 +1,18 @@
 <app-nav-bar></app-nav-bar>
-<div class="container-fluid d-flex  ">
-    <div class="container-fluid  my-2">
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="card-header mb-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-between align-items-center"
-                data-bs-toggle="collapse" data-bs-target="#clientAcceptance">
-                <h2>Waiting Acceptance From Client: </h2>
-                <span class="material-symbols-outlined large opacity-50">
-                    expand_more
-                </span>
-            </div>
+<div class="container-fluid d-flex justify-content-around gap-4 flex-wrap">
+    <div class="my-2 align-items-center col-lg-5 col-md-12">
+        <div class="card-header mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+            data-bs-target="#clientAcceptance">
+            <h2>Waiting Acceptance From Client: </h2>
+            <span class="material-symbols-outlined large opacity-50">
+                expand_more
+            </span>
         </div>
         <div id="clientAcceptance" class="collapse show">
             <div class="d-flex justify-content-center flex-wrap gap-4">
-                <div *ngFor="let appliedRequest of appliedRequests" class="col-lg-6 col-md-6 col-sm-12">
-                    <div *ngIf="appliedRequest.status == 'Waiting for Acceptance from Client'" class="card-body rounded-5 p-4">
+                <div *ngFor="let appliedRequest of appliedRequests" class="d-flex justify-content-center col-md-12">
+                    <div *ngIf="appliedRequest.status == 'Waiting for Acceptance from Client'"
+                        class="card-body rounded-5 p-4">
                         <div>
                             <h5 class="card-title d-flex justify-content-center mb-4">
                                 <strong>{{appliedRequest.title}}</strong>
@@ -73,7 +72,7 @@
                                 alt="Request Image" />
                         </div>
                         <div class="info d-flex mb-4 justify-content-between">
-                            <div class="d-flex align-items-center gap-2">
+                            <div (click)="navigateToClientProfile(appliedRequest.client_id,'/freelancer/operationRoom')" class="profile-view d-flex align-items-center gap-2">
                                 <img [src]="appliedRequest.clientImageUrl"
                                     class="clientProfileImage h-100 rounded-circle object-fit-cover"
                                     alt="Client Image" />
@@ -86,34 +85,44 @@
                                 </p>
                             </div>
                             <div class="d-flex justify-content-end align-items-center h-100">
+                                <div class="d-flex align-items-center h-100 px-3 rounded-5">
+                                    <button
+                                        class="btn-call rounded-circle m-0 h-100 d-flex justify-content-center align-items-center">
+                                        <a [href]="'tel:+961'+appliedRequest.clientMobile" class="material-symbols-outlined">
+                                            phone
+                                        </a>
+                                    </button>
+                                </div>
                                 <div class="price d-flex align-items-center h-100 px-3 rounded-5">
-                                    <p class="card-text">
-                                        <strong>{{ appliedRequest.price }}$</strong>
+                                    <p *ngIf="appliedRequest.price !== 0" class="card-text">
+                                        <strong>{{appliedRequest.price}}$</strong>
+                                    </p>
+                                    <p *ngIf="appliedRequest.price === 0" class="card-text">
+                                        <strong>Service</strong>
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center my-2">
-                            <button class="btn btn-danger" (click)="cancelRequest(appliedRequest.id,appliedRequest.request_id)">Cancel</button>
+                            <button class="btn btn-danger rounded-5 px-4 py-2 my-2 w-100"
+                                (click)="cancelRequest(appliedRequest.id,appliedRequest.request_id)">Cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid my-2">
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="card-header mb-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-between align-items-center"
-                data-bs-toggle="collapse" data-bs-target="#myAcceptance">
-                <h2>Waiting My Acceptance: </h2>
-                <span class="material-symbols-outlined large opacity-50">
-                    expand_more
-                </span>
-            </div>
+    <div class="my-2 align-items-center col-lg-5 col-md-12">
+        <div class="card-header mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+            data-bs-target="#myAcceptance">
+            <h2>Waiting My Acceptance: </h2>
+            <span class="material-symbols-outlined large opacity-50">
+                expand_more
+            </span>
         </div>
         <div id="myAcceptance" class="collapse show">
             <div class="d-flex justify-content-center flex-wrap gap-4">
-                <div *ngFor="let hiredPost of hiredPosts" class="col-lg-6 col-md-6 col-sm-12">
+                <div *ngFor="let hiredPost of hiredPosts" class="d-flex justify-content-center col-md-12">
                     <div class="card-body rounded-5 p-4">
                         <div>
                             <h5 class="card-title d-flex justify-content-center mb-4">
@@ -155,7 +164,7 @@
                                 <div class="property d-flex gap-1">
                                     <p class="m-0">
                                         <strong>{{
-                                            hiredPost.categName
+                                            hiredPost.categ_name
                                             }}</strong>
                                     </p>
                                     <span class="material-symbols-outlined">
@@ -174,7 +183,7 @@
                                 alt="Request Image" />
                         </div>
                         <div class="info d-flex mb-4 justify-content-between">
-                            <div class="d-flex align-items-center gap-2">
+                            <div (click)="navigateToClientProfile(hiredPost.client_id,'/freelancer/operationRoom')" class="profile-view d-flex align-items-center gap-2">
                                 <img [src]="hiredPost.clientImageUrl"
                                     class="clientProfileImage h-100 rounded-circle object-fit-cover"
                                     alt="Client Image" />
@@ -184,24 +193,42 @@
                                 </p>
                             </div>
                             <div class="d-flex justify-content-end align-items-center h-100">
+                                <div class="d-flex align-items-center h-100 px-3 rounded-5">
+                                    <button
+                                        class="btn-call rounded-circle m-0 h-100 d-flex justify-content-center align-items-center">
+                                        <a [href]="'tel:+961'+hiredPost.clientMobile" class="material-symbols-outlined">
+                                            phone
+                                        </a>
+                                    </button>
+                                </div>
                                 <div class="price d-flex align-items-center h-100 px-3 rounded-5">
-                                    <p class="card-text">
+                                    <p *ngIf="hiredPost.price !== 0" class="card-text">
                                         <strong>{{hiredPost.price}}$</strong>
+                                    </p>
+                                    <p *ngIf="hiredPost.price === 0" class="card-text">
+                                        <strong>Service</strong>
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div *ngIf="hiredPost.status === 'Waiting for Acceptance from FreeLancer'"
-                            class="d-flex justify-content-between align-items-center">
-                            <button class="btn btn-primary" style="margin-right: 10px;"
-                                (click)="acceptRequest(hiredPost.id)">Accept</button>
-                            <button class="btn btn-danger" (click)="rejectRequest(hiredPost.id)">Reject</button>
+                            class="d-flex justify-content-center align-items-center gap-3">
+                            <button class="btn btn-danger rounded-5 px-4 py-2 my-2 mx-0 w-100"
+                                (click)="rejectRequest(hiredPost.id)">Reject</button>
+                            <button class="btn btn-success rounded-5 px-4 py-2 my-2 mx-0 w-100"
+                                style="margin-right: 10px;" (click)="acceptRequest(hiredPost.id)">Accept</button>
                         </div>
-                        <div *ngIf="hiredPost.status ==='Accepted'">
-                            <p class="text-success">Accepted</p>
+                        <div *ngIf="hiredPost.status ==='Accepted'"
+                            class="accepted px-4 my-4 w-100 d-flex justify-content-center align-items-center rounded-5">
+                            <p class="text-success my-2">Accepted</p>
                         </div>
-                        <div *ngIf="hiredPost.status === 'Rejected'">
-                            <p class="text-danger">Rejected</p>
+                        <div *ngIf="hiredPost.status === 'Rejected'"
+                            class="rejected px-4 my-4 w-100 d-flex justify-content-center align-items-center rounded-5">
+                            <p class="text-danger my-2">Rejected</p>
+                        </div>
+                        <div *ngIf="hiredPost.status === 'Finished'"
+                            class="rejected px-4 my-4 w-100 d-flex justify-content-center align-items-center rounded-5">
+                            <p class="text-info my-2">Finished</p>
                         </div>
                     </div>
                 </div>

@@ -1,76 +1,70 @@
 <app-nav-bar></app-nav-bar>
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Create a New Post</h2>
+<div class="container-fluid d-flex justify-content-center align-items-center">
+    <div class="card-body d-flex flex-column justify-content-center align-items-center rounded-5 py-2 px-5">
+        <h2 class="my-3">New Post</h2>
+        <form  [formGroup]="newPost" class="w-100">
+            <div class="form_group">
+                <input type="text" class="form_field rounded-5 w-100" placeholder="Title" formControlName="title"
+                    [ngClass]="{ 'error': submitted && accessToFormFields['title'].errors }">
+                <label for="title" class="form_label"
+                    [innerText]="(submitted && accessToFormFields['title'].errors) ? 'Title is required' : 'Title'"></label>
+            </div>
+            <div class="d-flex gap-3">
+                <div class="d-flex flex-column flex-grow-1">
+                    <div class="form_group">
+                        <input type="date" class="form_field rounded-5 w-100" formControlName="deadline"
+                            placeholder="Deadline"
+                            [ngClass]="{ 'error': submitted && accessToFormFields['deadline'].errors }">
+                        <label for="deadline" class="form_label"
+                            [innerText]="(submitted && accessToFormFields['deadline'].errors) ? 'Deadline is required' : 'Deadline'"></label>
+                    </div>
+                    <div class="form_group">
+                        <select class="form-select" formControlName="location" placeholder="Location"
+                            (change)="onLocationSelected($event)"
+                            [ngClass]="{ 'error': submitted && accessToFormFields['location'].errors }">
+                            <option *ngFor="let location of locations.locationList" [value]="location">{{ location }}
+                            </option>
+                        </select>
+                        <label for="location" class="form_label"
+                            [innerText]="(submitted && accessToFormFields['location'].errors) ? 'Location is required' : 'Location'"></label>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form (ngSubmit)="submitPost()" #postForm="ngForm">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="title">Title:</label>
-                                    <input type="text" class="form-control" id="title" name="title"
-                                        [(ngModel)]="newPost.title" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="datePosted">Date Posted:</label>
-                                    <input type="date" class="form-control" id="datePosted" name="datePosted"
-                                        [(ngModel)]="newPost.datePosted" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="deadline">Deadline:</label>
-                                    <input type="date" class="form-control" id="deadline" name="deadline"
-                                        [(ngModel)]="newPost.deadline" required>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="location">Location:</label>
-                                    <select id="location" class="form-control" [(ngModel)]="selectedLocation"
-                                        name="selectedLocation">
-                                        <option *ngFor="let location of locations.locationList" [value]="location">{{
-                                            location }}</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="category">Category Name:</label>
-                                    <select id="category" class="form-control" [(ngModel)]="selectedCategory"
-                                        name="selectedCategory">
-                                        <option *ngFor="let category of categoryList.categories" [value]="category">{{
-                                            category }}</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="price">Price:</label>
-                                    <input type="number" class="form-control" id="price" name="price"
-                                        [(ngModel)]="newPost.price" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="description">Description:</label>
-                                <textarea class="form-control" id="description" name="description"
-                                    [(ngModel)]="newPost.description" required></textarea>
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <label for="image">Image:</label>
-                                <input type="file" accept="image/*" class="form-control form-control-sm"
-                                    (change)="onFileSelected($event)">
-                            </div>
-                            <button type="submit" class="btn btn-success mt-2">Submit Post</button>
-                        </div>
-                    </form>
+                <div class="d-flex flex-column flex-grow-1">
+                    <div class="form_group">
+                        <select class="form-select" formControlName="categ_name" placeholder="Profession"
+                            (change)="onCategorySelected($event)"
+                            [ngClass]="{ 'error': submitted && accessToFormFields['location'].errors }">
+                            <option *ngFor="let category of categoryList.categories" [value]="category">{{ category }}
+                            </option>
+                        </select>
+                        <label for="categ_name" class="form_label"
+                            [innerText]="(submitted && accessToFormFields['categ_name'].errors) ? 'Profession is required' : 'Profession'"></label>
+                    </div>
+                    <div class="form_group">
+                        <input type="number" class="form_field rounded-5 w-100" placeholder="price"
+                            formControlName="price"
+                            [ngClass]="{ 'error': submitted && accessToFormFields['price'].errors }">
+                        <label for="price" class="form_label"
+                            [innerText]="(submitted && accessToFormFields['price'].errors) ? 'Price is required' : 'Price'"></label>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="w-100">
+                <div class="form_group">
+                    <textarea formControlName="description" class="form_field form_bio w-100" placeholder="Here"
+                        [ngClass]="{ 'error': submitted && accessToFormFields['description'].errors }"></textarea>
+                    <label for="description" class="form_label">Description</label>
+                </div>
+
+                <div class="form_group">
+                    <label for="image" class="form_label">Image</label>
+                    <input type="file" accept="image/*" formControlName="image"
+                        class="form_field rounded-5 w-100 form_field rounded-5 w-100-sm"
+                        (change)="onFileSelected($event)">
+                </div>
+                <button type="submit" (click)="submitPost()" class="btn btn-success rounded-5 px-4 py-2 my-3 w-100">Submit Post</button>
+            </div>
+        </form>
     </div>
 </div>
 <router-outlet></router-outlet>

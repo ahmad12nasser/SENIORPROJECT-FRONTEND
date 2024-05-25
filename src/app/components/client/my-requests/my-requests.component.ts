@@ -26,10 +26,8 @@ export class MyRequestsComponent implements OnInit {
         next: (data) => {
           this.requests = data;
           this.prepareImages();
-          console.log('Successfully fetched requests:', true);
         },
         error: (error) => {
-          console.error('Error fetching requests:', error);
         }
       });
   }
@@ -37,12 +35,12 @@ export class MyRequestsComponent implements OnInit {
   deleteRequest(request_id: number) {
     this.deleteRequestService.deleteRequest(request_id).subscribe({
       next: (data) => {
-        console.log('Successfully deleted request:', true);
+        alert('Request deleted successfully');
         // Remove the deleted request from the list
         this.ngOnInit();
       },
       error: (error) => {
-        console.error('Error deleting request:', error);
+        alert('Failed to delete request');
       }
     });
   }

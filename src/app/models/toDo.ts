@@ -31,6 +31,7 @@ export class toDo {
     public post_location: string;
     public post_price: number;
     public clientProfileImageUrl: string;
+    public clientMobile: string;
 
     constructor() {
         this.id = 0;
@@ -59,5 +60,6 @@ export class toDo {
         this.post_location = "";
         this.post_price = 0;
         this.clientProfileImageUrl = "";
+        this.clientMobile = "";
     }
 }

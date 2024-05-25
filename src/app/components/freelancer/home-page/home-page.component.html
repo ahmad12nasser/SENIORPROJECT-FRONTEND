@@ -1,21 +1,24 @@
 <app-nav-bar></app-nav-bar>
 <div class="container-fluid my-3">
-  <div class="justify-content-around flex-1">
-    <div class="justify-content-center my-2">
-      <label for="category">Filter by Category:</label>
-      <select class="form-select" id="category" [(ngModel)]="selectedCategory" (change)="filterRequests()">
+  <div class="d-flex justify-content-center gap-3">
+    <div class="d-flex form_field rounded-5 justify-content-center align-items-center my-2">
+      <span class="material-symbols-outlined opacity-50">
+        category
+      </span>
+      <select class="form_select" id="category" [(ngModel)]="selectedCategory" (change)="filterRequests()">
         <option value="">All Categories</option>
         <option *ngFor="let category of categoryList.categories" [value]="category">{{ category }}</option>
       </select>
-      
     </div>
-    <div class="justify-content-center my-2">
-      <label for="location">Filter by Location:</label>
-      <select class="form-select" id="location" [(ngModel)]="selectedLocation" (change)="filterRequests()">
+   <!-- <div class="d-flex form_field rounded-5 justify-content-center align-items-center my-2">
+      <span class="material-symbols-outlined opacity-50">
+        location_on
+      </span>
+      <select class="form_select" id="location" [(ngModel)]="selectedLocation" (change)="filterRequests()">
         <option value="">All Locations</option>
         <option *ngFor="let location of locationList.locationList" [value]="location">{{ location }}</option>
       </select>
-    </div>
+    </div>-->
   </div>
   <div class="d-flex justify-content-center align-items-center">
     <div
@@ -91,7 +94,7 @@
             <img [src]="request.imageUrl" class="requestImage object-fit-contain" alt="Request Image" />
           </div>
           <div class="info d-flex mb-4 justify-content-between">
-            <div class="d-flex align-items-center gap-2">
+            <div (click)="navigateToClientProfile(request.clientId,'/freelancer/homePage')" class="profile-view d-flex align-items-center gap-2">
               <img [src]="request.clientImageUrl" class="clientProfileImage h-100 rounded-circle object-fit-cover"
                 alt="Client Image" />
               <p class="card-text">
@@ -102,12 +105,20 @@
                   }}</strong>
               </p>
             </div>
-            <div class="d-flex justify-content-end align-items-center h-100">
-              <div class="price d-flex align-items-center h-100 px-3 rounded-5">
-                <p class="card-text">
-                  <strong>{{ request.price }}$</strong>
-                </p>
-              </div>
+            <div class="d-flex justify-content-end align-items-center h-100 gap-2">
+              <button class="btn-call rounded-circle m-0 h-100 d-flex justify-content-center align-items-center">
+                <a [href]="'tel:+961'+request.clientMobile" class="material-symbols-outlined">
+                phone
+                </a>
+            </button>
+            <div class="price d-flex align-items-center h-100 px-3 rounded-5">
+              <p *ngIf="request.price !== 0" class="card-text">
+                  <strong>{{request.price}}$</strong>
+              </p>
+              <p *ngIf="request.price === 0" class="card-text">
+                  <strong>Service</strong>
+              </p>
+          </div>
             </div>
           </div>
           <div class="d-flex justify-content-center">

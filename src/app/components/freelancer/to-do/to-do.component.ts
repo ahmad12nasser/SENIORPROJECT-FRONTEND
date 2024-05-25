@@ -30,10 +30,8 @@ export class ToDoComponent implements OnInit {
       next: (data) => {
         this.toDos = data;
         this.prepareImages();
-        console.log('Successfully fetched toDos:', true);
       },
       error: (error) => {
-        console.error('Error fetching toDos:', error);
       }
     });
   }
@@ -46,22 +44,22 @@ export class ToDoComponent implements OnInit {
   finishTask(todo_id: number, appliedRequest_id: number, hiredPost_id: number, request_id: number, post_id: number) {
     this.finishTaskService.FinishTask(todo_id, appliedRequest_id, hiredPost_id, request_id, post_id).subscribe({
       next: (data) => {
-        console.log('Successfully finished task:', true);
+        alert('Task finished successfully');
         this.ngOnInit();
       },
       error: (error) => {
-        console.error('Error finishing task:', error);
+        alert('error while finishing the task');
       }
     });
   }
   cancelTask(todo_id: number, appliedRequest_id: number, hiredPost_id: number, request_id: number, post_id: number) {
     this.cancelTaskService.cancelTask(todo_id, appliedRequest_id, hiredPost_id, request_id, post_id).subscribe({
       next: (data) => {
-        console.log('Successfully cancelled task:', true);
+        alert('Task cancelled successfully');
         this.ngOnInit();
       },
       error: (error) => {
-        console.error('Error cancelling task:', error);
+        alert('error while cancelling the task');
       }
     });
   }

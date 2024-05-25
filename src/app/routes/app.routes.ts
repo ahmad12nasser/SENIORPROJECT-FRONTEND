@@ -17,6 +17,9 @@ import { FreelancerSettingsComponent } from '../components/freelancer/freelancer
 import { ClientSettingsComponent } from '../components/client/client-settings/client-settings.component';
 import { FreelancerAuthGuard } from '../Guard/freelancer-auth-guard.guard';
 import { ClientAuthGuard } from '../Guard/client-auth-guard.guard';
+import { ViewProfileFreelancerComponent } from '../components/view-peofile/view-profile-freelancer/view-profile-freelancer.component';
+import { ViewProfileClientComponent } from '../components/view-peofile/view-profile-client/view-profile-client.component';
+import { ForgetPasswordComponent } from '../authentication/forget-password/forget-password.component';
 const routes: Routes = [
     {
         path:'login',
@@ -30,6 +33,10 @@ const routes: Routes = [
     {
         path: 'register',
         component: ChoosingUserComponent
+    },
+    {
+        path: 'forgetPassword',
+        component: ForgetPasswordComponent
     },
     {
         path: 'register/freelancer',
@@ -93,6 +100,16 @@ const routes: Routes = [
         path: 'client/settings',
         canActivate: [ClientAuthGuard],
         component: ClientSettingsComponent
+    },
+    {
+        path: 'client/viewProfileFreelancer',
+        canActivate: [ClientAuthGuard],
+        component: ViewProfileFreelancerComponent
+    },
+    {
+        path: 'freelancer/viewProfileClient',
+        canActivate: [FreelancerAuthGuard],
+        component: ViewProfileClientComponent
     }
 
 ];

@@ -11,7 +11,7 @@ import { DeletePostService } from '../../../services/posts/deletePost.service';
 })
 export class MyPostsComponent implements OnInit {
 
-  posts: Post[] = [];
+  posts: any[] = [];
 
   constructor(
     private postsService: PostsService,
@@ -26,10 +26,8 @@ export class MyPostsComponent implements OnInit {
       next: (data) => {
         this.posts = data;
         this.prepareImages();
-        console.log('Successfully fetched posts:', true);
       },
       error: (error) => {
-        console.error('Error fetching posts:', error);
       }
     });
   }
@@ -42,11 +40,11 @@ export class MyPostsComponent implements OnInit {
   deletePost(post_id: number) {
    this.deletePostService.deletePost(post_id).subscribe({
       next: (data) => {
-        console.log('Successfully deleted post:', true);
+        alert('Post deleted successfully');
         this.ngOnInit();
       },
       error: (error) => {
-        console.error('Error deleting post:', error);
+        alert('error while deleting the post');
       }
     });
   }

@@ -12,7 +12,7 @@ export class FreelancerService {
     constructor(private http: HttpClient) {}
 
     getFreelancerById(id: number) {
-        return this.http.get(`${this.apiUrl}/freelancer/${id}`);
+        return this.http.post(`${this.apiUrl}/freelancer/getFreelancerInfo/${id}`,null);
     }
     
 }

@@ -1,0 +1,49 @@
+<app-client-nav-bar></app-client-nav-bar>
+<div class="profile container-fluid d-flex justify-content-center align-items-center">
+    <div *ngFor="let freelancerDetail of freelancer"
+        class="card-body d-flex flex-column justify-content-center align-items-center rounded-5 py-4 px-5">
+        <div class="d-flex flex-column align-items-center text-center w-100">
+            <div class="pp d-flex justify-content-center align-items-center position-relative">
+                <img [src]="freelancerDetail.imageUrl" alt="profileImage" class="pp-image rounded-circle">
+            </div>
+            <div class="mt-3 w-100">
+                <h4>{{freelancerDetail.firstName + ' ' + freelancerDetail.lastName}}</h4>
+                <div class="d-flex justify-content-between mt-3">
+                    <p class="info d-flex gap-2">
+                        <span class="material-symbols-outlined">
+                            category
+                        </span>
+                        {{freelancerDetail.professionCategName}}
+                    </p>
+                    <p class="info d-flex gap-2">
+                        {{freelancerDetail.location}}
+                        <span class="material-symbols-outlined">
+                            location_on
+                        </span>
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="info d-flex gap-2">
+                        <span class="material-symbols-outlined">
+                            mail
+                        </span>
+                        {{freelancerDetail.email}}
+                    </p>
+                    <p class="info d-flex gap-2">
+                        {{freelancerDetail.mobile}}
+                        <span class="material-symbols-outlined">
+                            phone
+                        </span>
+                    </p>
+                </div>
+                <p class="text-muted font-size-sm">{{freelancerDetail.description}}</p>
+            </div>
+        </div>
+        <div class="d-flex w-100 justify-content-between">
+            <button class="btn-edit btn btn-success rounded-5 px-4 py-2" (click)="backToPage()">
+                Back To Explore
+            </button>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

@@ -6,12 +6,12 @@ export class freelancer{
     public password: String;
     public repassword: String;
     public mobile: String;
-    public profileImg: String;
+    public profileImg: string;
     public location: String;
     public description: String;
     public professionCategName: String;
     public age: number;
-    public imageUrl: String;
+    public imageUrl: string;
 
 
     constructor(){

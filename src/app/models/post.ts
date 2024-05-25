@@ -15,10 +15,12 @@ export class Post {
   public freelancerFirstName: string;
   public freelancerLastName: string;
   public freelancerImageUrl: string;
+  public freelancerMobile: string;
   public clientProfileImge: string;
   public clientFirstName: string;
   public clientLastName: string;
   public clientImageUrl: string;
+  public clientMobile: string;
   public post_id: number;
 
   constructor() {
@@ -43,5 +45,7 @@ export class Post {
     this.clientLastName = '';
     this.clientImageUrl = '';
     this.post_id = 0;
+    this.clientMobile = '';
+    this.freelancerMobile = '';
   }
 }

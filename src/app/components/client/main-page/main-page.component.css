@@ -1,4 +1,10 @@
 
+:root {
+	--bg-color: #d8e3ea;
+	--color: #002a5e79;
+	--success: #198754;
+	--error: #dc3545;
+}
 .material-symbols-outlined {
 	user-select: none;
 	font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
@@ -10,7 +16,7 @@
 	background-color:  var(--bg-color);
 }
 .card-desc {
-	color: #002a5e79;
+	color: var(--color);
 }
 .text-muted {
 	opacity: 0.7;
@@ -28,4 +34,50 @@
 }
 .clientProfileImage, .price {
 	border: 3px solid var(--color);
+}
+.btn-call{
+	aspect-ratio: 1;
+	background-color: var(--color);
+	border: none;
+}
+.btn-call a{
+	color: white;
+	text-decoration: none;
+}
+.form_label {
+	background-color: white;
+	padding: 0 0.5rem;
+	margin-left: 0.5rem;
+	border-radius: 50px;
+	color: var(--color);
+	font-weight: 400;
+	pointer-events: none;
+}
+.form_field {
+	border: none;
+	background-color: var(--bg-color);
+	padding: 0.5rem 1rem;
+}
+
+.form_field::placeholder {
+	color: transparent;
+	pointer-events: none;
+}
+.form_select{
+	background-color: transparent;
+	border: none;
+	font-weight: bold;
+	color: var(--color);
+}
+.btn-call{
+	aspect-ratio: 1;
+	background-color: var(--color);
+	border: none;
+}
+.btn-call a{
+	color: white;
+	text-decoration: none;
+}
+.profile-view{
+	cursor: pointer;
 }

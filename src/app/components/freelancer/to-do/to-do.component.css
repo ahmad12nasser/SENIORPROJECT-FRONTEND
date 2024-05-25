@@ -33,3 +33,12 @@
 .price {
     border: 3px solid var(--color);
 }
+.btn-call{
+	aspect-ratio: 1;
+	background-color: var(--color);
+	border: none;
+}
+.btn-call a{
+	color: white;
+	text-decoration: none;
+}

@@ -9,6 +9,6 @@ export class ClientService {
     private apiUrl: String =  environment.apiUrl;
     constructor(private http: HttpClient) {}
     getClientById(id: number) {
-        return this.http.get(`${this.apiUrl}/client/${id}`);
+        return this.http.post(`${this.apiUrl}/client/getClientInfo/${id}`,null);
     }
 }

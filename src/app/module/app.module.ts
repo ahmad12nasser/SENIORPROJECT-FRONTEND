@@ -25,6 +25,9 @@ import { ClientSettingsComponent } from '../components/client/client-settings/cl
 import { InterceptorModule } from './interceptor-module.module';
 import { IteratePipe } from '../Pipe/iterate.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ViewProfileClientComponent } from '../components/view-peofile/view-profile-client/view-profile-client.component';
+import { ViewProfileFreelancerComponent } from '../components/view-peofile/view-profile-freelancer/view-profile-freelancer.component';
+import { ForgetPasswordComponent } from '../authentication/forget-password/forget-password.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -44,7 +47,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         ControlRoomComponent,
         FreelancerSettingsComponent,
         ClientSettingsComponent,
-        IteratePipe
+        IteratePipe,
+        ViewProfileClientComponent,
+        ViewProfileFreelancerComponent,
+        ForgetPasswordComponent
     ],
     imports: [
         BrowserModule,

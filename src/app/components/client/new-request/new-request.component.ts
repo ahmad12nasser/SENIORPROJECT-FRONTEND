@@ -3,6 +3,7 @@ import { RequestsService } from '../../../services/requests/requests.service';
 import { LoginService } from '../../../services/authentication/login.service';
 import { ProfessionCategories } from '../../../models/profession_categ';
 import { Locations } from '../../../models/locations';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-request',
@@ -12,31 +13,52 @@ import { Locations } from '../../../models/locations';
 export class NewRequestComponent {
   categoryList = new ProfessionCategories();
   locationList = new Locations();
-  newRequest: any = {}; // Update the type accordingly
+  newRequest: FormGroup = new FormGroup({});
   selectedFile: File | null = null;
   selectedCategory: string = '';
   selectedLocation: string = '';
-
+  submitted = false;
   constructor(
     private requestService: RequestsService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private FormBuilder: FormBuilder
   ) { }
 
-  submitRequest() {
+  ngOnInit() {
+    this.initRequestForm();
+  }
+  initRequestForm() {
+    this.newRequest = this.FormBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      categ_name: ['', Validators.required],
+      location: ['', Validators.required],
+      price: ['', Validators.required],
+      deadline: ['', Validators.required],
+      image: ['']
+    });
+  }
+  get accessToFormFields() {
+    return this.newRequest.controls;
+  }
 
-    this.newRequest.client_id = this.loginService.getLoggedInUserId() ?? 0;
-    this.newRequest.categ_name = this.selectedCategory;
-    this.newRequest.location = this.selectedLocation;
+  submitRequest() {
+    this.submitted = true;
+    if (this.newRequest.invalid) {
+      return;
+    }
+    if (this.newRequest.valid) {
 
     const formData = new FormData();
-    formData.append('client_id', this.newRequest.client_id);
-    formData.append('title', this.newRequest.title);
-    formData.append('description', this.newRequest.description);
-    formData.append('categ_name', this.newRequest.categ_name);
-    formData.append('location', this.newRequest.location);
-    formData.append('deadline', this.newRequest.deadline);
-    formData.append('datePosted', this.newRequest.datePosted);
-    formData.append('price', this.newRequest.price);
+    // Get the client_id from the logged in user
+    const client_id = this.loginService.getLoggedInUserId() ?? 0;
+    formData.append('client_id', client_id.toString());
+    formData.append('title', this.newRequest.value.title);
+    formData.append('description', this.newRequest.value.description);
+    formData.append('categ_name', this.newRequest.value.categ_name);
+    formData.append('location', this.newRequest.value.location);
+    formData.append('deadline', this.newRequest.value.deadline);
+    formData.append('price', this.newRequest.value.price);
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }
@@ -44,14 +66,15 @@ export class NewRequestComponent {
     // Send the formData to the backend
     this.requestService.createRequest(formData).subscribe({
       next: (data) => {
-        console.log('Successfully submitted request:', data);
-        this.newRequest = {}; // Reset newRequest
+        alert('Request created successfully');
+        this.newRequest.reset();// Reset newRequest
         this.selectedFile = null;
       },
       error: (error) => {
-        console.error('Error submitting request:', error);
+        alert('An error occurred while creating the request');
       }
     });
+  }
   }
 
   onFileSelected(event: any) {
@@ -59,5 +82,11 @@ export class NewRequestComponent {
     if (file) {
       this.selectedFile = file;
     }
+  }
+  onCategorySelected(event: any){
+    this.selectedCategory = event.target.value;
+  }
+  onLocationSelected(event: any){
+    this.selectedLocation = event.target.value;
   }
 }

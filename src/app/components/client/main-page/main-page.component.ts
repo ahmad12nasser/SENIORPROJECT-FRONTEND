@@ -1,4 +1,3 @@
-import { throwError } from 'rxjs';
 import { PostsService } from './../../../services/posts/posts.service';
 import { Component } from '@angular/core';
 import { HiringService } from '../../../services/posts/hiringThroughPost.service';
@@ -31,21 +30,22 @@ export class MainPageComponent {
     this.postsService.getAllPosts().subscribe({
       next: (data) => {
         this.posts = data;
-        this.prepareImages();
         this.filterRequests();
-        console.log('Successfully fetched posts:', true);
+        this.prepareImages();
       },
       error: (error) => {
-        console.error('Error fetching posts:', error);
       }
     });
   }
+ 
   filterRequests() {
-    if (this.selectedCategory === '') {
-      this.filtredPosts = this.posts; // Show all requests if no category selected
-    } else {
+    this.filtredPosts = this.posts;
+    if (this.selectedCategory !== '') {
       this.filtredPosts = this.posts.filter(post => post.categName === this.selectedCategory);
-    }
+
+    }else (
+      this.filtredPosts = this.posts
+    )
   }
 
   HireInThisPost(postId: number, freelancerId: number){
@@ -55,15 +55,23 @@ export class MainPageComponent {
         this.router.navigate(['client/controlRoom']);
       },
       error: (error) => {
-        console.error('Error hiring in the post:', error);
       }
     });
   }
 
   prepareImages(){
     for (const post of this.posts) {
-      post.imageUrl = `data:image/png;base64,`+ post.image;  // Construct data URL with PNG format
-      post.freelancerImageUrl = `data:image/png;base64,`+ post.freelancerProfileImge;  // Construct data URL with PNG format
+      post.imageUrl = `data:image/jpg;base64,`+ post.image;  // Construct data URL with jpg format
+      post.freelancerImageUrl = `data:image/jpg;base64,`+ post.freelancerProfileImge;  // Construct data URL with jpg format
     }
+  }
+
+  navigateToFreelancerProfile(freelancer_id:number, currentPath: string){
+    this.router.navigate(['client/viewProfileFreelancer'],{
+      queryParams: {
+        freelancer_id: freelancer_id,
+        backPath: currentPath
+      }
+    });
   }
 }

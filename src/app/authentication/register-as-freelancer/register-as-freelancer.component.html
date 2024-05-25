@@ -2,7 +2,7 @@
     <div class="container-fluid d-flex justify-content-center align-items-center">
         <div class="card-body d-flex flex-column justify-content-center align-items-center rounded-5 py-2 px-5">
             <h2 class="my-3">Register as a Freelancer</h2>
-            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-100">
+            <form [formGroup]="registerForm" class="w-100">
                 <div class="d-flex gap-4">
                     <div class="form_group d-flex flex-column align-items-center gap-2">
                         <input type="file" (change)="onFileSelected($event)" formControlName="portfolio"
@@ -56,11 +56,12 @@
                 </div>
                 <div class="d-flex gap-3">
                     <div class="form_group flex-grow-1">
-                            <select class="form-select" formControlName="location" placeholder="Here"
+                        <select class="form-select" formControlName="location" placeholder="Here"
                             (change)="onLocationSelected($event)"
                             [ngClass]="{ 'error': submitted && accessToFormFields['location'].errors }">
-                                <option *ngFor="let location of locationList.locationList" [value]="location">{{ location }}</option>
-                              </select>
+                            <option *ngFor="let location of locationList.locationList" [value]="location">{{ location }}
+                            </option>
+                        </select>
                         <label for="location" class="form_label"
                             [innerText]="(submitted && accessToFormFields['location'].errors) ? 'Location is required' : 'Location'"></label>
                     </div>
@@ -93,7 +94,7 @@
                 </div>
                 <div class="form_group flex-grow-1">
                     <textarea formControlName="description" class="form_field form_bio w-100" placeholder="Here"
-                        [ngClass]="{ 'error': submitted && accessToFormFields['description'].errors }"></textarea>
+                    [ngClass]="{ 'error': submitted && accessToFormFields['description'].errors }"></textarea>
                     <label for="description" class="form_label">Bios(Optional)</label>
                 </div>
                 <div class="d-flex justify-content-between">

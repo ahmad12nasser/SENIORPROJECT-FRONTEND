@@ -43,7 +43,7 @@ export class RegisterAsFreelancerComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      portfolio: ['', Validators.required],
+      portfolio: [''],
       description: [''],
       location: ['', Validators.required],
       professionName: ['', Validators.required],

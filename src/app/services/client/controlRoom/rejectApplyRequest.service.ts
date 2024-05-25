@@ -10,7 +10,7 @@ export class RejectApplyRequestService {
 
     constructor (private http: HttpClient){}
 
-    rejectApplyRequest(appliedRequest_id: number){
-        return this.http.post<any>(`${this.apiUrl}/client/controlRoom/rejectApplyRequest/${appliedRequest_id}`, null);
+    rejectApplyRequest(formData: any){
+        return this.http.post<any>(`${this.apiUrl}/client/controlRoom/rejectApplyRequest`, formData);
     }
 }
